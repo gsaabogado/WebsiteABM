@@ -25,13 +25,14 @@ website:
     contents:
       - section: "Sections"
         contents:
-        -01_about.qmd
+        - 01_about.qmd
         
 
 format:
   html:
-    theme: 
-     -custom.scss
+    theme: cosmo
+    css: styles.css
+    toc: true
 
 
 

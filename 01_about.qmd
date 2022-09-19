@@ -1,5 +1,84 @@
 ---
 title: "About"
+description: |
+  This website contains all the data, python, and R-codes necessary for the development og the ABM Model of Technology Adoption (ABM-REN) developed at RFF-CMCC: European Institute in Economics and the Environment
+author: "Severin Reissl and Luis Sarmiento"
+format: 
+  html: 
+    toc: true
+    warning: false
+    code-fold: true
+    code-summary: "Show the Code"
 ---
 
-About this site
+# Introduction
+
+The website contains four primary sections to accompany the study:
+
+1. ***SOEP Data*** -- Includes a description of all the data files of the German Socio-economic Panel Study (SOEP). It is divided into five subsections
+
+::: {.incremental}
+- Household Characteristics
+- Technology Adoption
+- Wealth
+- Gallup Measures of Environmental Attitudes
+:::
+
+2. ***Descriptives SOEP*** -- contains descriptive statistics on the SOEP Data
+
+::: {.incremental}
+- Household Characteristics
+- Technology Adoption
+:::
+
+3. ***Theoretical Model*** -- includes the mathematical description and assumptions of the model 
+
+4. ***Mathematical model*** -- presents and discusses the python environment where we implement ABM-ren. 
+
+
+:::{.callout-note}
+Consider that all sections contain the R-code necessary to replicate the website's figures, tables, and overall results. Regarding the construction of the data sets, we share the link to the dropbox repository alongside instructions to load the raw data files and transform them into the panel data we use for the optimization and the empirical section.
+:::
+
+# Replication
+
+All the raw files needed to run the code are in the [dropbox repository](https://www.dropbox.com/sh/1jyjs84sef7t1nt/AABtbantKPm4OyICNEIklpXLa?dl=0)
+
+If you want to replicate the study:
+
+Download all files of the [dropbox repository](https://www.dropbox.com/sh/1jyjs84sef7t1nt/AABtbantKPm4OyICNEIklpXLa?dl=0) while considering your computer space constraints.[^1] 
+
+The files in the repository have a folder-like structure with the following key sections:
+
+[^1]: I recommend downloading the files to an external hard drive to avoid memory issues
+
+1.  **01_RawData** -- Includes the raw data obtained from the New York State Department of Education, the New York State Department of Environmental Conservation, The Environmental Protection Agency, and the USA Census Buro.
+
+2.  **02_GenData** -- Contains the cleaned version of the raw data-files I use throughout the study.
+
+3.  **03_scripts** -- Includes all the R-scripts I use to transform the raw data into a useful format, perform descriptive statistics, and run my empirical specifications. I divide this folder into six scripts: 
+
+::: {.incremental}
+- 01_absences: Loads and clean the raw data on school absences
+- 02_aqi: Loads and clean the raw data on the forecast and real measures of the air quality index
+- 03_dem: Loads and clean demographic covariates obtained from the Census Buro.
+- 04_weather: Loads and clean the data on weather controls
+- 05_RegData: Constructs the data set for estimating the effect of air quality alerts on school absences with regression discontinuity and OLS estimators.
+- 06_rd: Contains the code to estimate the effect with regression discontinuity designs
+:::
+
+
+4.  **WebsiteABM** -- This folder contains the Quarto files necessary to replicate this website
+
+## Raw data files
+
+As previously mentioned, the folder 01_RawData contains all the raw files. It is divided into N different repositories
+
+::: {.incremental}
+- 01_schools includes all files related to school absences and school characteristics in New York City
+- 02_AQI has the data on the air quality index forecast from the NYSDEC and the AQI measures from the EPA
+- 03_weather contains several data files of weather covariates
+- 04_shp is a repository of shape (or spatial) files
+- 05_dem includes data on neighbourhood-level socio-demographic characteristics from the US Census Buro
+:::
+

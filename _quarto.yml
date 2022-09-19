@@ -2,7 +2,7 @@ project:
   type: website
   output-dir: docs
   render:
-    - about.qmd
+    - 01_about.qmd
 
 website:
   title: "The ABM Model of Technology Adoption (ABM-REN)"
@@ -12,7 +12,7 @@ website:
     collapse: true
     right:
       - text: Home
-        href: about.qmd 
+        href: 01_about.qmd 
       - icon: github
         href: https://github.com/gsaabogado
       - icon: twitter

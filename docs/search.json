@@ -1,0 +1,16 @@
+[
+  {
+    "objectID": "01_about.html",
+    "href": "01_about.html",
+    "title": "About",
+    "section": "",
+    "text": "The website contains four primary sections to accompany the study:\n\nSOEP Data – Includes a description of all the data files of the German Socio-economic Panel Study (SOEP). It is divided into five subsections\n\n\n\nHousehold Characteristics\nTechnology Adoption\nWealth\nGallup Measures of Environmental Attitudes\n\n\n\nDescriptives SOEP – contains descriptive statistics on the SOEP Data\n\n\n\nHousehold Characteristics\nTechnology Adoption\n\n\n\nTheoretical Model – includes the mathematical description and assumptions of the model\nMathematical model – presents and discusses the python environment where we implement ABM-ren.\n\n\n\n\n\n\n\nNote\n\n\n\nConsider that all sections contain the R-code necessary to replicate the website’s figures, tables, and overall results. Regarding the construction of the data sets, we share the link to the dropbox repository alongside instructions to load the raw data files and transform them into the panel data we use for the optimization and the empirical section."
+  },
+  {
+    "objectID": "01_about.html#raw-data-files",
+    "href": "01_about.html#raw-data-files",
+    "title": "About",
+    "section": "Raw data files",
+    "text": "Raw data files\nAs previously mentioned, the folder 01_RawData contains all the raw files. It is divided into N different repositories\n\n\n01_schools includes all files related to school absences and school characteristics in New York City\n02_AQI has the data on the air quality index forecast from the NYSDEC and the AQI measures from the EPA\n03_weather contains several data files of weather covariates\n04_shp is a repository of shape (or spatial) files\n05_dem includes data on neighbourhood-level socio-demographic characteristics from the US Census Buro"
+  }
+]

@@ -1,0 +1,118 @@
+---
+title: "ABM Model of Green Energy Adoption"
+format: 
+  html: 
+    toc: true
+    warning: false
+    code-fold: true
+    code-summary: "Show the Code"
+---
+
+# Data Sources
+
+## German Socio-Economic Panel Study
+
+Most of the data we use to feed our model comes from the German Socio-Economic Panel Study (SOEP). The SOEP is a representative longitudinal panel study that started in West Germany in 1984. The current version of the survey contains a large set of socio-demographic and economic characteristics of German households.
+
+The SOEP is divided into different data files each containing different questionnaires -- in this model, we use data from SOEP-37.
+
+The main questionnaires we use for the construction of the model are:
+
+::: incremental
+-   PEQUIV - Personal Equivalent File $\rightarrow$ ([Documentation](https://www.diw.de/de/diw_01.c.839052.de/s_13585.html))
+-   HGEN - Household Generated Data File ([Documentation](https://www.diw.de/documents/publikationen/73/diw_01.c.676077.de/diw_ssp0759.pdf))
+-   HWEALTH - Household Wealth Questionaire
+-   HCONSUM - Household Consumption Module
+:::
+
+### Personal Equivalent Data File
+
+```{r}
+pequiv = read_rds("02_GenData/03_SoepFiles/pequiv.rds")
+```
+
+@tbl-PequivIndividual shows a sample of individual-level characteristics we extract from the PEQUIV file. The table contains the individual and household IDs (pid and hid) alongside the year of the interview (year). *head* is an indicator variable on the relationship between *pid* and the household head (1 = head, 2 = partner, 3 = child, 4 = relative, and 5 = non-relative). *sample* is a categorical variable indicating the sample of *pid*. Because of panel attrition and specific research goals, the SOEP continuously expands its sample. For instance, a value of 1 for *sample* means that *pid* belongs to the original SOEP sample starting in west Germany in 1984, while a value of three implies that the observation belongs to the first sample of East Germany in 1990. *age* is the average age of *pid*, *sex* its gender (1 - Male; 2- Female), *MaritalStatus* its civil status (1 -- Married, 2 -- Single, 3 -- Widowed, 4 -- Divorced, 5 -- Separated, 6/7 --- Not with partner), and *education* the total years of education.
+
+
+
+::: panel-tabset
+## Individual
+
+```{r}
+#| label: tbl-PequivIndividual
+#| tbl-cap: Individual characteristics from the PEQUIV file
+#| tbl-cap-location: top
+#| echo: true
+# Show the data set
+kbl(select(pequiv, pid, hid, year, head, sample, age, sex, MaritalStatus, education) %>% head(.)) %>% 
+  kable_classic(full_width = T, html_font = "Cambria") %>% 
+  kable_styling(bootstrap_option = c("hover"))
+```
+
+## Spatial
+
+```{r}
+#| label: tbl-PequivSpatial
+#| tbl-cap: Spatial variables from the PEQUIV file
+#| tbl-cap-location: top
+#| echo: true
+# Show the data set
+kbl(select(pequiv, pid, hid, year, state, region) %>% head(.)) %>% 
+  kable_classic(full_width = T, html_font = "Cambria") %>% 
+  kable_styling(bootstrap_option = c("hover"))
+```
+
+## Employment
+
+```{r}
+#| label: tbl-PequivEmployment
+#| tbl-cap: Employment variables from the PEQUIV file
+#| tbl-cap-location: top
+#| echo: true
+# Show the data set
+kbl(select(pequiv, pid, hid, year, employment, occupation, industry1, industry2) %>% head(.)) %>% 
+  kable_classic(full_width = T, html_font = "Cambria") %>% 
+  kable_styling(bootstrap_option = c("hover"))
+```
+
+## Household
+
+```{r}
+#| label: tbl-PequivHH
+#| tbl-cap: Household variables from the PEQUIV file
+#| tbl-cap-location: top
+#| echo: true
+# Show the data set
+kbl(select(pequiv, pid, hid, year, Npersons, Nkids, income, GrossIncome) %>% head(.)) %>% 
+  kable_classic(full_width = T, html_font = "Cambria") %>% 
+  kable_styling(bootstrap_option = c("hover"))
+```
+:::
+
+@tbl-PequivSpatial includes data on the spatial location of the household. Because we are working with the open version of the SOEP, we can only identify the *state* and *region*. Next, @tbl-PequivEmployment contains employment-related covariates. First, employment is a dummy variable equal to one if the person is currently employed. *occupation*
+is the person's occupation according to the International Classification of Occupations code (ISCO). For instance, code 5160 refers to protective service workers. *industry1:* is a two-digit industry code based on ten categories (1 -- Agriculture, 2 -- Energy, 3 -- Mining, 4 -- Manufacturing, 5 -- Construction, 6 -- Trade, 7 -- Transport, 8 -- Bank and Insurance, 9 -- Services). Finally, *industry2:* is the industry code according to the Nomenclature of Economic activities of the European Union. Finally, @tbl-PequivHH includes a set of household-level controls we extract from the PEQUIV file. *Npersons* and *Nkids* are the number of persons and kids in the household, while *income* and *GrossIncome* are the household net and gross incomes, respectively.
+
+### Household Generated Variables File (HGEN)
+
+## Variables Glossary
+
+::: incremental
+-   ***pid:*** This variable provides unique identification for each individual ever surveyed in the SOEP.
+-   ***hid:*** This variable links individuals to the households they were living in at the time of the interview. The SOEP provides yearly household identification numbers.
+-   ***sample:*** This variable indicates from which sub sample an individual in the SOEP is drawn. The variable contain the following levels
+-   ***age:*** Indicates the age of the individual
+-   ***sex:*** Indicates the gender of the individual (1 -- Male and 2 -- Female)
+-   ***MaritalStatus:*** Indicates the marital status of the individual (1 -- Married, 2 -- Single, 3 -- Widowed, 4 -- Divorced, 5 -- Separated, 6 and 7 --- Not with partner)
+-   ***Npersons:*** Refers to the number of persons in the household
+-   ***Nkids:*** Number of kids in the household
+-   ***education:*** Years of education
+-   ***employment:*** Indicator variable equal to one if the person is employed
+-   ***occupation:*** Individual's occupation according to the ISCO-88 occupation code (ISCO = International Classification of Occupations)
+-   ***industry1:*** Individual's two-digit industry code based on ten categories (1 -- Agriculture, 2 -- Energy, 3 -- Mining, 4 -- Manufacturing, 5 -- Construction, 6 -- Trade, 7 -- Transport, 8 -- Bank and Insurance, 9 -- Services).
+-   ***industry2:*** Individual's NACE industry code
+-   ***state:*** German state of residence
+-   ***region:*** German region of residence
+-   ***income:*** Household post-government income (after taxes and government transfers for all persons in the household)
+-   ***GrossIncome:*** Household pre-government income
+-   ***head:*** Individual's relationship to household head (1 -- Head, 2 -- Partner, 3 -- Child, 4 -- Relative, 5 -- Non Relative)
+:::

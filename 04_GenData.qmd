@@ -1,0 +1,13 @@
+---
+title: "Constructing the data-sets for ABM-REN"
+format: 
+  html: 
+    toc: true
+    warning: false
+    code-fold: true
+    code-summary: "Show the Code"
+---
+
+First, we load the list of SOEP data-sets we use, merge them together, and restrict them to all years larger than 2005
+
+

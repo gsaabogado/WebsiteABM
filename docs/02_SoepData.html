@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>German Socio-Economic Panel Study (SOEP)</title>
+<title>The ABM Model of Technology Adoption (ABM-REN) - German Socio-Economic Panel Study (SOEP)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -81,30 +81,131 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </style>
 
 
-<script src="02_SoepData_files/libs/clipboard/clipboard.min.js"></script>
-<script src="02_SoepData_files/libs/quarto-html/quarto.js"></script>
-<script src="02_SoepData_files/libs/quarto-html/popper.min.js"></script>
-<script src="02_SoepData_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="02_SoepData_files/libs/quarto-html/anchor.min.js"></script>
-<link href="02_SoepData_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="02_SoepData_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="02_SoepData_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="02_SoepData_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="02_SoepData_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
 
-<script src="02_SoepData_files/libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="02_SoepData_files/libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+<link rel="stylesheet" href="styles.css">
 </head>
 
-<body>
+<body class="nav-sidebar docked nav-fixed">
 
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-  <nav id="TOC" role="doc-toc">
-    <h2 id="toc-title">Table of contents</h2>
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">The ABM Model of Technology Adoption (ABM-REN)</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="./01_about.html" aria-current="page">Home</a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/gsaabogado"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/gsaabogado"><i class="bi bi-twitter" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://luissarmiento.net/">Personal Site</a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">German Socio-Economic Panel Study (SOEP)</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Sections</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_about.html" class="sidebar-item-text sidebar-link">About</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_SoepData.html" class="sidebar-item-text sidebar-link active">German Socio-Economic Panel Study (SOEP)</a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
    
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
@@ -115,12 +216,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </ul></li>
   </ul>
 </nav>
-</div>
+    </div>
+<!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">German Socio-Economic Panel Study (SOEP)</h1>
+<h1 class="title d-none d-lg-block">German Socio-Economic Panel Study (SOEP)</h1>
 </div>
 
 
@@ -152,7 +254,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 
 </div>
-<p><a href="#tbl-PequivIndividual">Table&nbsp;1</a> shows a sample of individual-level characteristics we extract from the PEQUIV file. The data frame consists of 19 variables and 547704 observations between 2005 and 2018. Each variable is either in a numeric or haven-labeled format. Haven labeled format is similar to STATA (or SPSS) labeled data (For more information we refer the reader to the <a href="https://haven.tidyverse.org/articles/semantics.html">online vignete of the haven package</a>). The R-labeled class (part of the haven package) allows us to associate arbitrary labels to numeric or character vectors. Note that the goal of labeled files is only to include the description of categorical vectors in the SOEP data. For instance, when printing one labeled variable, the output consists of a vector of values alongside a data frame linking values and labels. It is essential to clarify that researchers must transform haven-labeled data formats into numeric or factor variables before using them in econometric, machine learning, or optimization models. Still, we keep the haven-labeled format in the raw files as it allows researchers to directly understand the values related to each numeric identifier of categorical variables in the SOEP data.</p>
+<p>All of our variables are loded in one of two R formats; numeric or haven-labeled. Haven labeled format is similar to STATA (or SPSS) labeled data (For more information we refer the reader to the <a href="https://haven.tidyverse.org/articles/semantics.html">online vignete of the haven package</a>). The R-labeled class (part of the haven package) allows us to associate arbitrary labels to numeric or character vectors. Note that the goal of labeled files is only to include the description of categorical vectors in the SOEP data. For instance, when printing one labeled variable, the output consists of a vector of values alongside a data frame linking values and labels. It is essential to clarify that researchers must transform haven-labeled data formats into numeric or factor variables before using them in econometric, machine learning, or optimization models. Still, we keep the haven-labeled format in the raw files as it allows researchers to directly understand the values related to each numeric identifier of categorical variables in the SOEP data.</p>
 <p>As an example, we show an example of the sex column in the <strong>pequiv</strong> file. The variable contains a title identifier <em>Gender of Individual</em> alongside a vector of numeric values (i.e., 2,1,2,1,1,2), and the data frame linking values to labels. Using this data-frame is easy to understand that all negative values are missing responses, one relates to male, and two to female respondents.</p>
 <div class="cell">
 <details>
@@ -176,9 +278,9 @@ Labels:
      2                                          [2] Female 2</code></pre>
 </div>
 </div>
-<p>The table (<a href="#tbl-PequivIndividual">Table&nbsp;1</a>) contains the individual and household IDs (<em>pid</em> and <em>hid</em>) alongside the year of the interview (year). <em>head</em> is an indicator variable on the relationship between <em>pid</em> and the household head (1 = head, 2 = partner, 3 = child, 4 = relative, and 5 = non-relative). Because of panel attrition and specific research goals the SOEP continuously expands its sample; <em>sample</em> is a categorical variable indicating the SOEP sample of <em>pid</em>. For instance, a value of 1 for <em>sample</em> means that <em>pid</em> belongs to the original SOEP wave starting in west Germany in 1984, while a value of three implies that the observation belongs to the first sample of East Germany in 1990. <em>age</em> is the average age of <em>pid</em>, <em>sex</em> its gender (1 - Male; 2- Female), <em>MaritalStatus</em> its civil status (1 – Married, 2 – Single, 3 – Widowed, 4 – Divorced, 5 – Separated, 6/7 — Not with partner), and <em>education</em> the total years of education.</p>
+<p><a href="#tbl-PequivIndividual">Table&nbsp;1</a> shows a sample of individual-level characteristics we extract from the PEQUIV file. It consists of 19 variables and 547704 observations between 2005 and 2018. Each variable is either in a numeric or haven-labeled format. The data frame contains the individual and household IDs (<em>pid</em> and <em>hid</em>) alongside the year of the interview (year). <em>head</em> is an indicator variable on the relationship between <em>pid</em> and the household head (1 = head, 2 = partner, 3 = child, 4 = relative, and 5 = non-relative). Because of panel attrition and specific research goals the SOEP continuously expands its sample; <em>sample</em> is a categorical variable indicating the SOEP sample of <em>pid</em>. For instance, a value of 1 for <em>sample</em> means that <em>pid</em> belongs to the original SOEP wave starting in west Germany in 1984, while a value of three implies that the observation belongs to the first sample of East Germany in 1990. <em>age</em> is the average age of <em>pid</em>, <em>sex</em> its gender (1 - Male; 2- Female), <em>MaritalStatus</em> its civil status (1 – Married, 2 – Single, 3 – Widowed, 4 – Divorced, 5 – Separated, 6/7 — Not with partner), and <em>education</em> the total years of education.</p>
 <div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Individual</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Spatial</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Employment</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false" href="">Household</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Individual</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Spatial</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Employment</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">Household</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <div class="cell tbl-cap-location-top">
@@ -535,7 +637,7 @@ Labels:
 </div>
 <p><a href="#tbl-HgenID">Table&nbsp;5</a> shows a sample of household-level identifiers we extract from the HGEN file. The data-frame contains 34 variables and 213,595 observations across 40,852 spanning between 2005 and 2018. <em>hid</em> and <em>year</em> are analogous to the <strong>pequiv</strong> file. <em>Owner</em> is an indicator variable based on four categories (1 – Owner, 2 – Main Tenant, 3 – Sub-Tenant, 4 – Tenant, 5 – Living in a home). <em>AcqMeans</em> Captures the means of acquiring the house for owners and can take four values (1 – Bought from the Owner, 2 – Inheritance or gift, 3 – Bought or built new, 4 – Got back from the public property). <em>FreeRent</em> is a dummy variable equal to one if the family does not pay rent. <em>YearMoved</em> refers to the year the family moved to the household. <em>HouseSize</em> Is the size of the dwelling in square meters. <em>HouseType1</em> can take eight values (1 – one person HH, 2 – Couple with children, 3 – Single parent, 4 – Couple with children &lt; 16, 5 – Couple with children &gt; 16, 6 – Couple with children &lt;&gt; 16, 7 – Multiple generation HH, 8 – Other combination.). <em>HouseType2</em> includes a finer version of household typologies.</p>
 <div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href="">Household Indentifiers</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href="">Household Infrastructure</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false" href="">Household Energy</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-4" role="tab" aria-controls="tabset-2-4" aria-selected="false" href="">Household Costs</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Household Indentifiers</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Household Infrastructure</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false">Household Energy</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-4" role="tab" aria-controls="tabset-2-4" aria-selected="false">Household Costs</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <div class="cell tbl-cap-location-top">
@@ -897,7 +999,7 @@ Labels:
 </div>
 <p>Once we load all the household level data-sets, we merge them and construct a final panel data of SOEP individuals between 2005 and 2018. The data set contains 298,133 observations across 70,427 individuals and 26,035 households. On average, each person remains in the panel 4.2 years. The data set contains 57 different variables (each of which is defined in the glossary section).</p>
 <div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true" href="">Individual covariates</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false" href="">Employment</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-3" role="tab" aria-controls="tabset-3-3" aria-selected="false" href="">Dwelling</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-4" role="tab" aria-controls="tabset-3-4" aria-selected="false" href="">Dwelling Charac.</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-5" role="tab" aria-controls="tabset-3-5" aria-selected="false" href="">Energy Efficiency</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-6-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-6" role="tab" aria-controls="tabset-3-6" aria-selected="false" href="">Energy Costs</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Individual covariates</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Employment</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-3" role="tab" aria-controls="tabset-3-3" aria-selected="false">Dwelling</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-4" role="tab" aria-controls="tabset-3-4" aria-selected="false">Dwelling Charac.</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-5" role="tab" aria-controls="tabset-3-5" aria-selected="false">Energy Efficiency</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-6-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-6" role="tab" aria-controls="tabset-3-6" aria-selected="false">Energy Costs</a></li></ul>
 <div class="tab-content">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
 <div class="cell tbl-cap-location-top">
@@ -1539,11 +1641,12 @@ Labels:
 <li><strong><em>head:</em></strong> Individual’s relationship to household head (1 – Head, 2 – Partner, 3 – Child, 4 – Relative, 5 – Non Relative)</li>
 </ul>
 </div>
+
+
 </section>
 </section>
 
-</main>
-<!-- /main column -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

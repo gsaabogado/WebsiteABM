@@ -10,7 +10,7 @@ format:
 
 # Introduction
 
-Most of the data we use to feed our model comes from the German Socio-Economic Panel Study (SOEP). The SOEP is a representative longitudinal panel study that started in West Germany in 1984. The current version of the survey contains a large set of socio-demographic and economic characteristics of German households.
+Most of the data we use to feed our model comes from the German Socio-Economic Panel Study (SOEP). The SOEP is a representative longitudinal panel study that started in West Germany in 1984. The current version of the survey contains a large set of sociodemographic and economic characteristics of German households.
 
 The SOEP is divided into different data files each containing different questionnaires -- in this model, we use data from SOEP-37.
 

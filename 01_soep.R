@@ -35,6 +35,8 @@ data = list.files("01_RawData/01_Soep35", pattern = "hgen", full.names = T) %>% 
 data = rbindlist(data) %>% select(., one_of(codebook$soep_name))
 #### Rename the variables to the code book ####
 data = data %>% rename_at( colnames(data), ~codebook$study_name)
+#### Only keep data from 2005 ####
+data = filter(data, year >= 2005)
 #### Review the data set ####
 data %>% head(.)
 #### Save the data set ####
@@ -60,24 +62,6 @@ write_rds(data, file = "02_GenData/03_SoepFiles/hwealth.rds", compress = "gz")
 #### Clear the space ####
 rm(list = ls()); gc()
 #### _____________________________________________________________________ ####
-#### Load the initial data on HCONSUM variables ####
-#### _____________________________________________________________________ ####
-#### Clear the space ####
-rm(list = ls()); gc()
-#### Load the relevant SOEP 35 data sets ####
-codebook = read_excel("01_RawData/02_codebooks/codebook.xlsx", sheet = "hconsum")
-data = list.files("01_RawData/01_Soep35", pattern = "hconsum", full.names = T) %>% lapply(., read_dta)
-#### Only keep the variables in the Code Book ####
-data = rbindlist(data) %>% select(., one_of(codebook$soep_name))
-#### Rename the variables to the code book ####
-data = data %>% rename_at( colnames(data), ~codebook$study_name)
-#### Review the data set ####
-data %>% head(.)
-#### Save the data set ####
-write_rds(data, file = "02_GenData/03_SoepFiles/hconsum.rds", compress = "gz")
-#### Clear the space ####
-rm(list = ls()); gc()
-#### _____________________________________________________________________ ####
 #### Join the data sets ####
 #### _____________________________________________________________________ ####
 #### Clear the data set ####
@@ -88,16 +72,39 @@ data = list(pequiv = read_rds("02_GenData/03_SoepFiles/pequiv.rds"),
             lodge = read_rds("02_GenData/03_SoepFiles/LodgeData.rds"))
 #### Full join the data ####
 data = reduce(data, left_join)
-#### Only keep data from 2005 onward ####
-data = filter(data, year >= 2005)
+#### Only keep relevant covariates ####
+data = select(data, -c(sample, MaritalStatus, industry2, region, AcqMeans, HouseCondition, 
+                       AlarmSystem, IndoorToilet, kitchen, IndoorShower, InterviewMonth, 
+                       HouseType1, HouseType2, subsidies, year_moved))
+#### Transform the numeric variables from haven labelled to numeric ####
+data = mutate_at(data, vars(age, Npersons, Nkids, education, employment, income, GrossIncome, 
+                            NewestConstDate, OldestConstDate, PowerCosts, ac, basement,  OtherUtilityCosts, WarmWaterCosts,
+                            YearMoved, FreeRent, HouseSize, GasCosts), function(x)  x = ifelse(x < 0, NA, x))
+#### Transform the indicator variables to binary ####
+data = mutate_at(data, vars(ac, basement, FloorHeating, 
+                            garden, CentralFloorHeating, ThermalInsulation, 
+                            elevator, DoubleGlazing, AlternativeEnergy, pv, 
+                            balcony, boiler), function(x) x = ifelse(x == 2, 0, x))
+#### Transform SOEP negative values to NAs in labelled variables ####
+data = mutate(data, sex = ifelse(sex < 0, NA, sex)) |> 
+  mutate(sex = labelled(sex, c(female = 2, male = 1)))
+
+data = mutate(data, head = ifelse(head < 0, NA, sex)) |> 
+  mutate(head = labelled(head, c(Head = 1, Parner = 2, Child = 3, Relative = 4, Nonrelative = 5)))
+
+data = mutate(data, owner = ifelse(owner < 0, NA, sex)) |> 
+  mutate(head = labelled(owner, c(Owner = 1, MainTenant = 2, SubTenant = 3, tenant = 4, other = 5)))
+
+data = mutate(data, occupation = ifelse(occupation < 0, NA, occupation))
 #### Transform income to Thousand of Euros ####
-data = mutate(data, income = income/1000)
+data = mutate(data, income = income/1000, GrossIncome = GrossIncome/1000)
 #### Add the house type and ownership when a household did not moved and has an NA ####
 data = data %>% group_by(pid, hid, YearMoved) %>% mutate(owner = na.omit(unique(owner))[1])
-data = data %>% group_by(pid, hid, YearMoved) %>% mutate(HouseType = na.omit(unique(HouseType1))[1])
-#### Only keep the industry of the HH head ####
-data = select(data, -industry1, -industry2) %>% 
-  left_join(., filter(data, head == 1) %>% ungroup() %>% select(hid, year, industry1, industry2))
+#### Only keep the occupation of the HH head ####
+data = data %>%  ungroup() %>% filter(head == 1) |> 
+  group_by(pid, hid, year) |> mutate(count = n()) |> 
+  select(hid, pid, year, industry = industry1) %>% 
+  left_join(data, .)
 #### Transform the character NA in English lodge to character vector ####
 data = mutate(data, LodgeEnglish = ifelse(LodgeEnglish == "NA", NA, LodgeEnglish))
 #### Assume that if the lodge has a garden, it is a house ####
@@ -106,12 +113,8 @@ data = mutate(data, LodgeEnglish = ifelse(is.na(LodgeEnglish) == T & garden == 1
 data = mutate(data, LodgeEnglish = ifelse(is.na(LodgeEnglish) == T & elevator == 1, "Flat", LodgeEnglish))
 #### Transform the PV data from one when bought to one if owned ####
 data = mutate(data, pv = as.numeric(pv)) %>% 
-  mutate(pv = ifelse(pv < 0, NA, pv)) %>% 
-  mutate(pv = ifelse(pv == 2, 0, pv)) %>%
   arrange(pid, year) %>% group_by(pid, YearMoved) %>% mutate(pv = cumsum(pv)) %>%
   mutate(pv = ifelse(pv > 0, 1, 0))
-#### Transform the PV back to a haven-labelled element ####
-data = mutate(data, pv = labelled(pv, c("Ja" = 1, "Nein" = 0)))
 #### Determine the age of the panel ####
 data = data %>% ungroup() %>% group_by(pid, hid, YearMoved) %>% filter(pv == 1) %>% 
   filter(year == min(year)) %>% select(pid, hid, PanelYear = year, YearMoved) %>% left_join(data, .)
@@ -121,41 +124,13 @@ data = data %>% group_by(pid, hid, YearMoved) %>% mutate(pv = max(na.omit(unique
 #### Simplify the House-flats dummy variable ####
 data = mutate(data, lodge = ifelse(grepl("Flats|Flat", LodgeEnglish), "Flats", 
                                    ifelse(is.na(LodgeEnglish) == T, NA, "House")))
-#### Check for duplicates ####
-data %>% group_by(pid, year) %>% summarise(count = n()) %>%
-  ungroup() %>% select(count) %>% distinct()
+#### Add the lodge type when a household did not moved and has an NA ####
+data = data %>% group_by(pid, hid, YearMoved) %>% mutate(lodge = na.omit(unique(lodge))[1])
 #### See the data set ####
+data = select(data, -NumLodge, -LodgeEnglish)
 glimpse(data)
 #### Save the data set ####
 write_rds(data, file = "02_GenData/03_SoepFiles/RawSoep.rds", compress = "gz")
-#### Clear the space ####
-rm(list = ls()); gc()
-#### _____________________________________________________________________ ####
-#### Create an aggregate of consumption for each household ####
-#### _____________________________________________________________________ ####
-#### Clear the space ####
-rm(list = ls()); gc()
-#### Load the relevant SOEP 35 data sets ####
-codebook = read_excel("01_RawData/02_codebooks/codebook.xlsx", sheet = "hconsum")
-data = list.files("01_RawData/01_Soep35", pattern = "hconsum", full.names = T) %>% lapply(., read.dta13)
-#### Only keep the variables in the Code Book ####
-data = rbindlist(data) 
-#### Only select the consumption variables ####
-data = select(data, cid:chcare_e)
-#### Transform to long format ####
-data = gather(data, variable, value, c(rheat_a:chcare_e))
-#### Split by the imputation value ####
-data = mutate(data, imputation = gsub(".*_", "", variable), variable = gsub("_.*", "", variable))
-#### Aggregate across imputations ####
-data = data %>% group_by(hid, year = syear, variable) %>% summarise(value = mean(value, na.rm = T))
-#### Exclude electricity costs from the consumption data ####
-data = filter(data, !variable %in% c("oelectr", "relectr"))
-#### Aggregate across households and years ####
-data = data %>% group_by(hid, year) %>% summarise(consumption = sum(value, na.rm = T)/1000)
-#### Review the data set ####
-data %>% head(.)
-#### Save the data set ####
-write_rds(data, file = "02_GenData/03_SoepFiles/FullConsum.rds", compress = "gz")
 #### Clear the space ####
 rm(list = ls()); gc()
 #### _____________________________________________________________________ ####
@@ -166,7 +141,7 @@ rm(list = ls()); gc()
 #### Load the data ####
 data = read_rds("02_GenData/03_SoepFiles/RawSoep.rds")
 #### Only select the income and consumption data ####
-data = select(data, year, pid, hid, income, PowerCosts) %>% filter(year == 2017) %>%
+data = data |> ungroup() |> select(year, hid, income, PowerCosts, head) %>% filter(year == 2017, head == 1) %>%
   group_by(year, hid) %>% summarise(income = mean(income, na.rm = T), PowerCosts = mean(PowerCosts, na.rm = T)) 
 #### Compute the income and consumption deciles ####
 data = data %>% ungroup() %>% 
@@ -183,18 +158,14 @@ decile = data %>% group_by(IncomeGroup) %>%
 #### Transform the power costs to yearly values ####
 decile = mutate_at(decile, vars(PowerCostAvg, PowerCostSd), function(x) x = x*12)
 #### Plot the income and consumption relationship per decile ####
-ggplot(data) + geom_density(aes(x = PowerCosts, fill = IncomeGroup), alpha = 0.25) +
+ggplot(data) + geom_density(aes(x = log(PowerCosts), fill = IncomeGroup), alpha = 0.25) +
   theme(panel.background = element_blank(), legend.position = c(0.8, 0.65), 
-        legend.background = element_blank()) + grids()+
-  facet_wrap(~IncomeGroup, scales = "free")
-#### Plot the income and consumption relationship per decile ####
-ggplot(data) + geom_density(aes(x = log(income), fill = IncomeGroup), alpha = 0.25) +
-  theme(panel.background = element_blank(), legend.position = c(0.8, 0.65), 
-        legend.background = element_blank()) + grids() +
-  facet_wrap(~IncomeGroup, scales = "free") + guides(fill = "none")
+        legend.background = element_blank()) + grids()+ theme_economist() %+replace% 
+  theme(legend.title = element_blank()) + labs(x = "Power Costs (Log)", y = "")
 #### Review the data set ####
 decile %>% head(.)
 #### Save the data set ####
+ggsave("WebsiteABM/99_figures/PowerCostsDensity.png")
 write_rds(decile, file = "02_GenData/03_SoepFiles/IncomePowerDeciles.rds", compress = "gz")
 #### Clear the space ####
 rm(list = ls()); gc()
@@ -379,7 +350,6 @@ coef = cbind(est, se)
 
 #### Save the point estimates####
 write_rds(coef, file = "02_GenData/03_SoepFiles/WealthEst.rds", compress = "gz")
-
 #### Clear the space ####
 rm(list = ls()); gc()
 

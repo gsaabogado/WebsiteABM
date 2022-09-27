@@ -12,6 +12,8 @@ library(readxl)
 library(kableExtra)
 library(knitr)
 library(ggthemes)
+# Plots
+library(ggpubr)
 #### Fix conflicts ####
 conflict_prefer("filter", "dplyr")
 

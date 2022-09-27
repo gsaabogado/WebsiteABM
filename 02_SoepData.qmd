@@ -31,9 +31,11 @@ file = gsub("WebsiteABM", "", getwd())
 pequiv = read_rds(paste0(file, "02_GenData/03_SoepFiles/pequiv.rds"))
 ```
 
-All of our variables are loded in one of two R formats; numeric or haven-labeled. Haven labeled format is similar to STATA (or SPSS) labeled data (For more information we refer the reader to the [online vignete of the haven package](https://haven.tidyverse.org/articles/semantics.html)). The R-labeled class (part of the haven package) allows us to associate arbitrary labels to numeric or character vectors. Note that the goal of labeled files is only to include the description of categorical vectors in the SOEP data. For instance, when printing one labeled variable, the output consists of a vector of values alongside a data frame linking values and labels. It is essential to clarify that researchers must transform haven-labeled data formats into numeric or factor variables before using them in econometric, machine learning, or optimization models. Still, we keep the haven-labeled format in the raw files as it allows researchers to directly understand the values related to each numeric identifier of categorical variables in the SOEP data.
+All of our variables are loded in one of two R formats; numeric or haven-labeled. Haven labeled format is similar to STATA (or SPSS) labeled data (For more information we refer the reader to the [online vignete of the haven package](https://haven.tidyverse.org/articles/semantics.html)). 
 
-As an example, we show an example of the sex column in the **pequiv** file. The variable contains a title identifier *Gender of Individual* alongside a vector of numeric values (i.e., 2,1,2,1,1,2), and the data frame linking values to labels. Using this data-frame is easy to understand that all negative values are missing responses, one relates to male, and two to female respondents.
+The R-labeled class (part of the haven package) allows us to associate arbitrary labels to numeric or character vectors. Note that the goal of labeled files is only to include the description of categorical vectors in the SOEP data. For instance, when printing one labeled variable, the output consists of a vector of values alongside a data frame linking values and labels. It is essential to clarify that researchers must transform haven-labeled data formats into numeric or factor variables before using them in econometric, machine learning, or optimization models. Still, we keep the haven-labeled format in the raw files as it allows researchers to directly understand the values related to each numeric identifier of categorical variables in the SOEP data.
+
+As an example, we show the gender column in the **pequiv** file. The variable contains a title identifier *Gender of Individual* alongside a vector of numeric values (i.e., 2,1,2,1,1,2), and the data frame linking values to labels.
 
 ```{r}
 #| echo: true
@@ -41,7 +43,7 @@ As an example, we show an example of the sex column in the **pequiv** file. The 
 head(pequiv$sex)
 ```
 
-@tbl-PequivIndividual shows a sample of individual-level characteristics we extract from the PEQUIV file. It consists of `r ncol(pequiv)` variables and `r nrow(pequiv)` observations between 2005 and 2018. Each variable is either in a numeric or haven-labeled format. The data frame contains the individual and household IDs (*pid* and *hid*) alongside the year of the interview (year). *head* is an indicator variable on the relationship between *pid* and the household head (1 = head, 2 = partner, 3 = child, 4 = relative, and 5 = non-relative). Because of panel attrition and specific research goals the SOEP continuously expands its sample; *sample* is a categorical variable indicating the SOEP sample of *pid*. For instance, a value of 1 for *sample* means that *pid* belongs to the original SOEP wave starting in west Germany in 1984, while a value of three implies that the observation belongs to the first sample of East Germany in 1990. *age* is the average age of *pid*, *sex* its gender (1 - Male; 2- Female), *MaritalStatus* its civil status (1 -- Married, 2 -- Single, 3 -- Widowed, 4 -- Divorced, 5 -- Separated, 6/7 --- Not with partner), and *education* the total years of education.
+@tbl-PequivIndividual shows a sample of individual-level characteristics we extract from the PEQUIV file. It consists of `r ncol(pequiv)` variables and `r nrow(pequiv)` observations between 2005 and 2018. Each variable is either in a numeric or haven-labeled format. The data frame contains the individual and household IDs (*pid* and *hid*) alongside the year of the interview (year). *head* is an indicator variable on the relationship between *pid* and the household head (1 = head, 2 = partner, 3 = child, 4 = relative, and 5 = non-relative). *age* is the average age of *pid*, *sex* its gender (1 - Male; 2- Female), and *education* the total years of education.
 
 ::: panel-tabset
 ## Individual
@@ -52,7 +54,7 @@ head(pequiv$sex)
 #| tbl-cap-location: top
 #| echo: true
 # Show the data set
-kbl(select(pequiv, pid, hid, year, head, sample, age, sex, MaritalStatus, education) %>% head(.)) %>% 
+kbl(select(pequiv, pid, hid, year, head, sex, age, education) %>% head(.)) %>% 
   kable_classic(full_width = T, html_font = "Cambria") %>% 
   kable_styling(bootstrap_option = c("hover"))
 ```
@@ -78,7 +80,7 @@ kbl(select(pequiv, pid, hid, year, state, region) %>% head(.)) %>%
 #| tbl-cap-location: top
 #| echo: true
 # Show the data set
-kbl(select(pequiv, pid, hid, year, employment, occupation, industry1, industry2) %>% head(.)) %>% 
+kbl(select(pequiv, pid, hid, year, employment, occupation, industry1) %>% head(.)) %>% 
   kable_classic(full_width = T, html_font = "Cambria") %>% 
   kable_styling(bootstrap_option = c("hover"))
 ```
@@ -97,7 +99,7 @@ kbl(select(pequiv, pid, hid, year, Npersons, Nkids, income, GrossIncome) %>% hea
 ```
 :::
 
-@tbl-PequivSpatial includes data on the spatial location of the household. Because we are working with the open version of the SOEP, we can only identify the *state* and *region* where the household is located. Next, @tbl-PequivEmployment contains employment-related covariates. *employment* is a dummy variable equal to one if the person is currently employed. *occupation* is the person's occupation according to the International Classification of Occupations Code (ISCO). For instance, code 5160 refers to protective service workers. *industry1* is a two-digit industry code based on ten categories (1 -- Agriculture, 2 -- Energy, 3 -- Mining, 4 -- Manufacturing, 5 -- Construction, 6 -- Trade, 7 -- Transport, 8 -- Bank and Insurance, 9 -- Services). Finally, *industry2* is the industry code according to the Nomenclature of Economic activities of the European Union (NECS). Finally, @tbl-PequivHH includes a set of household-level controls we extract from the PEQUIV file. *Npersons* and *Nkids* are the number of persons and kids in the household, while *income* and *GrossIncome* are the household net and gross incomes.
+@tbl-PequivSpatial includes data on the spatial location of the household. Because we are working with the open version of the SOEP, we can only identify the *state* and *region* where the household is located. Next, @tbl-PequivEmployment contains employment-related covariates. *employment* is a dummy variable equal to one if the person is currently employed. *occupation* is the person's occupation according to the International Classification of Occupations Code (ISCO). For instance, code 5160 refers to protective service workers. *industry1* is a two-digit industry code based on ten categories (1 -- Agriculture, 2 -- Energy, 3 -- Mining, 4 -- Manufacturing, 5 -- Construction, 6 -- Trade, 7 -- Transport, 8 -- Bank and Insurance, 9 -- Services). Finally, @tbl-PequivHH includes a set of household-level controls we extract from the PEQUIV file. *Npersons* and *Nkids* are the number of persons and kids in the household, while *income* and *GrossIncome* are the household net and gross incomes.
 
 ## Household Generated Variables File (HGEN)
 
@@ -107,7 +109,7 @@ file = gsub("WebsiteABM", "", getwd())
 hgen = read_rds(paste0(file, "02_GenData/03_SoepFiles/hgen.rds"))
 ```
 
-@tbl-HgenID shows a sample of household-level identifiers we extract from the HGEN file. The data-frame contains `r ncol(hgen)` variables and `r comma(nrow(hgen))` observations across `r comma(length(unique(hgen$hid)))` spanning between 2005 and 2018. *hid* and *year* are analogous to the **pequiv** file. *Owner* is an indicator variable based on four categories (1 -- Owner, 2 -- Main Tenant, 3 -- Sub-Tenant, 4 -- Tenant, 5 -- Living in a home). *AcqMeans* Captures the means of acquiring the house for owners and can take four values (1 -- Bought from the Owner, 2 -- Inheritance or gift, 3 -- Bought or built new, 4 -- Got back from the public property). *FreeRent* is a dummy variable equal to one if the family does not pay rent. *YearMoved* refers to the year the family moved to the household. *HouseSize* Is the size of the dwelling in square meters. *HouseType1* can take eight values (1 -- one person HH, 2 -- Couple with children, 3 -- Single parent, 4 -- Couple with children \< 16, 5 -- Couple with children \> 16, 6 -- Couple with children \<\> 16, 7 -- Multiple generation HH, 8 -- Other combination.). *HouseType2* includes a finer version of household typologies.
+@tbl-HgenID shows a sample of household-level identifiers we extract from the HGEN file. The full data-frame contains `r ncol(hgen)` variables and `r comma(nrow(hgen))` observations across `r comma(length(unique(hgen$hid)))` spanning between 2005 and 2018. *hid* and *year* are analogous to the **pequiv** file. *Owner* is an indicator variable based on four categories (1 -- Owner, 2 -- Main Tenant, 3 -- Sub-Tenant, 4 -- Tenant, 5 -- Living in a home). *FreeRent* is a dummy variable equal to one if the family does not pay rent. *YearMoved* refers to the year the family moved to the household. And *HouseSize* Is the size of the dwelling in square meters.
 
 ::: panel-tabset
 ## Household Indentifiers
@@ -117,7 +119,7 @@ hgen = read_rds(paste0(file, "02_GenData/03_SoepFiles/hgen.rds"))
 #| tbl-cap: Household identifiers HGEN file
 #| tbl-cap-location: top
 #| echo: true
-kbl(select(hgen, hid, year, owner, AcqMeans, FreeRent,YearMoved, HouseSize, HouseType1, HouseType2) %>% head(.)) %>% 
+kbl(select(hgen, hid, year, owner, FreeRent, YearMoved, HouseSize) %>% head(.)) %>% 
   kable_classic(full_width = T, html_font = "Cambria") %>% 
   kable_styling(bootstrap_option = c("hover"))
 ```
@@ -159,9 +161,9 @@ kbl(select(hgen, hid, year, PowerCosts, OtherUtilityCosts, GasCosts, WarmWaterCo
 
 @tbl-HgenInf contains different infrastructure characteristics of the dwelling. All variables are indicator dummies of basement, garden, elevator, or balcony infrastructure. As with the **pequiv** file, all negative entries refer to missing values for different reasons, e.g., the question was not part of that year's questionnaire or invalid answers. 
 
-@tbl-HgenRen includes a set of indicator variables regarding household investments in Energy infrastructure or appliances. The indicator variables come from answers to the question **What amenities does your dwelling have? Does it have -** central floor heating (*CentralFloorHeating - 1984-2014*), floor heating (*FloorHeating - since 2014*), thermal insulation in the facade, roof, or basement (*ThermalInsulation - Since 2015*), air conditioner (*ac - Since 2007*), solar energy system (*pv - Since 2007*), other alternative energy sources like geothermal or heat pump (*AlternativeEnergy - Since 2009*), boiler (*boiler - 1991-2013*), and windows with at least double glazing (*DoubleGlazing - Since 2015*).
+@tbl-HgenRen includes a set of indicator variables regarding household investments in Energy infrastructure or appliances. The indicator variables come from answers to the question **What amenities does your dwelling have? Does it have -** central floor heating (*CentralFloorHeating - 1984-2014*), floor heating (*FloorHeating - since 2014*), thermal insulation in the facade, roof, or basement (*ThermalInsulation - Since 2015*), air conditioner (*ac - Since 2007*), solar energy system (*pv - Since 2007*), other alternative energy sources like geothermal or heat pump (*AlternativeEnergy - Since 2009*), boiler (*boiler - 1991-2013*), or windows with at least double glazing (*DoubleGlazing - Since 2015*).
 
-@tbl-HgenCosts includes a set of numeric variables on the household's energy costs. *WarmWaterCost* contains the heating costs of tenants (What were the heating costs, including hot water, in the last calendar year?). Until 2013 (wave BD), the SOEP only surveyed heating costs for tenants. After 2013, it asked all SOEP individuals. In 2015 (wave BF), respondents stated their costs for different energy sources (district heating, gas, liquified gas, electricity, heating oil, coal, wood, biomass, solar, and geothermal) and whether they used them for heating, warm water, cooking, or electronic devices. This change decreased the *WarmWaterCost* variable in the BF wave vs. other years. *PowerCosts* is a numeric variable with the electricity costs (excluding heating when applicable) asked since 2010. The exact questionnaire question is; What were your electricity costs in the last calendar year? The SOEP only asks this question to tenants if they pay rent. However, from 2016, it asked all tenants whether they paid rent or not. *GasCosts* states the monthly costs of gas not used for heating in Euros. Gas costs were only collected in 2014 (wave BE). *OtherUtilityCosts* are answers to the question; how much did you pay in the last calendar year for water, garbage removal, street cleaning, and other additional costs not mentioned above?
+@tbl-HgenCosts includes a set of numeric variables on the household's energy costs. *WarmWaterCost* contains the heating costs of tenants. The number comes from answers to the question **What were the heating costs, including hot water, in the last calendar year?**. Until 2013 (wave BD), the SOEP only surveyed heating costs for tenants. After 2013, it asked all SOEP individuals. In 2015 (wave BF), respondents stated their costs for different energy sources (district heating, gas, liquefied gas, electricity, heating oil, coal, wood, biomass, solar, and geothermal) and whether they used them for heating, warm water, cooking, or electronic devices. This change decreased the *WarmWaterCost* variable in the BF wave vs. other years. *PowerCosts* is a numeric variable with the electricity costs (excluding heating when applicable) asked since 2010. The exact questionnaire question is; **What were your electricity costs in the last calendar year?** The SOEP only asks this question to tenants if they pay rent. However, from 2016, it asked all tenants whether they paid rent or not. *GasCosts* states the monthly costs of gas not used for heating in Euros. Gas costs were only collected in 2014 (wave BE). *OtherUtilityCosts* are answers to the question; how much did you pay in the last calendar year for water, garbage removal, street cleaning, and other additional costs not mentioned above?
 
 
 ## Final (individual) SOEP data
@@ -174,6 +176,19 @@ soep = read_rds(paste0(file, "02_GenData/03_SoepFiles/RawSoep.rds"))
 
 Once we load all the household level data-sets, we merge them and construct a final panel data of SOEP individuals between 2005 and 2018. The data set contains `r comma(nrow(soep))` observations across `r comma(length(unique(soep$pid)))` individuals and `r comma(length(unique(soep$hid)))` households. On average, each person remains in the panel `r soep |> group_by(pid) |> summarise(count = n()) |> ungroup() |> summarise(round(mean(count),1))` years. The data set contains 57 different variables (each of which is defined in the glossary section).
 
+When merging the household and individual-level data. We perform different checks and create additional variables.
+
+- We change all negative values (NAs) from the raw SOEP data to R NA format.
+- Transform the indicator variables with "Ja" or "Nein" structure to binary dummies.
+- we transform net and gross income (income, GrossIncole) from Euros to Thousand of Euros.
+- We impute the ownership and lodge indicators in cases with missing data if the household does not report moving.
+- Keep only the industry of the household head
+- Assume that if the dwelling has a garden it is a house
+- Assume that if the dwelling has an elevator it is a flat
+- Transform the PV data from one when bought to one if owned
+- Determine the age of the panel -- **PanelYear**
+- Simplify the lodge identifier to only "House" or "Flat"
+
 ::: panel-tabset
 ## Individual covariates
 
@@ -182,7 +197,7 @@ Once we load all the household level data-sets, we merge them and construct a fi
 #| tbl-cap: Individual Covariates in the full sample
 #| tbl-cap-location: top
 #| echo: true
-kbl(soep |> select(pid, hid, year, head, sample, age, sex, MaritalStatus, education) %>% head(.)) %>% 
+kbl(soep |> select(pid, hid, year, head, age, sex, education) %>% head(.)) %>% 
   kable_classic(full_width = T, html_font = "Cambria") %>% 
   kable_styling(bootstrap_option = c("hover"))
 ```
@@ -194,7 +209,7 @@ kbl(soep |> select(pid, hid, year, head, sample, age, sex, MaritalStatus, educat
 #| tbl-cap: Employmenr Covariates in the full sample
 #| tbl-cap-location: top
 #| echo: true
-kbl(soep |> select(pid, hid, year, employment, occupation, income, GrossIncome, industry1, industry2) %>% head(.)) %>% 
+kbl(soep |> select(pid, hid, year, employment, occupation, income, GrossIncome) %>% head(.)) %>% 
   kable_classic(full_width = T, html_font = "Cambria") %>% 
   kable_styling(bootstrap_option = c("hover"))
 ```
@@ -206,7 +221,7 @@ kbl(soep |> select(pid, hid, year, employment, occupation, income, GrossIncome, 
 #| tbl-cap: Employmenr Covariates in the full sample
 #| tbl-cap-location: top
 #| echo: true
-kbl(ungroup(soep) |> select(pid, hid, year, YearMoved, owner, FreeRent, lodge, HouseType, AcqMeans, NewestConstDate, OldestConstDate) %>% head(.)) %>% 
+kbl(ungroup(soep) |> select(pid, hid, year, YearMoved, owner, FreeRent, lodge, NewestConstDate, OldestConstDate) %>% head(.)) %>% 
   kable_classic(full_width = T, html_font = "Cambria") %>% 
   kable_styling(bootstrap_option = c("hover"))
 ```
@@ -218,7 +233,7 @@ kbl(ungroup(soep) |> select(pid, hid, year, YearMoved, owner, FreeRent, lodge, H
 #| tbl-cap: Dwelling characteristics Covariates in the full sample
 #| tbl-cap-location: top
 #| echo: true
-kbl(ungroup(soep) |> select(pid, hid, year, HouseSize, HouseCondition, basement, garden, elevator, balcony) %>% head(.)) %>% 
+kbl(ungroup(soep) |> select(pid, hid, year, HouseSize, basement, garden, elevator, balcony) %>% head(.)) %>% 
   kable_classic(full_width = T, html_font = "Cambria") %>% 
   kable_styling(bootstrap_option = c("hover"))
 ```
@@ -248,7 +263,31 @@ kbl(ungroup(soep) |> select(pid, hid, year, PowerCosts, OtherUtilityCosts, GasCo
 ```
 :::
 
-mm, \## Variables Glossary
+## Estimating the distribution of power costs by income decile
+Next, we use the information on income and power cost from the sub-set of renters to look at the relationship between annual power costs and income. For this, we divide the data set into ten different income groups based on the deciles of the income distribution and estimate the average and standard deviation of income and power costs in each decile. @tbl-PowerCostDist contains a sample of the final data. *IncomeGroup* refers to the income decile. *IncAvg* is the average yearly income in thousands of Euros. *PowerCostAvg* is the average yearly power bill in Euros. *IncSD* is the standard deviation of annual income. And *PowerCostSd* the analogous for power costs. @fig-PowerCostsDensity contains the density (Log) function of annual Power Costs across different income deciles. As expected, the density is normally distributed with higher mean values for more wealthy households.
+
+
+::: panel-tabset
+## Data Set
+```{r}
+#| label: tbl-PowerCostDist
+#| tbl-cap: Energy Efficiency Technologies
+#| tbl-cap-location: top
+#| echo: true
+# Load Data
+file = gsub("WebsiteABM", "", getwd())
+data = read_rds(paste0(file, "02_GenData/03_SoepFiles/IncomePowerDeciles.rds"))
+# Show the table
+kbl(ungroup(data) %>% head(.)) %>% 
+  kable_classic(full_width = T, html_font = "Cambria") %>% 
+  kable_styling(bootstrap_option = c("hover"))
+```
+## Descriptives
+![Density function of Power Costs across Income Deciles](99_figures/PowerCostsDensity){#fig-PowerCostsDensity}
+
+:::
+
+## Variables Glossary
 
 ::: incremental
 -   ***pid:*** This variable provides unique identification for each individual ever surveyed in the SOEP.

@@ -1,0 +1,43 @@
+---
+title: "Theoretical Background ABM-REN"
+author: "Severin Reissl and Luis Sarmiento"
+format: 
+  html: 
+    toc: true
+    warning: false
+    code-fold: true
+    code-summary: "Show the Code"
+---
+
+This short section describes the theoretical foundation behind the ABM model we use to simulate the household decision to adopt green technologies. In this section, we concentrate on adopting photovoltaic (PV) systems. However, the same theoretical framework can apply to other technologies like gas pumps, insulation, or AC systems. At every period $t = 1,...,T$ each household $h = 1,...,N$ faces the choice whether to purchase a PV installation. The utility each person receives for purchasing the PV comes from @eq-utility.
+
+$$
+ U_{ht}^{pv = 1} | F_{ht} = E_i[\sum_{t = 1}^{T} \beta \Pi_ht | Z_{ht}] + \alpha \lambda_{ht} + \phi Env_{ht} + \epsilon_{ht}
+$$ {#eq-utility}
+
+In it, the utility from the PV ($U_{ih}^{pv = 1}$) once feasible ($F_{ht} = 1$) is a function of the household $h$ expectation of future profits ($\Pi_{ht}$) associated with purchasing a PV installation at $t$, i.e., $E_i[\sum_{t = 1}^{T} \beta p_it | Z_{it}]$. Throughout the presentation, the expectation operator takes the household's subjective distribution of profits given observable available information at $t$, $Z_{it}$. Now, the Feasibility operator ($F_{ht}$) is an indicator variable determining if it is possible for household $h$ to install the PV system in the current dwelling. For instance, for households with short-term flat rents in the city center, it would likely be unfeasible to install a PV system.  
+
+The household's utility also depends on social and environmental components. The social element $\lambda_{ht}$ is a continuous variable between zero and one, indicating the share of close-by neighbors with a PV installation. The network estimate incorporates evidence from the literature on behavioral economics and technology adoption regarding peers' influence on peoples' probability of adopting new technologies. The environmental component ($Env_{ht}$) captures the utility of investing in green technologies for persons with strong environmdsental preferences. For instance, even if the utility from elicited profits and network effects is negative, a share of the population would adopt green technologies because of environmental preferences.
+
+Each household elicits the profits from owning a PV ($p_{ht}$) by solving @eq-profits. in it, $\Delta_{ht}$ is the expected energy the PV installation would generate for household $h$ at time $t$. This expectation depends positively on each individuals' coefficient of risk aversion ($\phi_i$), i.e., $\frac{\partial \Delta_{it}}{\partial \phi_i} \leq 0$. Besides risk aversion, the coefficient also depends on individual characteristics $(Z_{it})$ like past consumption, age, income, and family size.
+
+$$
+ \Pi_{ht} = \sum_{t=1}^{T} \big[E(\Delta_{ht}|\phi_h, Z_{ht}) E(p_{ht}, Z_{ht}|\phi_i) - K_t - I_{ht}|Z_{ht} \big]
+$$ {#eq-profits}
+
+
+$p_{ht}$ represents household $h$ expected grid-price of electricity. As with the expectation of energy production, the price depends on individual characteristics $(Z_{it})$ and the risk aversion parameter $\phi_i$ with $\frac{\partial p_{it}}{\partial \phi_i} \leq 0$. Next, $K_t$ are the capital costs of the PV system at $t$ and $I_{ht}$ all costs related to bank loans in cases where the household is capital constrained. As with elicited future energy expenditures and prices, $I_{ht}$ depends on observable household characteristics ($Z_{it}$), e.g., banks provide lower interest rates to wealthy individuals with steady jobs.
+
+
+An individual only applies for a bank loan when their liquidity at $t$ is lower than the costs associated with the installation of the PV system, i.e., $Loan_{it} = max(0, K_t - \mu_{it})$. Now, if the loan required to obtain a PV ($Loan_{it}$) is larger than the income of the household times a bank threshold multiplier ($y_{it} \times \sigma$), the loan is too risky for the banking institution, and even though household $h$ elicits a positive utility from PV, it would not purchase the system because of capital constraints. When the banking institution provides the loan necessary to purchase the PV system, the cost of the loan is equal to $I_{it} = r + \rho \frac{Loan_{it}}{y_{it}}$. 
+
+The liquidity of each household ($\mu_{ht}$) evolves according to equation @eq-liquidity. 
+
+
+$$
+\mu_{it} =(1 - \alpha_i^1) y_i + (1 - \alpha_i^2)\mu_{it-1} − (CE_i - PV_i  R^{PV})P_t - I_{it} Loan_{it} - \gamma  Loan_i
+$${#eq-liquidity}
+
+
+
+ 

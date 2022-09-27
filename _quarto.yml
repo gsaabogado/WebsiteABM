@@ -4,6 +4,7 @@ project:
   render:
     - 01_about.qmd
     - 02_SoepData.qmd
+    - 03_theory.qmd
 
 website:
   title: "The ABM Model of Technology Adoption (ABM-REN)"
@@ -28,12 +29,12 @@ website:
         contents:
         - 01_about.qmd
         - 02_SoepData.qmd
+        - 03_theory.qmd
 
 format:
   html:
-    theme: cosmo
-    css: styles.css
-    toc: true
+    theme: 
+     -custom.scss
 
 
 

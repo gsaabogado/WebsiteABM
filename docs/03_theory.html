@@ -7,9 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Severin Reissl and Luis Sarmiento">
-<meta name="description" content="This website contains all the data, python, and R-codes necessary for the development og the ABM Model of Technology Adoption (ABM-REN) developed at RFF-CMCC: European Institute in Economics and the Environment">
 
-<title>The ABM Model of Technology Adoption (ABM-REN) - About</title>
+<title>The ABM Model of Technology Adoption (ABM-REN) - Theoretical Background ABM-REN</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -55,6 +54,7 @@ ul.task-list{list-style: none;}
   }
 }</script>
 
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -95,7 +95,7 @@ ul.task-list{list-style: none;}
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">About</h1>
+      <h1 class="quarto-secondary-nav-title">Theoretical Background ABM-REN</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -123,7 +123,7 @@ ul.task-list{list-style: none;}
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01_about.html" class="sidebar-item-text sidebar-link active">About</a>
+  <a href="./01_about.html" class="sidebar-item-text sidebar-link">About</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -133,7 +133,7 @@ ul.task-list{list-style: none;}
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03_theory.html" class="sidebar-item-text sidebar-link">Theoretical Background ABM-REN</a>
+  <a href="./03_theory.html" class="sidebar-item-text sidebar-link active">Theoretical Background ABM-REN</a>
   </div>
 </li>
       </ul>
@@ -143,31 +143,16 @@ ul.task-list{list-style: none;}
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#replication" id="toc-replication" class="nav-link" data-scroll-target="#replication">Replication</a>
-  <ul class="collapse">
-  <li><a href="#raw-data-files" id="toc-raw-data-files" class="nav-link" data-scroll-target="#raw-data-files">Raw data files</a></li>
-  </ul></li>
-  </ul>
-</nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">About</h1>
+<h1 class="title d-none d-lg-block">Theoretical Background ABM-REN</h1>
 </div>
 
-<div>
-  <div class="description">
-    <p>This website contains all the data, python, and R-codes necessary for the development og the ABM Model of Technology Adoption (ABM-REN) developed at RFF-CMCC: European Institute in Economics and the Environment</p>
-  </div>
-</div>
 
 
 <div class="quarto-title-meta">
@@ -185,95 +170,26 @@ ul.task-list{list-style: none;}
 
 </header>
 
-<section id="introduction" class="level1">
-<h1>Introduction</h1>
-<p>The website contains four primary sections to accompany the study:</p>
-<ol type="1">
-<li><strong><em>SOEP Data</em></strong> – Includes a description of all the data files of the German Socio-economic Panel Study (SOEP). It is divided into five subsections</li>
-</ol>
-<div class="incremental">
-<ul class="incremental">
-<li>Household Characteristics</li>
-<li>Technology Adoption</li>
-<li>Wealth</li>
-<li>Gallup Measures of Environmental Attitudes</li>
-</ul>
-</div>
-<ol start="2" type="1">
-<li><strong><em>Descriptives SOEP</em></strong> – contains descriptive statistics on the SOEP Data</li>
-</ol>
-<div class="incremental">
-<ul class="incremental">
-<li>Household Characteristics</li>
-<li>Technology Adoption</li>
-</ul>
-</div>
-<ol start="3" type="1">
-<li><p><strong><em>Theoretical Model</em></strong> – includes the mathematical description and assumptions of the model</p></li>
-<li><p><strong><em>Mathematical model</em></strong> – presents and discusses the python environment where we implement ABM-ren.</p></li>
-</ol>
-<div class="callout-note callout callout-style-default callout-captioned">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-caption-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Consider that all sections contain the R-code necessary to replicate the website’s figures, tables, and overall results. Regarding the construction of the data sets, we share the link to the dropbox repository alongside instructions to load the raw data files and transform them into the panel data we use for the optimization and the empirical section.</p>
-</div>
-</div>
-</section>
-<section id="replication" class="level1">
-<h1>Replication</h1>
-<p>All the raw files needed to run the code are in the <a href="https://www.dropbox.com/sh/1jyjs84sef7t1nt/AABtbantKPm4OyICNEIklpXLa?dl=0">dropbox repository</a></p>
-<p>If you want to replicate the study:</p>
-<p>Download all files of the <a href="https://www.dropbox.com/sh/1jyjs84sef7t1nt/AABtbantKPm4OyICNEIklpXLa?dl=0">dropbox repository</a> while considering your computer space constraints.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
-<p>The files in the repository have a folder-like structure with the following key sections:</p>
-<ol type="1">
-<li><p><strong>01_RawData</strong> – Includes the raw data obtained from the New York State Department of Education, the New York State Department of Environmental Conservation, The Environmental Protection Agency, and the USA Census Buro.</p></li>
-<li><p><strong>02_GenData</strong> – Contains the cleaned version of the raw data-files I use throughout the study.</p></li>
-<li><p><strong>03_scripts</strong> – Includes all the R-scripts I use to transform the raw data into a useful format, perform descriptive statistics, and run my empirical specifications. I divide this folder into six scripts:</p></li>
-</ol>
-<div class="incremental">
-<ul class="incremental">
-<li>01_absences: Loads and clean the raw data on school absences</li>
-<li>02_aqi: Loads and clean the raw data on the forecast and real measures of the air quality index</li>
-<li>03_dem: Loads and clean demographic covariates obtained from the Census Buro.</li>
-<li>04_weather: Loads and clean the data on weather controls</li>
-<li>05_RegData: Constructs the data set for estimating the effect of air quality alerts on school absences with regression discontinuity and OLS estimators.</li>
-<li>06_rd: Contains the code to estimate the effect with regression discontinuity designs</li>
-</ul>
-</div>
-<ol start="4" type="1">
-<li><strong>WebsiteABM</strong> – This folder contains the Quarto files necessary to replicate this website</li>
-</ol>
-<section id="raw-data-files" class="level2">
-<h2 class="anchored" data-anchor-id="raw-data-files">Raw data files</h2>
-<p>As previously mentioned, the folder 01_RawData contains all the raw files. It is divided into N different repositories</p>
-<div class="incremental">
-<ul class="incremental">
-<li>01_schools includes all files related to school absences and school characteristics in New York City</li>
-<li>02_AQI has the data on the air quality index forecast from the NYSDEC and the AQI measures from the EPA</li>
-<li>03_weather contains several data files of weather covariates</li>
-<li>04_shp is a repository of shape (or spatial) files</li>
-<li>05_dem includes data on neighbourhood-level socio-demographic characteristics from the US Census Buro</li>
-</ul>
-</div>
+<p>This short section describes the theoretical foundation behind the ABM model we use to simulate the household decision to adopt green technologies. In this section, we concentrate on adopting photovoltaic (PV) systems. However, the same theoretical framework can apply to other technologies like gas pumps, insulation, or AC systems. At every period <span class="math inline">\(t = 1,...,T\)</span> each household <span class="math inline">\(h = 1,...,N\)</span> faces the choice whether to purchase a PV installation. The utility each person receives for purchasing the PV comes from <a href="#eq-utility">Equation&nbsp;1</a>.</p>
+<p><span id="eq-utility"><span class="math display">\[
+U_{ht}^{pv = 1} | F_{ht} = E_i[\sum_{t = 1}^{T} \beta \Pi_ht | Z_{ht}] + \alpha \lambda_{ht} + \phi Env_{ht} + \epsilon_{ht}
+\tag{1}\]</span></span></p>
+<p>In it, the utility from the PV (<span class="math inline">\(U_{ih}^{pv = 1}\)</span>) once feasible (<span class="math inline">\(F_{ht} = 1\)</span>) is a function of the household <span class="math inline">\(h\)</span> expectation of future profits (<span class="math inline">\(\Pi_{ht}\)</span>) associated with purchasing a PV installation at <span class="math inline">\(t\)</span>, i.e., <span class="math inline">\(E_i[\sum_{t = 1}^{T} \beta p_it | Z_{it}]\)</span>. Throughout the presentation, the expectation operator takes the household’s subjective distribution of profits given observable available information at <span class="math inline">\(t\)</span>, <span class="math inline">\(Z_{it}\)</span>. Now, the Feasibility operator (<span class="math inline">\(F_{ht}\)</span>) is an indicator variable determining if it is possible for household <span class="math inline">\(h\)</span> to install the PV system in the current dwelling. For instance, for households with short-term flat rents in the city center, it would likely be unfeasible to install a PV system.</p>
+<p>The household’s utility also depends on social and environmental components. The social element <span class="math inline">\(\lambda_{ht}\)</span> is a continuous variable between zero and one, indicating the share of close-by neighbors with a PV installation. The network estimate incorporates evidence from the literature on behavioral economics and technology adoption regarding peers’ influence on peoples’ probability of adopting new technologies. The environmental component (<span class="math inline">\(Env_{ht}\)</span>) captures the utility of investing in green technologies for persons with strong environmdsental preferences. For instance, even if the utility from elicited profits and network effects is negative, a share of the population would adopt green technologies because of environmental preferences.</p>
+<p>Each household elicits the profits from owning a PV (<span class="math inline">\(p_{ht}\)</span>) by solving <a href="#eq-profits">Equation&nbsp;2</a>. in it, <span class="math inline">\(\Delta_{ht}\)</span> is the expected energy the PV installation would generate for household <span class="math inline">\(h\)</span> at time <span class="math inline">\(t\)</span>. This expectation depends positively on each individuals’ coefficient of risk aversion (<span class="math inline">\(\phi_i\)</span>), i.e., <span class="math inline">\(\frac{\partial \Delta_{it}}{\partial \phi_i} \leq 0\)</span>. Besides risk aversion, the coefficient also depends on individual characteristics <span class="math inline">\((Z_{it})\)</span> like past consumption, age, income, and family size.</p>
+<p><span id="eq-profits"><span class="math display">\[
+\Pi_{ht} = \sum_{t=1}^{T} \big[E(\Delta_{ht}|\phi_h, Z_{ht}) E(p_{ht}, Z_{ht}|\phi_i) - K_t - I_{ht}|Z_{ht} \big]
+\tag{2}\]</span></span></p>
+<p><span class="math inline">\(p_{ht}\)</span> represents household <span class="math inline">\(h\)</span> expected grid-price of electricity. As with the expectation of energy production, the price depends on individual characteristics <span class="math inline">\((Z_{it})\)</span> and the risk aversion parameter <span class="math inline">\(\phi_i\)</span> with <span class="math inline">\(\frac{\partial p_{it}}{\partial \phi_i} \leq 0\)</span>. Next, <span class="math inline">\(K_t\)</span> are the capital costs of the PV system at <span class="math inline">\(t\)</span> and <span class="math inline">\(I_{ht}\)</span> all costs related to bank loans in cases where the household is capital constrained. As with elicited future energy expenditures and prices, <span class="math inline">\(I_{ht}\)</span> depends on observable household characteristics (<span class="math inline">\(Z_{it}\)</span>), e.g., banks provide lower interest rates to wealthy individuals with steady jobs.</p>
+<p>An individual only applies for a bank loan when their liquidity at <span class="math inline">\(t\)</span> is lower than the costs associated with the installation of the PV system, i.e., <span class="math inline">\(Loan_{it} = max(0, K_t - \mu_{it})\)</span>. Now, if the loan required to obtain a PV (<span class="math inline">\(Loan_{it}\)</span>) is larger than the income of the household times a bank threshold multiplier (<span class="math inline">\(y_{it} \times \sigma\)</span>), the loan is too risky for the banking institution, and even though household <span class="math inline">\(h\)</span> elicits a positive utility from PV, it would not purchase the system because of capital constraints. When the banking institution provides the loan necessary to purchase the PV system, the cost of the loan is equal to <span class="math inline">\(I_{it} = r + \rho \frac{Loan_{it}}{y_{it}}\)</span>.</p>
+<p>The liquidity of each household (<span class="math inline">\(\mu_{ht}\)</span>) evolves according to equation <a href="#eq-liquidity">Equation&nbsp;3</a>.</p>
+<p><span id="eq-liquidity"><span class="math display">\[
+\mu_{it} =(1 - \alpha_i^1) y_i + (1 - \alpha_i^2)\mu_{it-1} − (CE_i - PV_i  R^{PV})P_t - I_{it} Loan_{it} - \gamma  Loan_i
+\tag{3}\]</span></span></p>
 
 
-</section>
-</section>
 
-
-<div id="quarto-appendix" class="default"><section class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
-
-<ol>
-<li id="fn1" role="doc-endnote"><p>I recommend downloading the files to an external hard drive to avoid memory issues<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section></div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

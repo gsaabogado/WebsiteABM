@@ -3,8 +3,9 @@ project:
   output-dir: docs
   render:
     - 01_about.qmd
-    - 02_SoepData.qmd
+    - 02_data.qmd
     - 03_theory.qmd
+    - 04_model.qmd
 
 website:
   title: "The ABM Model of Technology Adoption (ABM-REN)"
@@ -28,8 +29,9 @@ website:
       - section: "Sections"
         contents:
         - 01_about.qmd
-        - 02_SoepData.qmd
+        - 02_data.qmd
         - 03_theory.qmd
+        - 04_model.qmd
 
 format:
   html:

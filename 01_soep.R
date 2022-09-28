@@ -170,7 +170,7 @@ write_rds(decile, file = "02_GenData/03_SoepFiles/IncomePowerDeciles.rds", compr
 #### Clear the space ####
 rm(list = ls()); gc()
 #### _____________________________________________________________________ ####
-#### Calculate the income percentile of AMt ####
+#### Calculate the income percentile of the "Amt" ####
 #### _____________________________________________________________________ ####
 #### Clear the space ####
 rm(list = ls()); gc()
@@ -185,14 +185,15 @@ data = mutate(data, income = (income/12)*1000)
 data = data %>% ungroup() %>% filter(is.na(income) == F) %>%
   mutate(amt = cut2(income, c(0, 500, 900, 1300, 1500, 1700, 
                               2000, 2600, 3600, 5000, 7500, 10000)))
-#### Comput the lower and higher bounds of the amt ####
+#### Compute the lower and higher bounds of the amt ####
 data = mutate(data, LowAmt = gsub(",.*|\\(| |\\[", "", amt),
               HighAmt = gsub(".*,|\\)| |\\]", "", amt)) %>% 
   mutate_at(vars(LowAmt, HighAmt), function(x) x = as.numeric(x))
-#### Claculate the percentile of each high and low limit ####
-per = mutate(data, LowPer = ecdf(income)(LowAmt), HighPer = ecdf(income)(HighAmt)) %>% 
-  ungroup() %>% select(amt:HighPer) %>% distinct() %>% 
-  mutate_at(ungroup(per), vars(HighPer, LowPer), function(x) x = round(x*100, 0))
+#### Calculate the percentile of each high and low limit ####
+per = mutate(data, LowPer = ecdf(income)(LowAmt), HighPer = ecdf(income)(HighAmt)) %>%
+  ungroup() %>% select(amt:HighPer) %>% distinct()
+#### Round the percentile ####
+per = mutate_at(ungroup(per), vars(HighPer, LowPer), function(x) x = round(x*100, 0))
 #### Review the data set ####
 per %>% head(.)
 #### Save the data set ####

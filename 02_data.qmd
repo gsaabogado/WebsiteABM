@@ -1,5 +1,6 @@
 ---
-title: "German Socio-Economic Panel Study (SOEP)"
+title: ""
+author: "Severin Reissl and Luis Sarmiento"
 format: 
   html: 
     toc: true
@@ -8,7 +9,15 @@ format:
     code-summary: "Show the Code"
 ---
 
-# Introduction
+# Data
+
+In this section we describe at length the main characteristics and scientific processing of the data files we use in the ABM-REN model. The section is divided into three main subsections
+
+- German Socio-Economic Panel Study
+- Consumption data from the Deutscher Finanz Amt
+- Gallup data on environmental attitudes
+
+## German Socio-Economic Panel Study (SOEP)
 
 Most of the data we use to feed our model comes from the German Socio-Economic Panel Study (SOEP). The SOEP is a representative longitudinal panel study that started in West Germany in 1984. The current version of the survey contains a large set of sociodemographic and economic characteristics of German households.
 
@@ -23,7 +32,7 @@ The main questionnaires we use for the construction of the model are:
 -   HCONSUM - Household Consumption Module
 :::
 
-## Personal Equivalent Data File
+### Personal Equivalent Data File
 
 ```{r}
 #| echo: false
@@ -101,7 +110,7 @@ kbl(select(pequiv, pid, hid, year, Npersons, Nkids, income, GrossIncome) %>% hea
 
 @tbl-PequivSpatial includes data on the spatial location of the household. Because we are working with the open version of the SOEP, we can only identify the *state* and *region* where the household is located. Next, @tbl-PequivEmployment contains employment-related covariates. *employment* is a dummy variable equal to one if the person is currently employed. *occupation* is the person's occupation according to the International Classification of Occupations Code (ISCO). For instance, code 5160 refers to protective service workers. *industry1* is a two-digit industry code based on ten categories (1 -- Agriculture, 2 -- Energy, 3 -- Mining, 4 -- Manufacturing, 5 -- Construction, 6 -- Trade, 7 -- Transport, 8 -- Bank and Insurance, 9 -- Services). Finally, @tbl-PequivHH includes a set of household-level controls we extract from the PEQUIV file. *Npersons* and *Nkids* are the number of persons and kids in the household, while *income* and *GrossIncome* are the household net and gross incomes.
 
-## Household Generated Variables File (HGEN)
+### Household Generated Variables File (HGEN)
 
 ```{r}
 #| echo: false
@@ -166,7 +175,7 @@ kbl(select(hgen, hid, year, PowerCosts, OtherUtilityCosts, GasCosts, WarmWaterCo
 @tbl-HgenCosts includes a set of numeric variables on the household's energy costs. *WarmWaterCost* contains the heating costs of tenants. The number comes from answers to the question **What were the heating costs, including hot water, in the last calendar year?**. Until 2013 (wave BD), the SOEP only surveyed heating costs for tenants. After 2013, it asked all SOEP individuals. In 2015 (wave BF), respondents stated their costs for different energy sources (district heating, gas, liquefied gas, electricity, heating oil, coal, wood, biomass, solar, and geothermal) and whether they used them for heating, warm water, cooking, or electronic devices. This change decreased the *WarmWaterCost* variable in the BF wave vs. other years. *PowerCosts* is a numeric variable with the electricity costs (excluding heating when applicable) asked since 2010. The exact questionnaire question is; **What were your electricity costs in the last calendar year?** The SOEP only asks this question to tenants if they pay rent. However, from 2016, it asked all tenants whether they paid rent or not. *GasCosts* states the monthly costs of gas not used for heating in Euros. Gas costs were only collected in 2014 (wave BE). *OtherUtilityCosts* are answers to the question; how much did you pay in the last calendar year for water, garbage removal, street cleaning, and other additional costs not mentioned above?
 
 
-## Final (individual) SOEP data
+### Final (individual) SOEP data
 
 ```{r}
 #| echo: false
@@ -263,7 +272,8 @@ kbl(ungroup(soep) |> select(pid, hid, year, PowerCosts, OtherUtilityCosts, GasCo
 ```
 :::
 
-## Estimating the distribution of power costs by income decile
+### Estimating the distribution of power costs by income decile
+
 Next, we use the information on income and power cost from the sub-set of renters to look at the relationship between annual power costs and income. For this, we divide the data set into ten different income groups based on the deciles of the income distribution and estimate the average and standard deviation of income and power costs in each decile. @tbl-PowerCostDist contains a sample of the final data. *IncomeGroup* refers to the income decile. *IncAvg* is the average yearly income in thousands of Euros. *PowerCostAvg* is the average yearly power bill in Euros. *IncSD* is the standard deviation of annual income. And *PowerCostSd* the analogous for power costs. @fig-PowerCostsDensity contains the density (Log) function of annual Power Costs across different income deciles. As expected, the density is normally distributed with higher mean values for more wealthy households.
 
 
@@ -287,7 +297,29 @@ kbl(ungroup(data) %>% head(.)) %>%
 
 :::
 
-## Variables Glossary
+
+### Mapping the income deciles of the SOEP to the "Finanz Amt" categories
+To assign the propensity to consume across SOEP income deciles, we use statistics from the Finance Ministry of Germany (Deutscher Finanz Amt). The finance ministry provides propensities to consume across twelve income categories. For instance, the propensity to consume for persons with monthly incomes between 900`r symbol("euro")` and 1,300`r symbol("euro")` is x% while for individuals between 10,000`r symbol("euro")` and 80,000`r symbol("euro")` y%. 
+
+Given that we initialize ABM-REN across income deciles, we map the consumption propensity data with the SOEP by mapping the SOEP income distribution with the consumption categories through percentiles. @tbl-AmtDeciles shows a mapping sample between the "Amt" categories and the SOEP income distribution. As an example, the first row shows that the category between zero`r symbol("euro")` and five hundred`r symbol(euro)` is within the zero and third percentile of the SOEP income distribution. 
+
+```{r}
+#| label: tbl-AmtDeciles
+#| tbl-cap: Energy Efficiency Technologies
+#| tbl-cap-location: top
+#| echo: true
+# Load Data
+file = gsub("WebsiteABM", "", getwd())
+data = read_rds(paste0(file, "02_GenData/03_SoepFiles/AmtMap.rds")) |> arrange(LowPer, desc = T)
+# Show the table
+kbl(ungroup(data) %>% head(.)) %>% 
+  kable_classic(full_width = T, html_font = "Cambria") %>% 
+  kable_styling(bootstrap_option = c("hover"))
+```
+
+### Estimating the probability of adoption conditional on ownership and dwelling class
+
+### Variables Glossary
 
 ::: incremental
 -   ***pid:*** This variable provides unique identification for each individual ever surveyed in the SOEP.

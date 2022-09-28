@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Severin Reissl and Luis Sarmiento">
 
-<title>The ABM Model of Technology Adoption (ABM-REN) - German Socio-Economic Panel Study (SOEP)</title>
+<title>The ABM Model of Technology Adoption (ABM-REN) -</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -160,7 +161,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">German Socio-Economic Panel Study (SOEP)</h1>
+      <h1 class="quarto-secondary-nav-title">(Untitled)</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -193,12 +194,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02_SoepData.html" class="sidebar-item-text sidebar-link active">German Socio-Economic Panel Study (SOEP)</a>
+  <a href="./02_data.html" class="sidebar-item-text sidebar-link active">Data</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./03_theory.html" class="sidebar-item-text sidebar-link">Theoretical Background ABM-REN</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_model.html" class="sidebar-item-text sidebar-link">Model Overview</a>
   </div>
 </li>
       </ul>
@@ -212,13 +218,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
+  <li><a href="#data" id="toc-data" class="nav-link active" data-scroll-target="#data">Data</a>
+  <ul class="collapse">
+  <li><a href="#german-socio-economic-panel-study-soep" id="toc-german-socio-economic-panel-study-soep" class="nav-link" data-scroll-target="#german-socio-economic-panel-study-soep">German Socio-Economic Panel Study (SOEP)</a>
   <ul class="collapse">
   <li><a href="#personal-equivalent-data-file" id="toc-personal-equivalent-data-file" class="nav-link" data-scroll-target="#personal-equivalent-data-file">Personal Equivalent Data File</a></li>
   <li><a href="#household-generated-variables-file-hgen" id="toc-household-generated-variables-file-hgen" class="nav-link" data-scroll-target="#household-generated-variables-file-hgen">Household Generated Variables File (HGEN)</a></li>
   <li><a href="#final-individual-soep-data" id="toc-final-individual-soep-data" class="nav-link" data-scroll-target="#final-individual-soep-data">Final (individual) SOEP data</a></li>
   <li><a href="#estimating-the-distribution-of-power-costs-by-income-decile" id="toc-estimating-the-distribution-of-power-costs-by-income-decile" class="nav-link" data-scroll-target="#estimating-the-distribution-of-power-costs-by-income-decile">Estimating the distribution of power costs by income decile</a></li>
+  <li><a href="#mapping-the-income-deciles-of-the-soep-to-the-finanz-amt-categories" id="toc-mapping-the-income-deciles-of-the-soep-to-the-finanz-amt-categories" class="nav-link" data-scroll-target="#mapping-the-income-deciles-of-the-soep-to-the-finanz-amt-categories">Mapping the income deciles of the SOEP to the “Finanz Amt” categories</a></li>
+  <li><a href="#estimating-the-probability-of-adoption-conditional-on-ownership-and-dwelling-class" id="toc-estimating-the-probability-of-adoption-conditional-on-ownership-and-dwelling-class" class="nav-link" data-scroll-target="#estimating-the-probability-of-adoption-conditional-on-ownership-and-dwelling-class">Estimating the probability of adoption conditional on ownership and dwelling class</a></li>
   <li><a href="#variables-glossary" id="toc-variables-glossary" class="nav-link" data-scroll-target="#variables-glossary">Variables Glossary</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -226,24 +237,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title d-none d-lg-block">German Socio-Economic Panel Study (SOEP)</h1>
-</div>
 
 
-
-<div class="quarto-title-meta">
-
-    
-    
-  </div>
-  
-
-</header>
-
-<section id="introduction" class="level1">
-<h1>Introduction</h1>
+<section id="data" class="level1">
+<h1>Data</h1>
+<p>In this section we describe at length the main characteristics and scientific processing of the data files we use in the ABM-REN model. The section is divided into three main subsections</p>
+<ul>
+<li>German Socio-Economic Panel Study</li>
+<li>Consumption data from the Deutscher Finanz Amt</li>
+<li>Gallup data on environmental attitudes</li>
+</ul>
+<section id="german-socio-economic-panel-study-soep" class="level2">
+<h2 class="anchored" data-anchor-id="german-socio-economic-panel-study-soep">German Socio-Economic Panel Study (SOEP)</h2>
 <p>Most of the data we use to feed our model comes from the German Socio-Economic Panel Study (SOEP). The SOEP is a representative longitudinal panel study that started in West Germany in 1984. The current version of the survey contains a large set of sociodemographic and economic characteristics of German households.</p>
 <p>The SOEP is divided into different data files each containing different questionnaires – in this model, we use data from SOEP-37.</p>
 <p>The main questionnaires we use for the construction of the model are:</p>
@@ -255,8 +260,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>HCONSUM - Household Consumption Module</li>
 </ul>
 </div>
-<section id="personal-equivalent-data-file" class="level2">
-<h2 class="anchored" data-anchor-id="personal-equivalent-data-file">Personal Equivalent Data File</h2>
+<section id="personal-equivalent-data-file" class="level3">
+<h3 class="anchored" data-anchor-id="personal-equivalent-data-file">Personal Equivalent Data File</h3>
 <div class="cell">
 
 </div>
@@ -616,8 +621,8 @@ Labels:
 </div>
 <p><a href="#tbl-PequivSpatial">Table&nbsp;2</a> includes data on the spatial location of the household. Because we are working with the open version of the SOEP, we can only identify the <em>state</em> and <em>region</em> where the household is located. Next, <a href="#tbl-PequivEmployment">Table&nbsp;3</a> contains employment-related covariates. <em>employment</em> is a dummy variable equal to one if the person is currently employed. <em>occupation</em> is the person’s occupation according to the International Classification of Occupations Code (ISCO). For instance, code 5160 refers to protective service workers. <em>industry1</em> is a two-digit industry code based on ten categories (1 – Agriculture, 2 – Energy, 3 – Mining, 4 – Manufacturing, 5 – Construction, 6 – Trade, 7 – Transport, 8 – Bank and Insurance, 9 – Services). Finally, <a href="#tbl-PequivHH">Table&nbsp;4</a> includes a set of household-level controls we extract from the PEQUIV file. <em>Npersons</em> and <em>Nkids</em> are the number of persons and kids in the household, while <em>income</em> and <em>GrossIncome</em> are the household net and gross incomes.</p>
 </section>
-<section id="household-generated-variables-file-hgen" class="level2">
-<h2 class="anchored" data-anchor-id="household-generated-variables-file-hgen">Household Generated Variables File (HGEN)</h2>
+<section id="household-generated-variables-file-hgen" class="level3">
+<h3 class="anchored" data-anchor-id="household-generated-variables-file-hgen">Household Generated Variables File (HGEN)</h3>
 <div class="cell">
 
 </div>
@@ -957,8 +962,8 @@ Labels:
 <p><a href="#tbl-HgenRen">Table&nbsp;7</a> includes a set of indicator variables regarding household investments in Energy infrastructure or appliances. The indicator variables come from answers to the question <strong>What amenities does your dwelling have? Does it have -</strong> central floor heating (<em>CentralFloorHeating - 1984-2014</em>), floor heating (<em>FloorHeating - since 2014</em>), thermal insulation in the facade, roof, or basement (<em>ThermalInsulation - Since 2015</em>), air conditioner (<em>ac - Since 2007</em>), solar energy system (<em>pv - Since 2007</em>), other alternative energy sources like geothermal or heat pump (<em>AlternativeEnergy - Since 2009</em>), boiler (<em>boiler - 1991-2013</em>), or windows with at least double glazing (<em>DoubleGlazing - Since 2015</em>).</p>
 <p><a href="#tbl-HgenCosts">Table&nbsp;8</a> includes a set of numeric variables on the household’s energy costs. <em>WarmWaterCost</em> contains the heating costs of tenants. The number comes from answers to the question <strong>What were the heating costs, including hot water, in the last calendar year?</strong>. Until 2013 (wave BD), the SOEP only surveyed heating costs for tenants. After 2013, it asked all SOEP individuals. In 2015 (wave BF), respondents stated their costs for different energy sources (district heating, gas, liquefied gas, electricity, heating oil, coal, wood, biomass, solar, and geothermal) and whether they used them for heating, warm water, cooking, or electronic devices. This change decreased the <em>WarmWaterCost</em> variable in the BF wave vs.&nbsp;other years. <em>PowerCosts</em> is a numeric variable with the electricity costs (excluding heating when applicable) asked since 2010. The exact questionnaire question is; <strong>What were your electricity costs in the last calendar year?</strong> The SOEP only asks this question to tenants if they pay rent. However, from 2016, it asked all tenants whether they paid rent or not. <em>GasCosts</em> states the monthly costs of gas not used for heating in Euros. Gas costs were only collected in 2014 (wave BE). <em>OtherUtilityCosts</em> are answers to the question; how much did you pay in the last calendar year for water, garbage removal, street cleaning, and other additional costs not mentioned above?</p>
 </section>
-<section id="final-individual-soep-data" class="level2">
-<h2 class="anchored" data-anchor-id="final-individual-soep-data">Final (individual) SOEP data</h2>
+<section id="final-individual-soep-data" class="level3">
+<h3 class="anchored" data-anchor-id="final-individual-soep-data">Final (individual) SOEP data</h3>
 <div class="cell">
 
 </div>
@@ -1548,8 +1553,8 @@ Labels:
 </div>
 </div>
 </section>
-<section id="estimating-the-distribution-of-power-costs-by-income-decile" class="level2">
-<h2 class="anchored" data-anchor-id="estimating-the-distribution-of-power-costs-by-income-decile">Estimating the distribution of power costs by income decile</h2>
+<section id="estimating-the-distribution-of-power-costs-by-income-decile" class="level3">
+<h3 class="anchored" data-anchor-id="estimating-the-distribution-of-power-costs-by-income-decile">Estimating the distribution of power costs by income decile</h3>
 <p>Next, we use the information on income and power cost from the sub-set of renters to look at the relationship between annual power costs and income. For this, we divide the data set into ten different income groups based on the deciles of the income distribution and estimate the average and standard deviation of income and power costs in each decile. <a href="#tbl-PowerCostDist">Table&nbsp;15</a> contains a sample of the final data. <em>IncomeGroup</em> refers to the income decile. <em>IncAvg</em> is the average yearly income in thousands of Euros. <em>PowerCostAvg</em> is the average yearly power bill in Euros. <em>IncSD</em> is the standard deviation of annual income. And <em>PowerCostSd</em> the analogous for power costs. <a href="#fig-PowerCostsDensity">Figure&nbsp;1</a> contains the density (Log) function of annual Power Costs across different income deciles. As expected, the density is normally distributed with higher mean values for more wealthy households.</p>
 <div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">Data Set</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Descriptives</a></li></ul>
@@ -1640,8 +1645,89 @@ Labels:
 </div>
 </div>
 </section>
-<section id="variables-glossary" class="level2">
-<h2 class="anchored" data-anchor-id="variables-glossary">Variables Glossary</h2>
+<section id="mapping-the-income-deciles-of-the-soep-to-the-finanz-amt-categories" class="level3">
+<h3 class="anchored" data-anchor-id="mapping-the-income-deciles-of-the-soep-to-the-finanz-amt-categories">Mapping the income deciles of the SOEP to the “Finanz Amt” categories</h3>
+<p>To assign the propensity to consume across SOEP income deciles, we use statistics from the Finance Ministry of Germany (Deutscher Finanz Amt). The finance ministry provides propensities to consume across twelve income categories. For instance, the propensity to consume for persons with monthly incomes between 900€ and 1,300€ is x% while for individuals between 10,000€ and 80,000€ y%.</p>
+<p>Given that we initialize ABM-REN across income deciles, we map the consumption propensity data with the SOEP by mapping the SOEP income distribution with the consumption categories through percentiles. <a href="#tbl-AmtDeciles">Table&nbsp;16</a> shows a mapping sample between the “Amt” categories and the SOEP income distribution. As an example, the first row shows that the category between zero€ and five hundred is within the zero and third percentile of the SOEP income distribution.</p>
+<div class="cell tbl-cap-location-top">
+<details>
+<summary>Show the Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load Data</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>file <span class="ot">=</span> <span class="fu">gsub</span>(<span class="st">"WebsiteABM"</span>, <span class="st">""</span>, <span class="fu">getwd</span>())</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">read_rds</span>(<span class="fu">paste0</span>(file, <span class="st">"02_GenData/03_SoepFiles/AmtMap.rds"</span>)) <span class="sc">|&gt;</span> <span class="fu">arrange</span>(LowPer, <span class="at">desc =</span> T)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the table</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(<span class="fu">ungroup</span>(data) <span class="sc">%&gt;%</span> <span class="fu">head</span>(.)) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_classic</span>(<span class="at">full_width =</span> T, <span class="at">html_font =</span> <span class="st">"Cambria"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_option =</span> <span class="fu">c</span>(<span class="st">"hover"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="tbl-AmtDeciles" class="anchored">
+
+<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table 16:  Energy Efficiency Technologies </caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> amt </th>
+   <th style="text-align:right;"> LowAmt </th>
+   <th style="text-align:right;"> HighAmt </th>
+   <th style="text-align:right;"> LowPer </th>
+   <th style="text-align:right;"> HighPer </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> [    0,  500) </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 500 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> [  500,  900) </td>
+   <td style="text-align:right;"> 500 </td>
+   <td style="text-align:right;"> 900 </td>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:right;"> 8 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> [  900, 1300) </td>
+   <td style="text-align:right;"> 900 </td>
+   <td style="text-align:right;"> 1300 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 17 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> [ 1300, 1500) </td>
+   <td style="text-align:right;"> 1300 </td>
+   <td style="text-align:right;"> 1500 </td>
+   <td style="text-align:right;"> 17 </td>
+   <td style="text-align:right;"> 21 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> [ 1500, 1700) </td>
+   <td style="text-align:right;"> 1500 </td>
+   <td style="text-align:right;"> 1700 </td>
+   <td style="text-align:right;"> 21 </td>
+   <td style="text-align:right;"> 26 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> [ 1700, 2000) </td>
+   <td style="text-align:right;"> 1700 </td>
+   <td style="text-align:right;"> 2000 </td>
+   <td style="text-align:right;"> 26 </td>
+   <td style="text-align:right;"> 34 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="estimating-the-probability-of-adoption-conditional-on-ownership-and-dwelling-class" class="level3">
+<h3 class="anchored" data-anchor-id="estimating-the-probability-of-adoption-conditional-on-ownership-and-dwelling-class">Estimating the probability of adoption conditional on ownership and dwelling class</h3>
+</section>
+<section id="variables-glossary" class="level3">
+<h3 class="anchored" data-anchor-id="variables-glossary">Variables Glossary</h3>
 <div class="incremental">
 <ul class="incremental">
 <li><strong><em>pid:</em></strong> This variable provides unique identification for each individual ever surveyed in the SOEP.</li>
@@ -1666,6 +1752,7 @@ Labels:
 </div>
 
 
+</section>
 </section>
 </section>
 

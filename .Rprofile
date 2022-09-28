@@ -12,6 +12,7 @@ library(readxl)
 library(kableExtra)
 library(knitr)
 library(ggthemes)
+library(r2symbols)
 # Plots
 library(ggpubr)
 #### Fix conflicts ####

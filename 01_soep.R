@@ -44,24 +44,6 @@ write_rds(data, file = "02_GenData/03_SoepFiles/hgen.rds", compress = "gz")
 #### Clear the space ####
 rm(list = ls()); gc()
 #### _____________________________________________________________________ ####
-#### Load the initial data on HWEALTH variables ####
-#### _____________________________________________________________________ ####
-#### Clear the space ####
-rm(list = ls()); gc()
-#### Load the relevant SOEP 35 data sets ####
-codebook = read_excel("01_RawData/02_codebooks/codebook.xlsx", sheet = "hwealth")
-data = list.files("01_RawData/01_Soep35", pattern = "hwealth", full.names = T) %>% lapply(., read_dta)
-#### Only keep the variables in the Code Book ####
-data = rbindlist(data) %>% select(., one_of(codebook$soep_name))
-#### Rename the variables to the code book ####
-data = data %>% rename_at( colnames(data), ~codebook$study_name)
-#### Review the data set ####
-data %>% head(.)
-#### Save the data set ####
-write_rds(data, file = "02_GenData/03_SoepFiles/hwealth.rds", compress = "gz")
-#### Clear the space ####
-rm(list = ls()); gc()
-#### _____________________________________________________________________ ####
 #### Join the data sets ####
 #### _____________________________________________________________________ ####
 #### Clear the data set ####
@@ -89,10 +71,10 @@ data = mutate_at(data, vars(ac, basement, FloorHeating,
 data = mutate(data, sex = ifelse(sex < 0, NA, sex)) |> 
   mutate(sex = labelled(sex, c(female = 2, male = 1)))
 
-data = mutate(data, head = ifelse(head < 0, NA, sex)) |> 
+data = mutate(data, head = ifelse(head < 0, NA, head)) |> 
   mutate(head = labelled(head, c(Head = 1, Parner = 2, Child = 3, Relative = 4, Nonrelative = 5)))
 
-data = mutate(data, owner = ifelse(owner < 0, NA, sex)) |> 
+data = mutate(data, owner = ifelse(owner < 0, NA, owner)) |> 
   mutate(head = labelled(owner, c(Owner = 1, MainTenant = 2, SubTenant = 3, tenant = 4, other = 5)))
 
 data = mutate(data, occupation = ifelse(occupation < 0, NA, occupation))
@@ -126,13 +108,85 @@ data = mutate(data, lodge = ifelse(grepl("Flats|Flat", LodgeEnglish), "Flats",
                                    ifelse(is.na(LodgeEnglish) == T, NA, "House")))
 #### Add the lodge type when a household did not moved and has an NA ####
 data = data %>% group_by(pid, hid, YearMoved) %>% mutate(lodge = na.omit(unique(lodge))[1])
+#### Simplify the ownership variable ####
+data = mutate(data, owner = ifelse(owner %in% c(2,5,3,4), 0, owner))
 #### See the data set ####
 data = select(data, -NumLodge, -LodgeEnglish)
+#### Glimpse the data ####
 glimpse(data)
 #### Save the data set ####
 write_rds(data, file = "02_GenData/03_SoepFiles/RawSoep.rds", compress = "gz")
 #### Clear the space ####
 rm(list = ls()); gc()
+#### _____________________________________________________________________ ####
+#### Load the initial data on HCONSUM variables ####
+#### _____________________________________________________________________ ####
+#### Clear the space ####
+rm(list = ls()); gc()
+#### Load the relevant SOEP 35 data sets ####
+ind = read_rds("02_GenData/03_SoepFiles/RawSoep.rds")
+codebook = read_excel("01_RawData/02_codebooks/codebook.xlsx", sheet = "hconsum2")
+data = list.files("01_RawData/01_Soep35", pattern = "hconsum", full.names = T) %>% 
+  lapply(., read_dta) %>% rbindlist(.)
+#### Filter to keep the imputed and smoothed data ####
+data = select(data, !contains(c("f","_a", paste0(seq(1, 17, 1), "a")))) |> 
+  select(-c(cid, hid, syear, hhnr)) |>  rename(hid = hhnrakt)
+#### Transform to long format ####
+data = gather(data, var, value, -hid)
+data = arrange(data, hid, var)
+#### Extract the variable name get the consumption concept ####
+subs = paste(c("b","consum","c","d","e"), collapse = "|")
+data = mutate(data, code = ifelse(grepl("consum", var), gsub(subs, "", var), var))
+data = mutate(data, code = ifelse(!grepl("consum", var), gsub("_.*", "", var), code))
+data = left_join(data, codebook |>  select(-group))
+#### Transform the owner variables to monthly euros ####
+data = mutate(data, value = ifelse(grepl("oheat|oelectr|outil", var), value/12, value))
+#### Aggregate the individual data to the household level ####
+ind = ind |>  ungroup() |> filter(year == 2010) |> 
+  select(hid, income, owner) |> distinct() |> group_by(hid) |> 
+  summarise_all(max, na.rm = T)
+#### Add income and ownership to the consumption data ####
+data = left_join(data, ind)
+#### Only keep one of the rent or own expenditure variables for utilities ####
+data = split(data, f = data$hid) %>% 
+  map(function(x) 
+    if (unique(x$owner) == 1) 
+      filter(x, !grepl("rheat|reletr", var)) 
+    else filter(x, !grepl("oheat|oeletr", var))) %>%
+  bind_rows()
+#### Aggregate across expenditure concepts ####
+data = data |> group_by(hid, income, owner, concept) |> summarise(value = mean(value))
+#### Transform to yearly average and thousand euros ####
+data = mutate(data, value = (value*12)/1000)
+#### Spread the data set ####
+data = spread(data, concept, value) |> ungroup()
+#### Add to the aggregate consumption
+data$total = rowSums(select(ungroup(data), -hid, -income, -owner))
+#### Review the data set ####
+glimpse(data)
+#### Save the data set ####
+write_rds(data, file = "02_GenData/03_SoepFiles/hconsum.rds", compress = "gz")
+#### Clear the space ####
+rm(list = ls()); gc()
+#### _____________________________________________________________________ ####
+#### Load the initial data on HWEALTH variables ####
+#### _____________________________________________________________________ ####
+#### Clear the space ####
+rm(list = ls()); gc()
+#### Load the relevant SOEP 35 data sets ####
+codebook = read_excel("01_RawData/02_codebooks/codebook.xlsx", sheet = "hwealth")
+data = list.files("01_RawData/01_Soep35", pattern = "hwealth", full.names = T) %>% lapply(., read_dta)
+#### Only keep the variables in the Code Book ####
+data = rbindlist(data) %>% select(., one_of(codebook$soep_name))
+#### Rename the variables to the code book ####
+data = data %>% rename_at( colnames(data), ~codebook$study_name)
+#### Review the data set ####
+data %>% head(.)
+#### Save the data set ####
+write_rds(data, file = "02_GenData/03_SoepFiles/hwealth.rds", compress = "gz")
+#### Clear the space ####
+rm(list = ls()); gc()
+
 #### _____________________________________________________________________ ####
 #### Compute the standard deviation of income and power consumption across deciles ####
 #### _____________________________________________________________________ ####
@@ -159,8 +213,7 @@ decile = data %>% group_by(IncomeGroup) %>%
 decile = mutate_at(decile, vars(PowerCostAvg, PowerCostSd), function(x) x = x*12)
 #### Plot the income and consumption relationship per decile ####
 ggplot(data) + geom_density(aes(x = log(PowerCosts), fill = IncomeGroup), alpha = 0.25) +
-  theme(panel.background = element_blank(), legend.position = c(0.8, 0.65), 
-        legend.background = element_blank()) + grids()+ theme_economist() %+replace% 
+  grids()+ theme_economist() %+replace% 
   theme(legend.title = element_blank()) + labs(x = "Power Costs (Log)", y = "")
 #### Review the data set ####
 decile %>% head(.)
@@ -170,7 +223,7 @@ write_rds(decile, file = "02_GenData/03_SoepFiles/IncomePowerDeciles.rds", compr
 #### Clear the space ####
 rm(list = ls()); gc()
 #### _____________________________________________________________________ ####
-#### Calculate the income percentile of the "Amt" ####
+#### Calculate the income percentile of the "Bundesbank" ####
 #### _____________________________________________________________________ ####
 #### Clear the space ####
 rm(list = ls()); gc()
@@ -212,20 +265,30 @@ consum = read_rds("02_GenData/03_SoepFiles/FullConsum.rds")
 data = select(data, year, pid, hid, income) %>% filter(year == 2010) %>%
   group_by(year, hid) %>% summarise(income = mean(income, na.rm = T)) %>% 
   left_join(., consum)
-#### Transform income to monhtly in thousands ####
+#### Transform income to monthly in thousands ####
 data = mutate(data, income = (income/12)*1000)
 #### Compute the income and consumption deciles ####
 data = data %>% ungroup() %>% 
   mutate(IncomeGroup = cut2(income, c(0, 500, 900, 1300, 1500, 1700, 2000, 2600, 3600, 5000, 7500, 10000)))
+#### Compute the share of comsumption ####
+data = data |> filter(income > 0) |> mutate(ConShare = (consumption/income)*100)
 #### Aggregate average income and consumption ####
 decile = data %>% group_by(IncomeGroup) %>% 
   summarise(IncAvg = mean(income, na.rm = T), 
             ConAvg = mean(consumption, na.rm = T), 
-            ConSd = sd(consumption, na.rm = T))
+            ConSd = sd(consumption, na.rm = T), 
+            ConShareAvg = mean(ConShare, na.rm = T), 
+            ConShareSd = sd(ConShare, na.rm = T))
+#### Plot the income and consumption (share) relationship per decile ####
+ggplot(data) + geom_density(aes(x = log(ConShare), fill = IncomeGroup), alpha = 0.25) +
+  grids()+ theme_economist() %+replace% 
+  theme(legend.title = element_blank()) + labs(x = "Power Costs (Log)", y = "")
+ggsave("WebsiteABM/99_figures/ConsumptionDensityShare.png")
 #### Plot the income and consumption relationship per decile ####
 ggplot(data) + geom_density(aes(x = log(consumption), fill = IncomeGroup), alpha = 0.25) +
-  theme(panel.background = element_blank(), legend.position = c(0.8, 0.65), 
-        legend.background = element_blank()) + grids()
+  grids()+ theme_economist() %+replace% 
+  theme(legend.title = element_blank()) + labs(x = "Power Costs (Log)", y = "")
+ggsave("WebsiteABM/99_figures/ConsumptionDensity.png")
 #### Review the data set ####
 decile %>% head(.)
 #### Save the data set ####

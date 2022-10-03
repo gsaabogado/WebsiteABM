@@ -15,6 +15,7 @@ library(ggthemes)
 library(r2symbols)
 # Plots
 library(ggpubr)
+library(viridis)
 #### Fix conflicts ####
 conflict_prefer("filter", "dplyr")
 

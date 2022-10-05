@@ -13,6 +13,7 @@ format:
 
 # Introduction
 
+
 The website contains four primary sections to accompany the study:
 
 1. ***SOEP Data*** -- Includes a description of all the data files of the German Socio-economic Panel Study (SOEP). It is divided into five subsections

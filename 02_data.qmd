@@ -1,6 +1,7 @@
 ---
 title: ""
 author: "Severin Reissl and Luis Sarmiento"
+bibliography: Literature.bib
 format: 
   html: 
     toc: true
@@ -297,13 +298,26 @@ kbl(ungroup(soep) |> select(pid, hid, year, PowerCosts, OtherUtilityCosts, GasCo
   kable_styling(bootstrap_option = c("hover"))
 ```
 :::
+
 ### The SOEP Consumption Module
-We use the 2010 SOEP consumption module to estimate the consumption propensity of German households. The SOEP consumption module, or "hconsum," was implemented as part of the 31st SOEP wave in 2010. The goal of *hconsum* is to allow researchers to understand the relationship between welfare, income, and disposable income -- whereas consumption characterizes the actual current living standard, income describes the potential command over resources.
 
-Usually, consumption data takes one of two forms; consumption journals or representative surveys. The goal of consumption journals is to keep track of all daily expenditures across a cross-section of representative households to understand consumption patterns. Once there is enough data, researchers aggregate the items into categories to assess the main components of households' income use. . Representative surveys, on the other hand, study typical consumption instead of consumption at a given time. The core idea is that asking for a relevant set of typical consumption goods can act as a good proxy for total consumption. 
+We use the 2010 SOEP consumption module to estimate the consumption propensity of German households. The SOEP consumption module, or "hconsum," was implemented as part of the 31st SOEP wave in 2010. The goal of *hconsum* is to allow researchers to understand the relationship between welfare, income, and disposable income -- whereas consumption characterizes the actual current living standard, income describes the potential command over resources. For a complete review of the SOEP consumption module, we refer the reader to @Grabka2013. In this chapter, we only highlight the its main characteristics.
 
-In the 2010 hconsum module, the SOEP adopted the idea of consumption goods to approximate total consumption. 
+Usually, consumption data takes one of two forms; consumption journals or representative surveys. The goal of consumption journals is to keep track of all daily expenditures across a cross-section of representative households to understand consumption patterns. Once there is enough data, researchers aggregate the items into categories to assess the main components of households' income use. . Representative surveys, on the other hand, study typical consumption instead of consumption at a given time. The core idea is that asking for a relevant set of common consumption goods can act as a good proxy for total consumption.
 
+In the 2010 hconsum module, the SOEP adopted the idea of consumption goods to approximate total consumption. In total, they collected twenty-four different consumption categories spanning from food expenditures to insurance costs.
+
+There were a series of methodological challenges while collecting the consumption data. First, there were inconsistencies between reported monthly and yearly expenditures. In total, the share of inconsistencies is smaller than one percent. Next, there were missing values (usually around 2-4%) across several categories. Finally, there was clear evidence of heaping (coarse reporting of continuous values).
+
+The SOEP solves the inconsistency between monthly and yearly data with the following process. First, it computes the percentiles of consumption according to the reported monthly and annual values. Second, compare this percentage rank to the percentiles of the household net income. In case of inconsistent monthly and yearly information, the SOEP assigns the consumption value of the category whose percentile is the closest to the income distribution.
+
+For missing data, the SOEP uses multiple imputation methods. However, instead of assigning only one value per income category, the SOEP assign five different values to reflect the uncertainty in the imputation process. Particularly, the SOEP impute the missing values through multivariate imputation by chained equations (MICE) [@VanBuren1999].
+
+For heaping, the SOEP adjust the heaped data by approximating its true distribution with an theoretical distribution of consumption behaviour. After several theoretical exercise, the SOEP chooses the gamma and generalized beta distribution of the second kind (GB2) to approximate the true distribution of consumption data. @eq-gb2 contains the mathematical formula behind the GB2 distribution. In it, $x$ is consumption, $B(b,q)$ the beta function, and a,b,p, and q positive parameters.
+
+$$
+f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
+$$ {#eq-gb2}
 
 ```{r}
 #| echo: false
@@ -312,8 +326,63 @@ data = read_rds(paste0(file, "02_GenData/03_SoepFiles/hconsum.rds"))
 codebook = read_excel(paste0(file, "01_RawData/02_codebooks/codebook.xlsx"), sheet = "hconsum2")
 ```
 
+In @tbl-ConsA, we show a sample of the consumption data for daily expenditures. @tbl-ConsB contains a similar exercise for housing costs, @tbl-ConsC for financial burdens, and @tbl-ConsD for other income uses. All values are in thousand of Euros per year and come from averaging the five different imputations of the SOEP for each consumption category.
+
+::: panel-tabset
+## Daily Expenditures
+
+```{r}
+#| label: tbl-ConsA
+#| tbl-cap: Sample of the consumption module (daily expenditures)
+#| tbl-cap-location: top
+#| echo: true
+kbl(data |> select(hid, Food, Clothes, Transport, Coms, Leisure, Cleaning) %>% head(.)) %>% 
+  kable_classic(full_width = T, html_font = "Cambria") %>% 
+  kable_styling(bootstrap_option = c("hover"))
+```
+
+## Housing expenditures
+
+```{r}
+#| label: tbl-ConsB
+#| tbl-cap: Sample of the consumption module (Housing)
+#| tbl-cap-location: top
+#| echo: true
+kbl(data |> select(hid, Rent, Mortgage, Housing, Heating, Power, Utilities, Furniture) %>% head(.)) %>% 
+  kable_classic(full_width = T, html_font = "Cambria") %>% 
+  kable_styling(bootstrap_option = c("hover"))
+```
+
+## Financial expenditures
+
+```{r}
+#| label: tbl-ConsC
+#| tbl-cap: Sample of the consumption module (Housing)
+#| tbl-cap-location: top
+#| echo: true
+kbl(data |> select(hid, Insurance, Loans, Mortgage) %>% head(.)) %>% 
+  kable_classic(full_width = T, html_font = "Cambria") %>% 
+  kable_styling(bootstrap_option = c("hover"))
+```
+
+## Other expenditures
+
+```{r}
+#| label: tbl-ConsD
+#| tbl-cap: Sample of the consumption module (Other)
+#| tbl-cap-location: top
+#| echo: true
+kbl(data |> select(hid, Alimony, ChildCare, Culture, Education, Health, Holidays, Other) %>% head(.)) %>% 
+  kable_classic(full_width = T, html_font = "Cambria") %>% 
+  kable_styling(bootstrap_option = c("hover"))
+```
+:::
+
+In @fig-ShareConsumption we look at the difference in consumption values and composition across the SOEP income deciles. For this, we aggregate all consumption items into eight categories; Daily expenditures, health, financial, transport, heating, power, housing, and other. First, there are clear differences in the amount of money used for consumption across income groups. For instance, in the highest and lowest deciles of the income distribution households spend 14,900 and 4,460 Euros per year, respectively.
+
 ::: panel-tabset
 ## Yearly Consumption
+
 ```{r}
 #| label: fig-RawConsumption
 #| fig-cap: Yearly consumption by concept in thousand euros (SOEP 2010)
@@ -326,17 +395,21 @@ data = mutate(data, decile = ntile(income, 10)) |>
 # Create the data for the plot
 plot= select(data, -total, -income, -owner) %>% 
   gather(var, value, -hid, -decile)%>% 
-  left_join(., codebook, by = c("var" = "concept")) |> group_by(decile, group) |> 
+  left_join(., codebook, by = c("var" = "concept")) |> 
+  group_by(decile, group) |> 
   summarise(value = mean(value)) |> 
-  mutate(group = fct_reorder(factor(group), value, .desc = F))
+  mutate(group = fct_reorder(factor(group), value, .desc = F)) |> 
+  group_by(decile) |> mutate(total = sum(value))
 # Plot total expenditures by concept
 ggplot(plot) +
   geom_bar(aes(x = decile, y = value, fill = group), stat = "identity") +
   scale_fill_viridis(discrete = T, option = "E") +
   theme_economist() %+replace% theme(legend.title = element_blank()) +
-  labs(x = "", y = "")
+  labs(x = "Income Decile", y = "")
 ```
+
 ## Consumption Share
+
 ```{r}
 #| label: fig-ShareConsumption
 #| fig-cap: Consumption share by concept (SOEP 2010)
@@ -362,6 +435,7 @@ ggplot(plot) +
 ```
 
 ## Consumption Share of income
+
 ```{r}
 #| label: fig-IncToCon
 #| fig-cap: Consumption share of income (SOEP 2010)
@@ -385,9 +459,8 @@ ggplot(plot) +
   labs(x = "", y = "") + 
   guides(fill = guide_legend(str_wrap("Consumption Share of Income", width = 10)))
 ```
-
-
 :::
+
 ### Estimating the distribution of power costs by income decile
 
 Next, we use the information on income and power cost from the sub-set of renters to look at the relationship between annual power costs and income. For this, we divide the data set into ten different income groups based on the deciles of the income distribution and estimate the average and standard deviation of income and power costs in each decile.
@@ -435,7 +508,9 @@ kbl(ungroup(data) %>% head(.)) %>%
   kable_classic(full_width = T, html_font = "Cambria") %>% 
   kable_styling(bootstrap_option = c("hover"))
 ```
+
 #### Estimating the propensity to consume across Bundesbank income categories
+
 Next, we use consumption data from the SOEP to approximate the propernsity to consume distribution for the different income categories of the Bundesbank.
 
 ::: panel-tabset

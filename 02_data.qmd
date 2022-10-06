@@ -378,7 +378,7 @@ kbl(data |> select(hid, Alimony, ChildCare, Culture, Education, Health, Holidays
 ```
 :::
 
-In @fig-ShareConsumption, we look at the difference in consumption values and composition across the SOEP income deciles. For this, we aggregate all consumption items into eight categories; Daily expenditures, health, financial, transport, heating, power, housing, and others. There are apparent differences in the amount of money used for consumption across income groups. For instance, in the highest and lowest deciles of the income distribution, households spend 14,900 and 4,460 Euros per year, respectively. @fig-ShareConsumption portrays a clearer picture of the composition of these expenditures across income groups. While the share of financial and health costs grows with income, heating and power expenditures decrease. @fig-HeatCon clearly shows these trends with a heat map of consumption category by income decile. The expenditure share of housing, daily expenses, and health remains relatively stable; financial, transport and health costs increase with income; and heating-power expenses decrease. In @fig-IncToCon, we plot the ratio of average income to consumption by income decile. As expected, the consumption income ratio drops as we become more well-off. In the lowest income decile, families spend, on average, 34% more than their average income, meaning that they either live from debt or receive additional and unreported income from other sources. Once we move to the second income decile, the ratio reaches parity and implies that persons in this decile earn as much as they spend. Finally, in @fig-IncToCon, we plot the heat map of consumption income ratios across different categories.
+In @fig-ShareConsumption, we look at the difference in consumption values and composition across the SOEP income deciles. For this, we aggregate all consumption items into eight categories; Daily expenditures, health, financial, transport, heating, power, housing, and others. There are apparent differences in the amount of money used for consumption across income groups. For instance, in the highest and lowest deciles of the income distribution, households spend 14,900 and 4,460 Euros per year, respectively. @fig-ShareConsumption portrays a clearer picture of the composition of these expenditures across income groups. While the share of financial and health costs grows with income, heating and power expenditures decrease. @fig-HeatCon clearly shows these trends with a heat map of consumption category by income decile. The expenditure share of housing, daily expenses, and health remains relatively stable; financial, transport and health costs increase with income; and heating-power expenses decrease. In @fig-IncToCon, we plot the ratio of average income to consumption by income decile. As expected, the consumption income ratio drops as we become more well-off. In the lowest income decile, families spend, on average, 34% more than their average income, meaning that they either live from debt or receive additional and unreported income from other sources. Once we move to the second income decile, the ratio reaches parity and implies that persons in this decile earn as much as they spend. Finally, in @fig-IncToConHeat, we plot the heat map of consumption income ratios across different categories.
 
 
 ::: panel-tabset
@@ -407,7 +407,7 @@ ggplot(plot) +
   theme_economist() %+replace% theme(legend.title = element_blank()) +
   labs(x = "Income Decile", y = "")
 ```
-## Consumption Share
+## Con. Share
 ```{r}
 #| label: fig-ShareConsumption
 #| fig-cap: Consumption share by concept (SOEP 2010)
@@ -432,10 +432,10 @@ ggplot(plot) +
   labs(x = "", y = "")
 ```
 
-## Consumption Matrix
+## Con. Matrix
 ```{r}
 #| label: fig-HeatConInc
-#| fig-cap: Consumption share by concept (SOEP 2010)
+#| fig-cap: Share of total consumption across categories
 #| fig-cap-location: top
 #| echo: true
 
@@ -458,7 +458,7 @@ ggplot(plot) +
   labs(x = "", y = "") + guides(fill = F)
 ```
 
-## Consumption Share of income
+## Con/Income
 ```{r}
 #| label: fig-IncToCon
 #| fig-cap: Consumption share of income (SOEP 2010)
@@ -481,10 +481,11 @@ ggplot(plot) +
   theme_economist() + guides(fill = F) +
   labs(x = "", y = "")  
 ```
-## Consumption to income matrix
+
+## Con/Income matrix
 ```{r}
-#| label: fig-IncToCon
-#| fig-cap: Consumption share of income (SOEP 2010)
+#| label: fig-IncToConHeat
+#| fig-cap: Consumption share of income across categories
 #| fig-cap-location: top
 #| echo: true
 

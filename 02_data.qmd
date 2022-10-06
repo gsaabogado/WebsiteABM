@@ -20,7 +20,7 @@ The section is divided into three main subsections:
 -   Consumption data from the Deutscher Finanz Amt
 -   Gallup data on environmental attitudes
 
-## German Socio-Economic Panel Study (SOEP)
+## SOEP
 
 Most of the data we use to feed our model comes from the German Socio-Economic Panel Study (SOEP); a representative longitudinal panel study that started in West Germany in 1984.
 
@@ -57,7 +57,7 @@ head(pequiv$sex)
 
 Also note that, **in general**, all negative entries refer to missing values for different reasons, e.g., the question was not part of that year's questionnaire or invalid answers.
 
-### Personal Equivalent Data File
+### PEQUIV
 
 @tbl-PequivIndividual shows a sample of individual-level characteristics we extract from the PEQUIV file. It consists of `r ncol(pequiv)` variables and `r comma(nrow(pequiv))` observations between 2005 and 2018. Each variable is either in a numeric or haven-labeled format. The data frame contains the individual and household IDs (*pid* and *hid*) alongside the year of the interview (year).
 
@@ -126,7 +126,7 @@ kbl(select(pequiv, pid, hid, year, Npersons, Nkids, income, GrossIncome) %>% hea
 
 @tbl-PequivHH includes a set of household-level controls we extract from the PEQUIV file. *Npersons* and *Nkids* are the number of persons and kids in the household. *income* and *GrossIncome* are the household net and gross incomes in Euros per year.
 
-### Household Generated Variables File (HGEN)
+### HGEN
 
 ```{r}
 #| echo: false
@@ -202,7 +202,7 @@ kbl(select(hgen, hid, year, PowerCosts, OtherUtilityCosts, GasCosts, WarmWaterCo
 -   *GasCosts*: states the monthly costs of gas not used for heating in Euros. Gas costs were only collected in 2014 (wave BE).
 -   *OtherUtilityCosts*: are answers to the question; how much did you pay in the last calendar year for water, garbage removal, street cleaning, and other additional costs not mentioned above?
 
-### Final (individual) SOEP data
+### Individual panel
 
 ```{r}
 #| echo: false
@@ -299,7 +299,7 @@ kbl(ungroup(soep) |> select(pid, hid, year, PowerCosts, OtherUtilityCosts, GasCo
 ```
 :::
 
-### The SOEP Consumption Module
+### HCONSUM
 
 We use the 2010 SOEP consumption module to estimate the consumption propensity of German households. The SOEP consumption module, or "hconsum," was implemented as part of the 31st SOEP wave in 2010. The goal of *hconsum* is to allow researchers to understand the relationship between welfare, income, and disposable income -- whereas consumption characterizes the actual current living standard, income describes the potential command over resources. For a complete review of the SOEP consumption module, we refer the reader to @Grabka2013. In this chapter, we only highlight the its main characteristics.
 
@@ -326,7 +326,7 @@ data = read_rds(paste0(file, "02_GenData/03_SoepFiles/hconsum.rds"))
 codebook = read_excel(paste0(file, "01_RawData/02_codebooks/codebook.xlsx"), sheet = "hconsum2")
 ```
 
-In @tbl-ConsA, we show a sample of the consumption data for daily expenditures. @tbl-ConsB contains a similar exercise for housing costs, @tbl-ConsC for financial burdens, and @tbl-ConsD for other income uses. All values are in thousand of Euros per year and come from averaging the five different imputations of the SOEP for each consumption category.
+In @tbl-ConsA, we show a sample of the consumption data for daily expenditures. @tbl-ConsB contains a similar exercise for housing costs, @tbl-ConsC for financial burdens, and @tbl-ConsD for other income uses. All values are in thousand of Euros per year and come from averaging the five different imputations of the SOEP consumption module across categories.
 
 ::: panel-tabset
 ## Daily Expenditures
@@ -378,11 +378,11 @@ kbl(data |> select(hid, Alimony, ChildCare, Culture, Education, Health, Holidays
 ```
 :::
 
-In @fig-ShareConsumption we look at the difference in consumption values and composition across the SOEP income deciles. For this, we aggregate all consumption items into eight categories; Daily expenditures, health, financial, transport, heating, power, housing, and other. First, there are clear differences in the amount of money used for consumption across income groups. For instance, in the highest and lowest deciles of the income distribution households spend 14,900 and 4,460 Euros per year, respectively.
+In @fig-ShareConsumption, we look at the difference in consumption values and composition across the SOEP income deciles. For this, we aggregate all consumption items into eight categories; Daily expenditures, health, financial, transport, heating, power, housing, and others. There are apparent differences in the amount of money used for consumption across income groups. For instance, in the highest and lowest deciles of the income distribution, households spend 14,900 and 4,460 Euros per year, respectively. @fig-ShareConsumption portrays a clearer picture of the composition of these expenditures across income groups. While the share of financial and health costs grows with income, heating and power expenditures decrease. @fig-HeatCon clearly shows these trends with a heat map of consumption category by income decile. The expenditure share of housing, daily expenses, and health remains relatively stable; financial, transport and health costs increase with income; and heating-power expenses decrease. In @fig-IncToCon, we plot the ratio of average income to consumption by income decile. As expected, the consumption income ratio drops as we become more well-off. In the lowest income decile, families spend, on average, 34% more than their average income, meaning that they either live from debt or receive additional and unreported income from other sources. Once we move to the second income decile, the ratio reaches parity and implies that persons in this decile earn as much as they spend. Finally, in @fig-IncToCon, we plot the heat map of consumption income ratios across different categories.
+
 
 ::: panel-tabset
-## Yearly Consumption
-
+## Consumption
 ```{r}
 #| label: fig-RawConsumption
 #| fig-cap: Yearly consumption by concept in thousand euros (SOEP 2010)
@@ -407,9 +407,7 @@ ggplot(plot) +
   theme_economist() %+replace% theme(legend.title = element_blank()) +
   labs(x = "Income Decile", y = "")
 ```
-
 ## Consumption Share
-
 ```{r}
 #| label: fig-ShareConsumption
 #| fig-cap: Consumption share by concept (SOEP 2010)
@@ -434,8 +432,33 @@ ggplot(plot) +
   labs(x = "", y = "")
 ```
 
-## Consumption Share of income
+## Consumption Matrix
+```{r}
+#| label: fig-HeatConInc
+#| fig-cap: Consumption share by concept (SOEP 2010)
+#| fig-cap-location: top
+#| echo: true
 
+# Divide into income deciles 
+data = mutate(data, decile = ntile(income, 10)) |> 
+  mutate(decile = as_factor(decile))
+# Create the data for the plot
+plot = select(data, -total, -income, -owner) %>% 
+  gather(var, value, -hid, -decile) %>% 
+  left_join(., codebook, by = c("var" = "concept")) |> group_by(decile, group) |> 
+  summarise(value = mean(value)) |> group_by(decile) |> 
+  mutate(share = (value/sum(value))*100)  |> 
+  mutate(group = fct_reorder(factor(group), share, .desc = F))
+# Plot total expenditures by concept
+ggplot(plot) +
+  geom_tile(aes(x = decile, y = group, fill = share), alpha = 0.75) +
+  geom_text(aes(x = decile, y = group, label = paste0(round(share, 1), "%"))) +
+  scale_fill_viridis(discrete = F, begin = 0, end = 0.6, option = "D") +
+  theme_economist() %+replace% theme(legend.title = element_blank()) +
+  labs(x = "", y = "") + guides(fill = F)
+```
+
+## Consumption Share of income
 ```{r}
 #| label: fig-IncToCon
 #| fig-cap: Consumption share of income (SOEP 2010)
@@ -453,11 +476,37 @@ plot = select(data, total, income, decile) |>
 # Plot total expenditures by concept
 ggplot(plot) +
   geom_bar(aes(x = decile, y = share, fill = share), stat = "identity") +
+  geom_text(aes(x = decile, y = share, label = paste0(round(share,1), "%")), vjust = -0.5) +
   scale_fill_viridis(discrete = F, option = "E", direction = -1) +
-  theme_economist() %+replace% 
-  theme(legend.position = c(0.9, 0.8), legend.title = element_text(hjust = 1)) +
-  labs(x = "", y = "") + 
-  guides(fill = guide_legend(str_wrap("Consumption Share of Income", width = 10)))
+  theme_economist() + guides(fill = F) +
+  labs(x = "", y = "")  
+```
+## Consumption to income matrix
+```{r}
+#| label: fig-IncToCon
+#| fig-cap: Consumption share of income (SOEP 2010)
+#| fig-cap-location: top
+#| echo: true
+
+# Divide into income deciles 
+data = mutate(data, decile = ntile(income, 10)) |> 
+  mutate(decile = as_factor(decile))
+# Create the data for the plot
+plot = select(data, -total, -owner) %>% 
+  gather(var, value, -hid, -decile, -income) %>% 
+  left_join(., codebook, by = c("var" = "concept")) |> group_by(decile, group, var) |> 
+  summarise(value = mean(value, na.rm = T), income = mean(income, na.rm = T)) |> 
+  group_by(decile, group, income) |> summarise(total = sum(value)) |> group_by(decile, group) |> 
+  mutate(share = (total/income)*100)  |> 
+  mutate(group = fct_reorder(factor(group), total, .desc = T))
+
+# Plot total expenditures by concept
+ggplot(plot) +
+  geom_tile(aes(x = decile, y = reorder(group, share), fill = share), alpha = 0.75) +
+  geom_text(aes(x = decile, y = group, label = paste0(round(share, 1), "%"))) +
+  scale_fill_viridis(discrete = F, begin = 0, end = 0.6, option = "D") +
+  theme_economist() %+replace% theme(legend.title = element_blank()) +
+  labs(x = "", y = "") + guides(fill = F)
 ```
 :::
 

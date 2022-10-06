@@ -434,7 +434,7 @@ ggplot(plot) +
 
 ## Con. Matrix
 ```{r}
-#| label: fig-HeatConInc
+#| label: fig-HeatCon
 #| fig-cap: Share of total consumption across categories
 #| fig-cap-location: top
 #| echo: true

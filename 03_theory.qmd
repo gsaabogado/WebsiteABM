@@ -1,5 +1,5 @@
 ---
-title: "Theoretical Background ABM-REN"
+title: "Theoretical Background"
 author: "Severin Reissl and Luis Sarmiento"
 format: 
   html: 

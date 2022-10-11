@@ -671,7 +671,7 @@ kbl(ungroup(soep) |> select(pid, hid, year, PowerCosts, OtherUtilityCosts, GasCo
 ```
 :::
 
-## Estimating the distribution of power costs by income decile
+## Distribution of power costs by income
 
 Next, we use the information on income and power cost from the sub-set of renters to look at the relationship between annual power costs and income. For this, we divide the data set into ten different income groups based on the deciles of the income distribution and estimate the average and standard deviation of income and power costs in each decile.
 
@@ -699,55 +699,11 @@ kbl(ungroup(data) %>% head(.)) %>%
 ![Density function of Power Costs across Income Deciles](99_figures/PowerCostsDensity){#fig-PowerCostsDensity}
 :::
 
-## Mapping the income deciles of the SOEP to the "Bundesbank" categories
 
-To assign the propensity to consume across SOEP income deciles, we use statistics from the German Central Bank (Deutsches Bundesbank). The Bank provides propensities to consume across twelve income categories. For instance, the propensity to consume for persons with monthly incomes between 900`r symbol("euro")` and 1,300`r symbol("euro")` is x% while for individuals between 10,000`r symbol("euro")` and 80,000`r symbol("euro")` y%. <!--# Severin, can you add these percentages? -->
 
-Given that we initialize ABM-REN across income deciles, we map the consumption propensity data from the Bundesbank with the SOEP income distribution. @tbl-AmtDeciles shows a mapping sample between the "Bank" categories and the SOEP income distribution. As an example, the first row shows that the category between zero`r symbol("euro")` and five hundred`r symbol(euro)` is within the zero and third percentile of the SOEP income distribution.
+## Probability of PV adoption
 
-```{r}
-#| label: tbl-AmtDeciles
-#| tbl-cap: Energy Efficiency Technologies
-#| tbl-cap-location: top
-#| echo: true
-# Load Data
-file = gsub("WebsiteABM", "", getwd())
-data = read_rds(paste0(file, "02_GenData/03_SoepFiles/AmtMap.rds")) |> arrange(LowPer, desc = T)
-# Show the table
-kbl(ungroup(data) %>% head(.)) %>% 
-  kable_classic(full_width = T, html_font = "Cambria") %>% 
-  kable_styling(bootstrap_option = c("hover"))
-```
-
-### Estimating the propensity to consume across Bundesbank income categories
-
-Next, we use consumption data from the SOEP to approximate the propernsity to consume distribution for the different income categories of the Bundesbank.
-
-::: panel-tabset
-## Data Set
-
-```{r}
-#| label: tbl-ConDensity
-#| tbl-cap: Energy Efficiency Technologies
-#| tbl-cap-location: top
-#| echo: true
-# Load Data
-file = gsub("WebsiteABM", "", getwd())
-data = read_rds(paste0(file, "02_GenData/03_SoepFiles/ConsumptionDeciles.rds"))
-# Show the table
-kbl(ungroup(data) %>% head(.)) %>% 
-  kable_classic(full_width = T, html_font = "Cambria") %>% 
-  kable_styling(bootstrap_option = c("hover"))
-```
-
-## Descriptives
-
-![Density function - propensity to consume across Bundesban income categories](99_figures/ConsumptionDensity){#fig-ConsumptionDensity}
-:::
-
-### Estimating the probability of adoption conditional on ownership and dwelling class
-
-### Variables Glossary
+## Variables Glossary
 
 ::: incremental
 -   ***pid:*** This variable provides unique identification for each individual ever surveyed in the SOEP.

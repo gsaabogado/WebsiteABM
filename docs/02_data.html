@@ -218,7 +218,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03_theory.html" class="sidebar-item-text sidebar-link">Theoretical Background ABM-REN</a>
+  <a href="./03_theory.html" class="sidebar-item-text sidebar-link">Theoretical Background</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -250,13 +250,9 @@ div.csl-indent {
   <li><a href="#hconsum" id="toc-hconsum" class="nav-link" data-scroll-target="#hconsum">HCONSUM</a></li>
   <li><a href="#hwealth" id="toc-hwealth" class="nav-link" data-scroll-target="#hwealth">HWEALTH</a></li>
   <li><a href="#individual-panel" id="toc-individual-panel" class="nav-link" data-scroll-target="#individual-panel">Individual panel</a></li>
-  <li><a href="#estimating-the-distribution-of-power-costs-by-income-decile" id="toc-estimating-the-distribution-of-power-costs-by-income-decile" class="nav-link" data-scroll-target="#estimating-the-distribution-of-power-costs-by-income-decile">Estimating the distribution of power costs by income decile</a></li>
-  <li><a href="#mapping-the-income-deciles-of-the-soep-to-the-bundesbank-categories" id="toc-mapping-the-income-deciles-of-the-soep-to-the-bundesbank-categories" class="nav-link" data-scroll-target="#mapping-the-income-deciles-of-the-soep-to-the-bundesbank-categories">Mapping the income deciles of the SOEP to the “Bundesbank” categories</a>
-  <ul class="collapse">
-  <li><a href="#estimating-the-propensity-to-consume-across-bundesbank-income-categories" id="toc-estimating-the-propensity-to-consume-across-bundesbank-income-categories" class="nav-link" data-scroll-target="#estimating-the-propensity-to-consume-across-bundesbank-income-categories">Estimating the propensity to consume across Bundesbank income categories</a></li>
-  <li><a href="#estimating-the-probability-of-adoption-conditional-on-ownership-and-dwelling-class" id="toc-estimating-the-probability-of-adoption-conditional-on-ownership-and-dwelling-class" class="nav-link" data-scroll-target="#estimating-the-probability-of-adoption-conditional-on-ownership-and-dwelling-class">Estimating the probability of adoption conditional on ownership and dwelling class</a></li>
+  <li><a href="#distribution-of-power-costs-by-income" id="toc-distribution-of-power-costs-by-income" class="nav-link" data-scroll-target="#distribution-of-power-costs-by-income">Distribution of power costs by income</a></li>
+  <li><a href="#probability-of-pv-adoption" id="toc-probability-of-pv-adoption" class="nav-link" data-scroll-target="#probability-of-pv-adoption">Probability of PV adoption</a></li>
   <li><a href="#variables-glossary" id="toc-variables-glossary" class="nav-link" data-scroll-target="#variables-glossary">Variables Glossary</a></li>
-  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -2595,8 +2591,8 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
 </div>
 </div>
 </section>
-<section id="estimating-the-distribution-of-power-costs-by-income-decile" class="level2">
-<h2 class="anchored" data-anchor-id="estimating-the-distribution-of-power-costs-by-income-decile">Estimating the distribution of power costs by income decile</h2>
+<section id="distribution-of-power-costs-by-income" class="level2">
+<h2 class="anchored" data-anchor-id="distribution-of-power-costs-by-income">Distribution of power costs by income</h2>
 <p>Next, we use the information on income and power cost from the sub-set of renters to look at the relationship between annual power costs and income. For this, we divide the data set into ten different income groups based on the deciles of the income distribution and estimate the average and standard deviation of income and power costs in each decile.</p>
 <p><a href="#tbl-PowerCostDist">Table&nbsp;23</a> contains a sample of the final data. <em>IncomeGroup</em> refers to the income decile. <em>IncAvg</em> is the average yearly income in thousands of Euros. <em>PowerCostAvg</em> is the average yearly power bill in Euros. <em>IncSD</em> is the standard deviation of annual income. And <em>PowerCostSd</em> the analogous for power costs. <a href="#fig-PowerCostsDensity">Figure&nbsp;9</a> contains the density (Log) function of annual Power Costs across different income deciles. As expected, the density is normally distributed with higher mean values for more wealthy households.</p>
 <div class="panel-tabset">
@@ -2688,173 +2684,11 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
 </div>
 </div>
 </section>
-<section id="mapping-the-income-deciles-of-the-soep-to-the-bundesbank-categories" class="level2">
-<h2 class="anchored" data-anchor-id="mapping-the-income-deciles-of-the-soep-to-the-bundesbank-categories">Mapping the income deciles of the SOEP to the “Bundesbank” categories</h2>
-<p>To assign the propensity to consume across SOEP income deciles, we use statistics from the German Central Bank (Deutsches Bundesbank). The Bank provides propensities to consume across twelve income categories. For instance, the propensity to consume for persons with monthly incomes between 900€ and 1,300€ is x% while for individuals between 10,000€ and 80,000€ y%. <!--# Severin, can you add these percentages? --></p>
-<p>Given that we initialize ABM-REN across income deciles, we map the consumption propensity data from the Bundesbank with the SOEP income distribution. <a href="#tbl-AmtDeciles">Table&nbsp;24</a> shows a mapping sample between the “Bank” categories and the SOEP income distribution. As an example, the first row shows that the category between zero€ and five hundred is within the zero and third percentile of the SOEP income distribution.</p>
-<div class="cell tbl-cap-location-top">
-<details>
-<summary>Show the Code</summary>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load Data</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>file <span class="ot">=</span> <span class="fu">gsub</span>(<span class="st">"WebsiteABM"</span>, <span class="st">""</span>, <span class="fu">getwd</span>())</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">read_rds</span>(<span class="fu">paste0</span>(file, <span class="st">"02_GenData/03_SoepFiles/AmtMap.rds"</span>)) <span class="sc">|&gt;</span> <span class="fu">arrange</span>(LowPer, <span class="at">desc =</span> T)</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the table</span></span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(<span class="fu">ungroup</span>(data) <span class="sc">%&gt;%</span> <span class="fu">head</span>(.)) <span class="sc">%&gt;%</span> </span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_classic</span>(<span class="at">full_width =</span> T, <span class="at">html_font =</span> <span class="st">"Cambria"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_option =</span> <span class="fu">c</span>(<span class="st">"hover"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<div id="tbl-AmtDeciles" class="anchored">
-
-<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table 24:  Energy Efficiency Technologies </caption>
- <thead>
-  <tr>
-   <th style="text-align:left;"> amt </th>
-   <th style="text-align:right;"> LowAmt </th>
-   <th style="text-align:right;"> HighAmt </th>
-   <th style="text-align:right;"> LowPer </th>
-   <th style="text-align:right;"> HighPer </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> [    0,  500) </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 500 </td>
-   <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 3 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> [  500,  900) </td>
-   <td style="text-align:right;"> 500 </td>
-   <td style="text-align:right;"> 900 </td>
-   <td style="text-align:right;"> 3 </td>
-   <td style="text-align:right;"> 8 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> [  900, 1300) </td>
-   <td style="text-align:right;"> 900 </td>
-   <td style="text-align:right;"> 1300 </td>
-   <td style="text-align:right;"> 8 </td>
-   <td style="text-align:right;"> 17 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> [ 1300, 1500) </td>
-   <td style="text-align:right;"> 1300 </td>
-   <td style="text-align:right;"> 1500 </td>
-   <td style="text-align:right;"> 17 </td>
-   <td style="text-align:right;"> 21 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> [ 1500, 1700) </td>
-   <td style="text-align:right;"> 1500 </td>
-   <td style="text-align:right;"> 1700 </td>
-   <td style="text-align:right;"> 21 </td>
-   <td style="text-align:right;"> 26 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> [ 1700, 2000) </td>
-   <td style="text-align:right;"> 1700 </td>
-   <td style="text-align:right;"> 2000 </td>
-   <td style="text-align:right;"> 26 </td>
-   <td style="text-align:right;"> 34 </td>
-  </tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-<section id="estimating-the-propensity-to-consume-across-bundesbank-income-categories" class="level3">
-<h3 class="anchored" data-anchor-id="estimating-the-propensity-to-consume-across-bundesbank-income-categories">Estimating the propensity to consume across Bundesbank income categories</h3>
-<p>Next, we use consumption data from the SOEP to approximate the propernsity to consume distribution for the different income categories of the Bundesbank.</p>
-<div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-9-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-1" role="tab" aria-controls="tabset-9-1" aria-selected="true">Data Set</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-9-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-9-2" role="tab" aria-controls="tabset-9-2" aria-selected="false">Descriptives</a></li></ul>
-<div class="tab-content">
-<div id="tabset-9-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-9-1-tab">
-<div class="cell tbl-cap-location-top">
-<details>
-<summary>Show the Code</summary>
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load Data</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>file <span class="ot">=</span> <span class="fu">gsub</span>(<span class="st">"WebsiteABM"</span>, <span class="st">""</span>, <span class="fu">getwd</span>())</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">read_rds</span>(<span class="fu">paste0</span>(file, <span class="st">"02_GenData/03_SoepFiles/ConsumptionDeciles.rds"</span>))</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the table</span></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(<span class="fu">ungroup</span>(data) <span class="sc">%&gt;%</span> <span class="fu">head</span>(.)) <span class="sc">%&gt;%</span> </span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_classic</span>(<span class="at">full_width =</span> T, <span class="at">html_font =</span> <span class="st">"Cambria"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_option =</span> <span class="fu">c</span>(<span class="st">"hover"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output-display">
-<div id="tbl-ConDensity" class="anchored">
-
-<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table 25:  Energy Efficiency Technologies </caption>
- <thead>
-  <tr>
-   <th style="text-align:left;"> IncomeGroup </th>
-   <th style="text-align:right;"> IncAvg </th>
-   <th style="text-align:right;"> ConAvg </th>
-   <th style="text-align:right;"> ConSd </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> [    0,  500) </td>
-   <td style="text-align:right;"> 327.1773 </td>
-   <td style="text-align:right;"> 4.792508 </td>
-   <td style="text-align:right;"> 2.588007 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> [  500,  900) </td>
-   <td style="text-align:right;"> 733.1171 </td>
-   <td style="text-align:right;"> 4.768947 </td>
-   <td style="text-align:right;"> 1.795604 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> [  900, 1300) </td>
-   <td style="text-align:right;"> 1117.5803 </td>
-   <td style="text-align:right;"> 5.578136 </td>
-   <td style="text-align:right;"> 2.453102 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> [ 1300, 1500) </td>
-   <td style="text-align:right;"> 1401.2352 </td>
-   <td style="text-align:right;"> 6.536188 </td>
-   <td style="text-align:right;"> 3.793312 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> [ 1500, 1700) </td>
-   <td style="text-align:right;"> 1600.1122 </td>
-   <td style="text-align:right;"> 6.587236 </td>
-   <td style="text-align:right;"> 2.379205 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> [ 1700, 2000) </td>
-   <td style="text-align:right;"> 1849.5851 </td>
-   <td style="text-align:right;"> 7.423728 </td>
-   <td style="text-align:right;"> 3.834969 </td>
-  </tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-</div>
-<div id="tabset-9-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-9-2-tab">
-<div id="fig-ConsumptionDensity" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="99_figures/ConsumptionDensity.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure 10: Density function - propensity to consume across Bundesban income categories</figcaption><p></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
+<section id="probability-of-pv-adoption" class="level2">
+<h2 class="anchored" data-anchor-id="probability-of-pv-adoption">Probability of PV adoption</h2>
 </section>
-<section id="estimating-the-probability-of-adoption-conditional-on-ownership-and-dwelling-class" class="level3">
-<h3 class="anchored" data-anchor-id="estimating-the-probability-of-adoption-conditional-on-ownership-and-dwelling-class">Estimating the probability of adoption conditional on ownership and dwelling class</h3>
-</section>
-<section id="variables-glossary" class="level3">
-<h3 class="anchored" data-anchor-id="variables-glossary">Variables Glossary</h3>
+<section id="variables-glossary" class="level2">
+<h2 class="anchored" data-anchor-id="variables-glossary">Variables Glossary</h2>
 <div class="incremental">
 <ul class="incremental">
 <li><strong><em>pid:</em></strong> This variable provides unique identification for each individual ever surveyed in the SOEP.</li>
@@ -2880,7 +2714,6 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
 
 
 
-</section>
 </section>
 </section>
 

@@ -6,6 +6,7 @@ project:
     - 02_data.qmd
     - 03_theory.qmd
     - 04_model.qmd
+    - 05_code.qmd
 
 website:
   title: "The ABM Model of Technology Adoption (ABM-REN)"
@@ -32,11 +33,11 @@ website:
         - 02_data.qmd
         - 03_theory.qmd
         - 04_model.qmd
+        - 05_code.qmd
 
 format:
   html:
-    theme: 
-     -custom.scss
+    theme: "flatly"
 
 
 

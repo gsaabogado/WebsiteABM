@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>The ABM Model of Technology Adoption (ABM-REN) - Model Code</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">The ABM Model of Technology Adoption (ABM-REN)</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="./01_about.html" aria-current="page">Home</a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/gsaabogado"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/gsaabogado"><i class="bi bi-twitter" role="img">
+</i> 
+ </a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://luissarmiento.net/">Personal Site</a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Model Code</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Sections</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_about.html" class="sidebar-item-text sidebar-link">About</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_data.html" class="sidebar-item-text sidebar-link">| echo: false</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_theory.html" class="sidebar-item-text sidebar-link">Theoretical Background ABM-REN</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04_model.html" class="sidebar-item-text sidebar-link">Model Overview</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05_code.html" class="sidebar-item-text sidebar-link active">Model Code</a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#generate-electricity-price" id="toc-generate-electricity-price" class="nav-link active" data-scroll-target="#generate-electricity-price">Generate Electricity Price</a></li>
+  <li><a href="#set-policy" id="toc-set-policy" class="nav-link" data-scroll-target="#set-policy">Set Policy</a></li>
+  <li><a href="#income-and-power-cost" id="toc-income-and-power-cost" class="nav-link" data-scroll-target="#income-and-power-cost">Income and Power cost</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Model Code</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<p>The model is written in Python. Below we provide a step-by-step documentation of all model functions. In total the model consists of 9 separate functions which are called at each time step plus one main function containing the initialisation and the main simulation loop, which we describe last.</p>
+<section id="generate-electricity-price" class="level2">
+<h2 class="anchored" data-anchor-id="generate-electricity-price">Generate Electricity Price</h2>
+<p>This function is called once at the beginning of a simulation run in order to generate a time-series of the electricity price which agents have to pay at each time-step of the simulation (note that this is different from the expected future electricity price, described below). As explained in the model description section, this electricity price is generated by simulating an AR(1) model estimated on electricity price data for Germany.</p>
+<p>The function takes two inputs, namely <code>Params</code>, which is a pandas dataframe containing the names and values of the model parameters and <code>length</code>, an integer denoting the length of the simulation.</p>
+<p>The function then creates a numpy vector of zeros of size <code>length</code>. The first element of the vector is set to the initial electricity price taken from <code>Params</code>, while the second is set to the initial price plus the trend component, i.e.&nbsp;the intercept from the AR(1) model. All subsequent elements are then generated by iterating the AR(1) model forward, including a normally distributed random shock the standard deviation of which is taken from the standard deviation of the residuals from the estimation of the AR(1) model. Finally, the function returns the time-series of the electricity price.</p>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> GenerateElectricityPrice(Params,length):</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    electricityprice<span class="op">=</span>np.zeros(length)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    electricityprice[<span class="dv">0</span>]<span class="op">=</span>Params[<span class="st">"ElectricityPriceInit"</span>].values[<span class="dv">0</span>]</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    electricityprice[<span class="dv">1</span>]<span class="op">=</span>electricityprice[<span class="dv">0</span>]<span class="op">+</span>Params[<span class="st">"ElectricityPriceTrend"</span>].values[<span class="dv">0</span>]</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> t <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>,length):</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        shock<span class="op">=</span>Params[<span class="st">"ElectricityPriceSD"</span>].values[<span class="dv">0</span>]<span class="op">*</span>np.sqrt(<span class="op">-</span><span class="dv">2</span><span class="op">*</span>np.log(np.random.uniform(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>)))<span class="op">*</span>np.cos(<span class="dv">2</span><span class="op">*</span>np.pi<span class="op">*</span>np.random.uniform(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        electricityprice[t]<span class="op">=</span>electricityprice[t<span class="op">-</span><span class="dv">1</span>]<span class="op">+</span>Params[<span class="st">"ElectricityPriceTrend"</span>].values[<span class="dv">0</span>]<span class="op">+</span>Params[<span class="st">"ElectricityPriceAR"</span>].values[<span class="dv">0</span>]<span class="op">*</span>(electricityprice[t<span class="op">-</span><span class="dv">1</span>]<span class="op">-</span>electricityprice[t<span class="op">-</span><span class="dv">2</span>])<span class="op">+</span>shock</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> electricityprice</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="set-policy" class="level2">
+<h2 class="anchored" data-anchor-id="set-policy">Set Policy</h2>
+<p>Depending on the values of various dummies in the <code>Params</code> dataframe and the current simulation period, this function determines whether a policy experiment should be activated in the current period. At present, the model includes four possible policies, namely a subsidy on the cost of a solar panel (<code>Subsidy1</code>), a subsidy on the price at which electricity generated by PV can be sold to the grid (<code>Subsidy2</code>), a policy increasing the maximum permitted loan to value ratio for bank loans to acquire PV (<code>CreditPolicy1</code>, currently not used since in the baseline the maximum LTV is already set to 1), and a policy increasing the maximum allowed debt service to income ratio resulting from a loan made to acquire PV (<code>CreditPolicy2</code>). For instance, if the dummy <code>Subsidy1</code> is set to 1 and if the current simulation period (expressed as a year) is equal to or larger than <code>SubsidyStart</code>, a subsidy on the installation cost of PV will be activated. The function checks the conditions for the respective policy variables in each period, changes them if necessary, and then returns them.</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> SetPolicy(Subsidy1,Subsidy2,CreditPolicy1,CreditPolicy2,year,Params):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> Params[<span class="st">"Subsidy1"</span>].values[<span class="dv">0</span>]<span class="op">==</span><span class="dv">1</span> <span class="op">&amp;</span> year<span class="op">&gt;=</span>Params[<span class="st">"SubsidyStart"</span>].values[<span class="dv">0</span>]:</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        Subsidy1<span class="op">=</span>Params[<span class="st">"s1"</span>].values[<span class="dv">0</span>]</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> Params[<span class="st">"Subsidy2"</span>].values[<span class="dv">0</span>]<span class="op">==</span><span class="dv">1</span> <span class="op">&amp;</span> year<span class="op">&gt;=</span>Params[<span class="st">"SubsidyStart"</span>].values[<span class="dv">0</span>]:</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        Subsidy2<span class="op">=</span>Params[<span class="st">"s2"</span>].values[<span class="dv">0</span>]</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> Params[<span class="st">"CreditPolicy1"</span>].values[<span class="dv">0</span>]<span class="op">==</span><span class="dv">1</span> <span class="op">&amp;</span> year<span class="op">&gt;=</span>Params[<span class="st">"CreditPolicyStart"</span>].values[<span class="dv">0</span>]:</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        CreditPolicy1<span class="op">=</span>Params[<span class="st">"cp1"</span>].values[<span class="dv">0</span>]</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> Params[<span class="st">"CreditPolicy2"</span>].values[<span class="dv">0</span>]<span class="op">==</span><span class="dv">1</span> <span class="op">&amp;</span> year<span class="op">&gt;=</span>Params[<span class="st">"CreditPolicyStart"</span>].values[<span class="dv">0</span>]:</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        CreditPolicy2<span class="op">=</span>Params[<span class="st">"cp2"</span>].values[<span class="dv">0</span>]</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span>[Subsidy1,Subsidy2,CreditPolicy1,CreditPolicy2]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="income-and-power-cost" class="level2">
+<h2 class="anchored" data-anchor-id="income-and-power-cost">Income and Power cost</h2>
+<p>This function generates the random incomes and electricity costs for each agent in every period. <code>Income_f</code> and <code>Powercost_f</code> are vectors of length <em>N</em>, where <em>N</em> is the number of agents in the model. The deterministic mean value of income and power cost for each agent is assumed to grow at rate <code>Trend</code> (which may be heterogeneous across agents) at each time step. We then draw the actual income and power cost for each agent in the current period using uniform draws which are then transformed into draws from a normal distribution with means <code>Income_f</code> and <code>Powercost_f</code> respectively and standard deviations <code>Income_sd</code> and <code>Powercost_sd</code> respectively. Both income and power cost are constrained to be positive. If an agent owns PV, the amount it has to pay for electricity is reduced by the capacity of the panel times the current electricity price. Finally, we also calculate <code>income_p</code>, a measure of income net of electricity cost for each agent.</p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> IncomePowercost(Income_f,Trend,Powercost_f,Income_sd,Powercost_sd,PV,Price,Subsidy2,Params):</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    Income_f<span class="op">=</span>Income_f<span class="op">*</span>(<span class="dv">1</span><span class="op">+</span>Trend)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    Powercost_f<span class="op">=</span>Powercost_f<span class="op">*</span>(<span class="dv">1</span><span class="op">+</span>Trend)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    randincome<span class="op">=</span>np.random.uniform(<span class="dv">0</span>,<span class="dv">1</span>,Income_f.size)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    randincome2<span class="op">=</span>np.random.uniform(<span class="dv">0</span>,<span class="dv">1</span>,Income_f.size)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    randpowercost<span class="op">=</span>np.random.uniform(<span class="dv">0</span>,<span class="dv">1</span>,Powercost_f.size)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    randpowercost2<span class="op">=</span>np.random.uniform(<span class="dv">0</span>,<span class="dv">1</span>,Powercost_f.size)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    randincome<span class="op">=</span>np.sqrt(<span class="op">-</span><span class="dv">2</span><span class="op">*</span>np.log(randincome))<span class="op">*</span>np.cos(<span class="dv">2</span><span class="op">*</span>np.pi<span class="op">*</span>randincome2)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    randpowercost<span class="op">=</span>np.sqrt(<span class="op">-</span><span class="dv">2</span><span class="op">*</span>np.log(randpowercost))<span class="op">*</span>np.cos(<span class="dv">2</span><span class="op">*</span>np.pi<span class="op">*</span>randpowercost2)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    randincome<span class="op">=</span>Income_sd<span class="op">*</span>randincome<span class="op">*</span>Income_f<span class="op">+</span>Income_f</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    randincome<span class="op">=</span>np.maximum(<span class="fl">1e-10</span>,randincome)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    randpowercost<span class="op">=</span>Powercost_sd<span class="op">*</span>randpowercost<span class="op">*</span>Powercost_f<span class="op">+</span>Powercost_f</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    randpowercost<span class="op">=</span>np.maximum(<span class="fl">1e-10</span>,randpowercost)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    randpowercost<span class="op">=</span>(randpowercost<span class="op">-</span>PV<span class="op">*</span>(<span class="dv">1</span><span class="op">+</span>Subsidy2)<span class="op">*</span>Params[<span class="st">"PVCapacity"</span>].values[<span class="dv">0</span>])<span class="op">*</span>Price</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    income_p<span class="op">=</span>randincome<span class="op">-</span>randpowercost</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span>[randincome,randpowercost,income_p]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section"></h2>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

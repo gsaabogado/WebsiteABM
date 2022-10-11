@@ -1,5 +1,5 @@
 ---
-title: ""
+title: "Data"
 author: "Severin Reissl and Luis Sarmiento"
 bibliography: Literature.bib
 format: 
@@ -72,12 +72,7 @@ Also note that, **in general**, all negative entries refer to missing values for
 
 ## PEQUIV
 
-@tbl-PequivIndividual shows a sample of individual-level characteristics we extract from the PEQUIV file. It consists of `r ncol(pequiv)` variables and `r comma(nrow(pequiv))` observations between 2005 and 2018. Each variable is either in a numeric or haven-labeled format. The data frame contains the individual and household IDs (*pid* and *hid*) alongside the year of the interview (year).
-
--   *head* is an indicator variable on the relationship between *pid* and the household head (1 = head, 2 = partner, 3 = child, 4 = relative, and 5 = non-relative).
--   *age* is the average age of *pid*
--   *sex* the sex (1 - Male; 2- Female) of *pid*
--   *education* the total years of education of *pid*
+@tbl-PequivIndividual shows a sample of individual-level characteristics we extract from the PEQUIV file. It consists of `r ncol(pequiv)` variables and `r comma(nrow(pequiv))` observations between 2005 and 2018. Each variable is either in a numeric or haven-labelled format. The data frame contains the individual and household IDs (*pid* and *hid*). *year* refers to the year of the interview. *head* is an indicator variable on the relationship between *pid* and the household head (1 = head, 2 = partner, 3 = child, 4 = relative, and 5 = non-relative). *age* is the average age. *sex* the gender (1 - Male; 2- Female). And, *education*, the total years of education. @tbl-PequivSpatial includes data on the spatial location of the household. Because we are working with the open version of the SOEP, we can only identify the *state* and *region* where the household is located.
 
 ::: panel-tabset
 ## Individual
@@ -133,11 +128,11 @@ kbl(select(pequiv, pid, hid, year, Npersons, Nkids, income, GrossIncome) %>% hea
 ```
 :::
 
-@tbl-PequivSpatial includes data on the spatial location of the household. Because we are working with the open version of the SOEP, we can only identify the *state* and *region* where the household is located.
+
 
 @tbl-PequivEmployment contains employment-related covariates. *employment* is a dummy variable equal to one if the person is currently employed. *occupation* is the person's occupation according to the International Classification of Occupations Code (ISCO). For instance, code 5,160 refers to protective service workers. *industry1* is a two-digit industry code based on ten categories (1 -- Agriculture, 2 -- Energy, 3 -- Mining, 4 -- Manufacturing, 5 -- Construction, 6 -- Trade, 7 -- Transport, 8 -- Bank and Insurance, 9 -- Services).
 
-@tbl-PequivHH includes a set of household-level controls we extract from the PEQUIV file. *Npersons* and *Nkids* are the number of persons and kids in the household. *income* and *GrossIncome* are the household net and gross incomes in Euros per year.
+@tbl-PequivHH includes a set of household-level controls. While *Npersons* and *Nkids* are the number of persons and kids in the household, *income* and *GrossIncome* are the household net and gross income in Euros per year.
 
 ## HGEN
 

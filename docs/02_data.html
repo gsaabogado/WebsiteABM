@@ -8,7 +8,7 @@
 
 <meta name="author" content="Severin Reissl and Luis Sarmiento">
 
-<title>The ABM Model of Technology Adoption (ABM-REN) -</title>
+<title>The ABM Model of Technology Adoption (ABM-REN) - Data</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -180,7 +180,7 @@ div.csl-indent {
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">(Untitled)</h1>
+      <h1 class="quarto-secondary-nav-title">Data</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -213,7 +213,7 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./02_data.html" class="sidebar-item-text sidebar-link active">| echo: false</a>
+  <a href="./02_data.html" class="sidebar-item-text sidebar-link active">Data</a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -264,7 +264,27 @@ div.csl-indent {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Data</h1>
+</div>
 
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Severin Reissl and Luis Sarmiento </p>
+          </div>
+  </div>
+    
+    
+  </div>
+  
+
+</header>
 
 <div class="cell">
 
@@ -321,13 +341,7 @@ Labels:
 </section>
 <section id="pequiv" class="level2">
 <h2 class="anchored" data-anchor-id="pequiv">PEQUIV</h2>
-<p><a href="#tbl-PequivIndividual">Table&nbsp;1</a> shows a sample of individual-level characteristics we extract from the PEQUIV file. It consists of 19 variables and 547,704 observations between 2005 and 2018. Each variable is either in a numeric or haven-labeled format. The data frame contains the individual and household IDs (<em>pid</em> and <em>hid</em>) alongside the year of the interview (year).</p>
-<ul>
-<li><em>head</em> is an indicator variable on the relationship between <em>pid</em> and the household head (1 = head, 2 = partner, 3 = child, 4 = relative, and 5 = non-relative).</li>
-<li><em>age</em> is the average age of <em>pid</em></li>
-<li><em>sex</em> the sex (1 - Male; 2- Female) of <em>pid</em></li>
-<li><em>education</em> the total years of education of <em>pid</em></li>
-</ul>
+<p><a href="#tbl-PequivIndividual">Table&nbsp;1</a> shows a sample of individual-level characteristics we extract from the PEQUIV file. It consists of 19 variables and 547,704 observations between 2005 and 2018. Each variable is either in a numeric or haven-labelled format. The data frame contains the individual and household IDs (<em>pid</em> and <em>hid</em>). <em>year</em> refers to the year of the interview. <em>head</em> is an indicator variable on the relationship between <em>pid</em> and the household head (1 = head, 2 = partner, 3 = child, 4 = relative, and 5 = non-relative). <em>age</em> is the average age. <em>sex</em> the gender (1 - Male; 2- Female). And, <em>education</em>, the total years of education. <a href="#tbl-PequivSpatial">Table&nbsp;2</a> includes data on the spatial location of the household. Because we are working with the open version of the SOEP, we can only identify the <em>state</em> and <em>region</em> where the household is located.</p>
 <div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Individual</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Spatial</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Employment</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">Household</a></li></ul>
 <div class="tab-content">
@@ -656,9 +670,8 @@ Labels:
 </div>
 </div>
 </div>
-<p><a href="#tbl-PequivSpatial">Table&nbsp;2</a> includes data on the spatial location of the household. Because we are working with the open version of the SOEP, we can only identify the <em>state</em> and <em>region</em> where the household is located.</p>
 <p><a href="#tbl-PequivEmployment">Table&nbsp;3</a> contains employment-related covariates. <em>employment</em> is a dummy variable equal to one if the person is currently employed. <em>occupation</em> is the person’s occupation according to the International Classification of Occupations Code (ISCO). For instance, code 5,160 refers to protective service workers. <em>industry1</em> is a two-digit industry code based on ten categories (1 – Agriculture, 2 – Energy, 3 – Mining, 4 – Manufacturing, 5 – Construction, 6 – Trade, 7 – Transport, 8 – Bank and Insurance, 9 – Services).</p>
-<p><a href="#tbl-PequivHH">Table&nbsp;4</a> includes a set of household-level controls we extract from the PEQUIV file. <em>Npersons</em> and <em>Nkids</em> are the number of persons and kids in the household. <em>income</em> and <em>GrossIncome</em> are the household net and gross incomes in Euros per year.</p>
+<p><a href="#tbl-PequivHH">Table&nbsp;4</a> includes a set of household-level controls. While <em>Npersons</em> and <em>Nkids</em> are the number of persons and kids in the household, <em>income</em> and <em>GrossIncome</em> are the household net and gross income in Euros per year.</p>
 </section>
 <section id="hgen" class="level2">
 <h2 class="anchored" data-anchor-id="hgen">HGEN</h2>

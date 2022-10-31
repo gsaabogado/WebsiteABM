@@ -2,20 +2,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.36">
+<meta name="generator" content="quarto-1.2.237">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Severin Reissl and Luis Sarmiento">
 
-<title>The ABM Model of Technology Adoption (ABM-REN) - Data</title>
+<title>The Agent-Based Model of Technology Adoption (ABM-REN) - Data</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -54,7 +59,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -67,7 +72,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -149,29 +154,33 @@ div.csl-indent {
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">The ABM Model of Technology Adoption (ABM-REN)</span>
-  </a>
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">The Agent-Based Model of Technology Adoption (ABM-REN)</span>
+    </a>
+  </div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./01_about.html" aria-current="page">Home</a>
+    <a class="nav-link active" href="./01_about.html" aria-current="page">
+ <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/gsaabogado"><i class="bi bi-github" role="img">
 </i> 
- </a>
+ <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://twitter.com/gsaabogado"><i class="bi bi-twitter" role="img">
 </i> 
- </a>
+ <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="https://luissarmiento.net/">Personal Site</a>
+    <a class="nav-link" href="https://luissarmiento.net/">
+ <span class="menu-text">Personal Site</span></a>
   </li>  
 </ul>
               <div id="quarto-search" class="" title="Search"></div>
@@ -218,17 +227,17 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03_theory.html" class="sidebar-item-text sidebar-link">Theoretical Background</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./04_model.html" class="sidebar-item-text sidebar-link">Model Overview</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./05_code.html" class="sidebar-item-text sidebar-link">Model Code</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06_modelresults.html" class="sidebar-item-text sidebar-link">Model Results</a>
   </div>
 </li>
       </ul>
@@ -238,7 +247,7 @@ div.csl-indent {
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc">
+        <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
@@ -247,12 +256,32 @@ div.csl-indent {
   <li><a href="#data-structure" id="toc-data-structure" class="nav-link" data-scroll-target="#data-structure">Data Structure</a></li>
   <li><a href="#pequiv" id="toc-pequiv" class="nav-link" data-scroll-target="#pequiv">PEQUIV</a></li>
   <li><a href="#hgen" id="toc-hgen" class="nav-link" data-scroll-target="#hgen">HGEN</a></li>
-  <li><a href="#hconsum" id="toc-hconsum" class="nav-link" data-scroll-target="#hconsum">HCONSUM</a></li>
-  <li><a href="#hwealth" id="toc-hwealth" class="nav-link" data-scroll-target="#hwealth">HWEALTH</a></li>
+  <li><a href="#hconsum" id="toc-hconsum" class="nav-link" data-scroll-target="#hconsum">HCONSUM</a>
+  <ul class="collapse">
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#descriptives" id="toc-descriptives" class="nav-link" data-scroll-target="#descriptives">Descriptives</a></li>
+  </ul></li>
+  <li><a href="#hwealth" id="toc-hwealth" class="nav-link" data-scroll-target="#hwealth">HWEALTH</a>
+  <ul class="collapse">
+  <li><a href="#introduction-1" id="toc-introduction-1" class="nav-link" data-scroll-target="#introduction-1">Introduction</a></li>
+  <li><a href="#descriptives-1" id="toc-descriptives-1" class="nav-link" data-scroll-target="#descriptives-1">Descriptives</a></li>
+  </ul></li>
   <li><a href="#individual-panel" id="toc-individual-panel" class="nav-link" data-scroll-target="#individual-panel">Individual panel</a></li>
+  </ul></li>
+  <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters">Parameters</a>
+  <ul class="collapse">
   <li><a href="#distribution-of-power-costs-by-income" id="toc-distribution-of-power-costs-by-income" class="nav-link" data-scroll-target="#distribution-of-power-costs-by-income">Distribution of power costs by income</a></li>
-  <li><a href="#probability-of-pv-adoption" id="toc-probability-of-pv-adoption" class="nav-link" data-scroll-target="#probability-of-pv-adoption">Probability of PV adoption</a></li>
-  <li><a href="#variables-glossary" id="toc-variables-glossary" class="nav-link" data-scroll-target="#variables-glossary">Variables Glossary</a></li>
+  <li><a href="#share-of-pv-adoption" id="toc-share-of-pv-adoption" class="nav-link" data-scroll-target="#share-of-pv-adoption">Share of PV adoption</a></li>
+  <li><a href="#estimating-wealth" id="toc-estimating-wealth" class="nav-link" data-scroll-target="#estimating-wealth">Estimating Wealth</a></li>
+  </ul></li>
+  <li><a href="#variables-glossary" id="toc-variables-glossary" class="nav-link" data-scroll-target="#variables-glossary">Variables Glossary</a>
+  <ul class="collapse">
+  <li><a href="#identifiers" id="toc-identifiers" class="nav-link" data-scroll-target="#identifiers">Identifiers</a></li>
+  <li><a href="#individual-characteristics" id="toc-individual-characteristics" class="nav-link" data-scroll-target="#individual-characteristics">Individual Characteristics</a></li>
+  <li><a href="#income-and-employment" id="toc-income-and-employment" class="nav-link" data-scroll-target="#income-and-employment">Income and Employment</a></li>
+  <li><a href="#house-characteristics" id="toc-house-characteristics" class="nav-link" data-scroll-target="#house-characteristics">House characteristics</a></li>
+  <li><a href="#energy-appliances" id="toc-energy-appliances" class="nav-link" data-scroll-target="#energy-appliances">Energy appliances</a></li>
+  <li><a href="#energy-costs-1" id="toc-energy-costs-1" class="nav-link" data-scroll-target="#energy-costs-1">Energy Costs</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -276,6 +305,7 @@ div.csl-indent {
           </div>
   </div>
     
+  
     
   </div>
   
@@ -322,22 +352,24 @@ div.csl-indent {
 [1] 2 1 2 1 1 2
 
 Labels:
- value                                                 label
-    -6 [-6] Fragebogenversion mit geaenderter Filterfuehrung
-    -5             [-5] In Fragebogenversion nicht enthalten
-    -4                     [-4] Unzulaessige Mehrfachantwort
-    -3                                     [-3] nicht valide
-    -2                                  [-2] trifft nicht zu
-    -1                                     [-1] keine Angabe
-     1                                            [1] Male 1
-     2                                          [2] Female 2</code></pre>
+ value                                                   label
+    -8 [-8] Frage in diesem Jahr nicht Teil des Frageprogramms
+    -7 [-7] nur in weniger eingeschraenkter Edition verfuegbar
+    -6   [-6] Fragebogenversion mit geaenderter Filterfuehrung
+    -5               [-5] in Fragebogenversion nicht enthalten
+    -4                       [-4] unzulaessige Mehrfachantwort
+    -3                                  [-3] unplausibler Wert
+    -2                                    [-2] trifft nicht zu
+    -1                                       [-1] keine Angabe
+     1                                                [1] Male
+     2                                              [2] Female</code></pre>
 </div>
 </div>
 <p>Also note that, <strong>in general</strong>, all negative entries refer to missing values for different reasons, e.g., the question was not part of that year’s questionnaire or invalid answers.</p>
 </section>
 <section id="pequiv" class="level2">
 <h2 class="anchored" data-anchor-id="pequiv">PEQUIV</h2>
-<p><a href="#tbl-PequivIndividual">Table&nbsp;1</a> shows a sample of individual-level characteristics we extract from the PEQUIV file. It consists of 19 variables and 547,704 observations between 2005 and 2018. Each variable is either in a numeric or haven-labelled format. The data frame contains the individual and household IDs (<em>pid</em> and <em>hid</em>). <em>year</em> refers to the year of the interview. <em>head</em> is an indicator variable on the relationship between <em>pid</em> and the household head (1 = head, 2 = partner, 3 = child, 4 = relative, and 5 = non-relative). <em>age</em> is the average age. <em>sex</em> the gender (1 - Male; 2- Female). And, <em>education</em>, the total years of education. <a href="#tbl-PequivSpatial">Table&nbsp;2</a> includes data on the spatial location of the household. Because we are working with the open version of the SOEP, we can only identify the <em>state</em> and <em>region</em> where the household is located.</p>
+<p><a href="#tbl-PequivIndividual">Table&nbsp;1</a> shows a sample of individual-level characteristics we extract from the PEQUIV file. It consists of 18 variables and 649,099 observations between 2005 and 2018. Each variable is either in a numeric or haven-labelled format. The data frame contains the individual and household IDs (<em>pid</em> and <em>hid</em>). <em>year</em> refers to the year of the interview. <em>head</em> is an indicator variable on the relationship between <em>pid</em> and the household head (1 = head, 2 = partner, 3 = child, 4 = relative, and 5 = non-relative). <em>age</em> is the average age. <em>sex</em> the gender (1 - Male; 2- Female). And, <em>education</em>, the total years of education. <a href="#tbl-PequivSpatial">Table&nbsp;2</a> includes data on the spatial location of the household. Because we are working with the open version of the SOEP, we can only identify the <em>state</em> and <em>region</em> where the household is located.</p>
 <div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Individual</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Spatial</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Employment</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">Household</a></li></ul>
 <div class="tab-content">
@@ -353,7 +385,7 @@ Labels:
 <div class="cell-output-display">
 <div id="tbl-PequivIndividual" class="anchored">
 
-<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table 1:  Individual characteristics from the PEQUIV file </caption>
+<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table&nbsp;1:  Individual characteristics from the PEQUIV file </caption>
  <thead>
   <tr>
    <th style="text-align:right;"> pid </th>
@@ -439,7 +471,7 @@ Labels:
 <div class="cell-output-display">
 <div id="tbl-PequivSpatial" class="anchored">
 
-<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table 2:  Spatial variables from the PEQUIV file </caption>
+<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table&nbsp;2:  Spatial variables from the PEQUIV file </caption>
  <thead>
   <tr>
    <th style="text-align:right;"> pid </th>
@@ -504,14 +536,14 @@ Labels:
 <details>
 <summary>Show the Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Show the data set</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(<span class="fu">select</span>(pequiv, pid, hid, year, employment, occupation, industry1) <span class="sc">%&gt;%</span> <span class="fu">head</span>(.)) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(<span class="fu">select</span>(pequiv, pid, hid, year, employment, occupation, industry) <span class="sc">%&gt;%</span> <span class="fu">head</span>(.)) <span class="sc">%&gt;%</span> </span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_classic</span>(<span class="at">full_width =</span> T, <span class="at">html_font =</span> <span class="st">"Cambria"</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_option =</span> <span class="fu">c</span>(<span class="st">"hover"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="tbl-PequivEmployment" class="anchored">
 
-<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table 3:  Employment variables from the PEQUIV file </caption>
+<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table&nbsp;3:  Employment variables from the PEQUIV file </caption>
  <thead>
   <tr>
    <th style="text-align:right;"> pid </th>
@@ -519,7 +551,7 @@ Labels:
    <th style="text-align:right;"> year </th>
    <th style="text-align:right;"> employment </th>
    <th style="text-align:right;"> occupation </th>
-   <th style="text-align:right;"> industry1 </th>
+   <th style="text-align:right;"> industry </th>
   </tr>
  </thead>
 <tbody>
@@ -590,7 +622,7 @@ Labels:
 <div class="cell-output-display">
 <div id="tbl-PequivHH" class="anchored">
 
-<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table 4:  Household variables from the PEQUIV file </caption>
+<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table&nbsp;4:  Household variables from the PEQUIV file </caption>
  <thead>
   <tr>
    <th style="text-align:right;"> pid </th>
@@ -627,8 +659,8 @@ Labels:
    <td style="text-align:right;"> 2005 </td>
    <td style="text-align:right;"> 4 </td>
    <td style="text-align:right;"> 2 </td>
-   <td style="text-align:right;"> 47146 </td>
-   <td style="text-align:right;"> 68521 </td>
+   <td style="text-align:right;"> 46896 </td>
+   <td style="text-align:right;"> 68132 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 603 </td>
@@ -636,8 +668,8 @@ Labels:
    <td style="text-align:right;"> 2005 </td>
    <td style="text-align:right;"> 4 </td>
    <td style="text-align:right;"> 2 </td>
-   <td style="text-align:right;"> 47146 </td>
-   <td style="text-align:right;"> 68521 </td>
+   <td style="text-align:right;"> 46896 </td>
+   <td style="text-align:right;"> 68132 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 604 </td>
@@ -645,8 +677,8 @@ Labels:
    <td style="text-align:right;"> 2005 </td>
    <td style="text-align:right;"> 4 </td>
    <td style="text-align:right;"> 2 </td>
-   <td style="text-align:right;"> 47146 </td>
-   <td style="text-align:right;"> 68521 </td>
+   <td style="text-align:right;"> 46896 </td>
+   <td style="text-align:right;"> 68132 </td>
   </tr>
   <tr>
    <td style="text-align:right;"> 605 </td>
@@ -654,8 +686,8 @@ Labels:
    <td style="text-align:right;"> 2005 </td>
    <td style="text-align:right;"> 4 </td>
    <td style="text-align:right;"> 2 </td>
-   <td style="text-align:right;"> 47146 </td>
-   <td style="text-align:right;"> 68521 </td>
+   <td style="text-align:right;"> 46896 </td>
+   <td style="text-align:right;"> 68132 </td>
   </tr>
 </tbody>
 </table>
@@ -666,7 +698,7 @@ Labels:
 </div>
 </div>
 </div>
-<p><a href="#tbl-PequivEmployment">Table&nbsp;3</a> contains employment-related covariates. <em>employment</em> is a dummy variable equal to one if the person is currently employed. <em>occupation</em> is the person’s occupation according to the International Classification of Occupations Code (ISCO). For instance, code 5,160 refers to protective service workers. <em>industry1</em> is a two-digit industry code based on ten categories (1 – Agriculture, 2 – Energy, 3 – Mining, 4 – Manufacturing, 5 – Construction, 6 – Trade, 7 – Transport, 8 – Bank and Insurance, 9 – Services).</p>
+<p><a href="#tbl-PequivEmployment">Table&nbsp;3</a> contains employment-related covariates. <em>employment</em> is a dummy variable equal to one if the person is currently employed. <em>occupation</em> is the person’s occupation according to the International Classification of Occupations Code (ISCO). For instance, code 5,160 refers to protective service workers. <em>industry</em> is a two-digit industry code based on ten categories (1 – Agriculture, 2 – Energy, 3 – Mining, 4 – Manufacturing, 5 – Construction, 6 – Trade, 7 – Transport, 8 – Bank and Insurance, 9 – Services).</p>
 <p><a href="#tbl-PequivHH">Table&nbsp;4</a> includes a set of household-level controls. While <em>Npersons</em> and <em>Nkids</em> are the number of persons and kids in the household, <em>income</em> and <em>GrossIncome</em> are the household net and gross income in Euros per year.</p>
 </section>
 <section id="hgen" class="level2">
@@ -674,7 +706,7 @@ Labels:
 <div class="cell">
 
 </div>
-<p><a href="#tbl-HgenID">Table&nbsp;5</a> shows a sample of household-level identifiers we extract from the HGEN file. The full data-frame contains 34 variables and 213,595 observations across 40,852 households spanning between 2005 and 2018. <em>hid</em> and <em>year</em> are analogous to the <strong>pequiv</strong> file.</p>
+<p><a href="#tbl-HgenID">Table&nbsp;5</a> shows a sample of household-level identifiers we extract from the HGEN file. The full data-frame contains 28 variables and 252,808 observations across 47,079 households spanning between 2005 and 2018. <em>hid</em> and <em>year</em> are analogous to the <strong>pequiv</strong> file.</p>
 <ul>
 <li><em>Owner</em> is an indicator variable based on four categories (1 – Owner, 2 – Main Tenant, 3 – Sub-Tenant, 4 – Tenant, 5 – Living in a home).</li>
 <li><em>FreeRent</em> is a dummy variable equal to one if the family does not pay rent.</li>
@@ -695,7 +727,7 @@ Labels:
 <div class="cell-output-display">
 <div id="tbl-HgenID" class="anchored">
 
-<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table 5:  Household identifiers HGEN file </caption>
+<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table&nbsp;5:  Household identifiers HGEN file </caption>
  <thead>
   <tr>
    <th style="text-align:right;"> hid </th>
@@ -773,7 +805,7 @@ Labels:
 <div class="cell-output-display">
 <div id="tbl-HgenInf" class="anchored">
 
-<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table 6:  Household identifiers HGEN file </caption>
+<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table&nbsp;6:  Household identifiers HGEN file </caption>
  <thead>
   <tr>
    <th style="text-align:right;"> hid </th>
@@ -851,7 +883,7 @@ Labels:
 <div class="cell-output-display">
 <div id="tbl-HgenRen" class="anchored">
 
-<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table 7:  Household energy efficiency investments </caption>
+<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table&nbsp;7:  Household energy efficiency investments </caption>
  <thead>
   <tr>
    <th style="text-align:right;"> hid </th>
@@ -943,7 +975,7 @@ Labels:
 <div class="cell-output-display">
 <div id="tbl-HgenCosts" class="anchored">
 
-<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table 8:  Household energy costs </caption>
+<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table&nbsp;8:  Household energy costs </caption>
  <thead>
   <tr>
    <th style="text-align:right;"> hid </th>
@@ -983,7 +1015,7 @@ Labels:
    <td style="text-align:right;"> 124 </td>
    <td style="text-align:right;"> 2005 </td>
    <td style="text-align:right;"> -8 </td>
-   <td style="text-align:right;"> 42 </td>
+   <td style="text-align:right;"> 150 </td>
    <td style="text-align:right;"> -5 </td>
    <td style="text-align:right;"> 40 </td>
   </tr>
@@ -999,7 +1031,7 @@ Labels:
    <td style="text-align:right;"> 167 </td>
    <td style="text-align:right;"> 2005 </td>
    <td style="text-align:right;"> -8 </td>
-   <td style="text-align:right;"> 137 </td>
+   <td style="text-align:right;"> 60 </td>
    <td style="text-align:right;"> -5 </td>
    <td style="text-align:right;"> 5 </td>
   </tr>
@@ -1024,6 +1056,8 @@ Labels:
 </section>
 <section id="hconsum" class="level2">
 <h2 class="anchored" data-anchor-id="hconsum">HCONSUM</h2>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
 <p>We use the 2010 SOEP consumption module to estimate the consumption propensity of German households. The SOEP consumption module, or “hconsum,” was implemented as part of the 31st SOEP wave in 2010. The goal of <em>hconsum</em> is to allow researchers to understand the relationship between welfare, income, and disposable income – whereas consumption characterizes the actual current living standard, income describes the potential command over resources. For a complete review of the SOEP consumption module, we refer the reader to <span class="citation" data-cites="Grabka2013">Marcus, Siegers, and Grabka (<a href="#ref-Grabka2013" role="doc-biblioref">2013</a>)</span>. In this chapter, we only highlight the its main characteristics.</p>
 <p>Usually, consumption data takes one of two forms; consumption journals or representative surveys. The goal of consumption journals is to keep track of all daily expenditures across a cross-section of representative households to understand consumption patterns. Once there is enough data, researchers aggregate the items into categories to assess the main components of households’ income use. . Representative surveys, on the other hand, study typical consumption instead of consumption at a given time. The core idea is that asking for a relevant set of common consumption goods can act as a good proxy for total consumption.</p>
 <p>In the 2010 hconsum module, the SOEP adopted the idea of consumption goods to approximate total consumption. In total, they collected twenty-four different consumption categories spanning from food expenditures to insurance costs.</p>
@@ -1052,7 +1086,7 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
 <div class="cell-output-display">
 <div id="tbl-ConsA" class="anchored">
 
-<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table 9:  Sample of the consumption module (daily expenditures) </caption>
+<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table&nbsp;9:  Sample of the consumption module (daily expenditures) </caption>
  <thead>
   <tr>
    <th style="text-align:right;"> hid </th>
@@ -1137,7 +1171,7 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
 <div class="cell-output-display">
 <div id="tbl-ConsB" class="anchored">
 
-<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table 10:  Sample of the consumption module (Housing) </caption>
+<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table&nbsp;10:  Sample of the consumption module (Housing) </caption>
  <thead>
   <tr>
    <th style="text-align:right;"> hid </th>
@@ -1229,7 +1263,7 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
 <div class="cell-output-display">
 <div id="tbl-ConsC" class="anchored">
 
-<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table 11:  Sample of the consumption module (Housing) </caption>
+<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table&nbsp;11:  Sample of the consumption module (Housing) </caption>
  <thead>
   <tr>
    <th style="text-align:right;"> hid </th>
@@ -1293,7 +1327,7 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
 <div class="cell-output-display">
 <div id="tbl-ConsD" class="anchored">
 
-<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table 12:  Sample of the consumption module (Other) </caption>
+<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table&nbsp;12:  Sample of the consumption module (Other) </caption>
  <thead>
   <tr>
    <th style="text-align:right;"> hid </th>
@@ -1377,6 +1411,9 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
 </div>
 </div>
 <p>In <a href="#fig-ShareConsumption">Figure&nbsp;2</a>, we look at the difference in consumption values and composition across the SOEP income deciles. For this, we aggregate all consumption items into eight categories; Daily expenditures, health, financial, transport, heating, power, housing, and others. There are apparent differences in the amount of money used for consumption across income groups. For instance, in the highest and lowest deciles of the income distribution, households spend 14,900 and 4,460 Euros per year, respectively. <a href="#fig-ShareConsumption">Figure&nbsp;2</a> portrays a clearer picture of the composition of these expenditures across income groups. While the share of financial and health costs grows with income, heating and power expenditures decrease. <a href="#fig-HeatCon">Figure&nbsp;3</a> clearly shows these trends with a heat map of consumption category by income decile. The expenditure share of housing, daily expenses, and health remains relatively stable; financial, transport and health costs increase with income; and heating-power expenses decrease. In <a href="#fig-IncToCon">Figure&nbsp;4</a>, we plot the ratio of average income to consumption by income decile. As expected, the consumption income ratio drops as we become more well-off. In the lowest income decile, families spend, on average, 34% more than their average income, meaning that they either live from debt or receive additional and unreported income from other sources. Once we move to the second income decile, the ratio reaches parity and implies that persons in this decile earn as much as they spend. Finally, in <a href="#fig-IncToConHeat">Figure&nbsp;5</a>, we plot the heat map of consumption income ratios across different categories.</p>
+</section>
+<section id="descriptives" class="level3">
+<h3 class="anchored" data-anchor-id="descriptives">Descriptives</h3>
 <div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">Consumption</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Con. Share</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-3" role="tab" aria-controls="tabset-4-3" aria-selected="false">Con. Matrix</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-4" role="tab" aria-controls="tabset-4-4" aria-selected="false">Con/Income</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-5" role="tab" aria-controls="tabset-4-5" aria-selected="false">Con/Income matrix</a></li></ul>
 <div class="tab-content">
@@ -1406,7 +1443,7 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
 <div id="fig-RawConsumption" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="02_data_files/figure-html/fig-RawConsumption-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Figure 1: Yearly consumption by concept in thousand euros (SOEP 2010)</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;1: Yearly consumption by concept in thousand euros (SOEP 2010)</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1437,7 +1474,7 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
 <div id="fig-ShareConsumption" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="02_data_files/figure-html/fig-ShareConsumption-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Figure 2: Consumption share by concept (SOEP 2010)</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;2: Consumption share by concept (SOEP 2010)</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1469,7 +1506,7 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
 <div id="fig-HeatCon" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="02_data_files/figure-html/fig-HeatCon-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Figure 3: Share of total consumption across categories</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;3: Share of total consumption across categories</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1499,7 +1536,7 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
 <div id="fig-IncToCon" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="02_data_files/figure-html/fig-IncToCon-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Figure 4: Consumption share of income (SOEP 2010)</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;4: Consumption share of income (SOEP 2010)</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1533,7 +1570,7 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
 <div id="fig-IncToConHeat" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="02_data_files/figure-html/fig-IncToConHeat-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Figure 5: Consumption share of income across categories</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;5: Consumption share of income across categories</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1542,8 +1579,11 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
 </div>
 </div>
 </section>
+</section>
 <section id="hwealth" class="level2">
 <h2 class="anchored" data-anchor-id="hwealth">HWEALTH</h2>
+<section id="introduction-1" class="level3">
+<h3 class="anchored" data-anchor-id="introduction-1">Introduction</h3>
 <p>The SOEP collected wealth data in 2002, 2007, 2012, and 2017 through the HWEALTH module.</p>
 <p>Compared to pure demographic variables, wealth data often contains high nonresponse rates. The SOEP adjusts for missing data with logical and multiple imputations. In 2002, the SOEP surveyed nine asset and liability components; owner-occupied housing, other property, financial assets, business assets, tangible assets, private pensions, mortgage debts, and consumer credits. While in 2002, the Item <em>private pensions and life insurances</em> included building loan contracts, the SOEP separated the question from 2007. In 2017, the SOEP added two wealth components, the value of vehicles and student loans. However, other assets are missing, e.g., cash, livestock and crops, equipment, intangible assets, claims against private insurance, and commercial loans.</p>
 <p><a href="#tbl-WealthA">Table&nbsp;13</a> contains a sample of the HWEALTH module aggregate wealth measures. These are, <em>GrossWealth</em> <em>GrossDebts</em>, and <em>NetWealth</em>. For each element, there are two distinct columns. The column with the number two at the end corresponds to wealth values considering vehicles and student loans. The one without the suffix only considers the wealth of the nine assets surveyed since 2002.</p>
@@ -1565,7 +1605,7 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
 <div class="cell-output-display">
 <div id="tbl-WealthA" class="anchored">
 
-<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table 13:  Sample of the wealth module (Totals) </caption>
+<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table&nbsp;13:  Sample of the wealth module (Totals) </caption>
  <thead>
   <tr>
    <th style="text-align:right;"> hid </th>
@@ -1657,7 +1697,7 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
 <div class="cell-output-display">
 <div id="tbl-WealthB" class="anchored">
 
-<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table 14:  Sample of the wealth module (Properties) </caption>
+<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table&nbsp;14:  Sample of the wealth module (Properties) </caption>
  <thead>
   <tr>
    <th style="text-align:right;"> hid </th>
@@ -1749,7 +1789,7 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
 <div class="cell-output-display">
 <div id="tbl-WealthC" class="anchored">
 
-<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table 15:  Sample of the wealth module (Financial) </caption>
+<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table&nbsp;15:  Sample of the wealth module (Financial) </caption>
  <thead>
   <tr>
    <th style="text-align:right;"> hid </th>
@@ -1827,7 +1867,7 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
 <div class="cell-output-display">
 <div id="tbl-WealthD" class="anchored">
 
-<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table 16:  Sample of the wealth module (Other) </caption>
+<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table&nbsp;16:  Sample of the wealth module (Other) </caption>
  <thead>
   <tr>
    <th style="text-align:right;"> hid </th>
@@ -1892,6 +1932,9 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
 <p><a href="#tbl-WealthC">Table&nbsp;15</a> includes financial wealth in the form of financial assets, insurances, consumer debt, and car loans. <a href="#tbl-WealthD">Table&nbsp;16</a> further portrays other wealth elements as the value of business, vehicles, and tangible assets</p>
 <p><a href="#fig-WealthIncome">Figure&nbsp;6</a> portrays the relationshipo between the income distribution divided by deciles and gross wealth, gross debt, and net wealth. As expected, both wealth and debts increase with income. While, average net wealth for the highest decile is of more than 805,000 Euros (118k of debt) , net wealth for the lowest decile is less than 17,000 euros (2.5k of debt). <a href="#fig-WealthAge">Figure&nbsp;7</a> shows the same relationship for age, in line with the literature, age and wealth exhibit decreasing returns to scale (add cite). Although debts peak for people between 40 and 50, Gross and Net Wealth peak for people between 60 and 70.</p>
 <p>In <a href="#fig-WealthComp">Figure&nbsp;8</a> we show the composition of wealth by income decile. The overall wealth structure seems quite constant between the first and ninth deciles. However, for the last decile, the wealth composition changes by increasing the importance of business and other properties as a share of total wealth.</p>
+</section>
+<section id="descriptives-1" class="level3">
+<h3 class="anchored" data-anchor-id="descriptives-1">Descriptives</h3>
 <div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">Wealth and Income</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">Wealth and Age</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-3" role="tab" aria-controls="tabset-6-3" aria-selected="false">Wealth Composition</a></li></ul>
 <div class="tab-content">
@@ -1919,7 +1962,7 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
 <div id="fig-WealthIncome" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="02_data_files/figure-html/fig-WealthIncome-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Figure 6: Relationship between income and total wealth</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;6: Relationship between income and total wealth</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1949,7 +1992,7 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
 <div id="fig-WealthAge" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="02_data_files/figure-html/fig-WealthAge-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Figure 7: Relationship betsween age and total wealth</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;7: Relationship betsween age and total wealth</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -1965,7 +2008,7 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>plot <span class="ot">=</span> data <span class="sc">|&gt;</span>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2017</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(GrossWealth<span class="sc">:</span>NetWealth2, HouseRaw, age, year, </span>
 <span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>            HouseRaw2, HouseDebt, HouseDebt2, </span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>            ConsumerDebt, StudentLoans, income, owner)) <span class="sc">%&gt;%</span>  </span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>            ConsumerDebt, StudentLoans, income)) <span class="sc">%&gt;%</span>  </span>
 <span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(var, value, <span class="sc">-</span>hid, <span class="sc">-</span>decile) <span class="sc">|&gt;</span> <span class="fu">group_by</span>(decile, var) <span class="sc">|&gt;</span> </span>
 <span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">value =</span> <span class="fu">mean</span>(value)<span class="sc">/</span><span class="dv">1000</span>) <span class="sc">|&gt;</span> <span class="fu">group_by</span>(decile) <span class="sc">|&gt;</span> </span>
 <span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">share =</span> (value<span class="sc">/</span><span class="fu">sum</span>(value))<span class="sc">*</span><span class="dv">100</span>)  </span>
@@ -1991,7 +2034,7 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
 <div id="fig-WealthComp" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="02_data_files/figure-html/fig-WealthComp-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Figure 8: Composition of wealth by income decile</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;8: Composition of wealth by income decile</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -2000,46 +2043,47 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
 </div>
 </div>
 </section>
+</section>
 <section id="individual-panel" class="level2">
 <h2 class="anchored" data-anchor-id="individual-panel">Individual panel</h2>
 <div class="cell">
 
 </div>
-<p>Once we load the <strong>hgen</strong> and <strong>pequiv</strong> files, we merge them and construct a final panel data of SOEP individuals between 2005 and 2018. The data set contains 547,704 observations across 112,745 individuals and 40,852 households. On average, each person remains in the panel 4.9 years. The data set contains 57 different variables (each of which is defined in the glossary section).</p>
+<p>Once we load the <strong>hgen</strong> and <strong>pequiv</strong> files, we merge them and construct a final panel data of SOEP individuals between 2005 and 2018. The data set contains 649,099 observations across 128,200 individuals and 47,079 households. On average, each person remains in the panel 5.1 years. The data set contains 57 different variables (each of which is defined in the glossary section).</p>
 <p>When merging the household and individual-level data. We perform different checks and create additional variables.</p>
 <ul>
-<li>We change all negative values (NAs) from the raw SOEP data to R NA format.</li>
+<li>Change all missing values from the SOEP formating to R NA format.</li>
 <li>Transform the indicator variables with <em>“Ja” or “Nein” structure</em> to binary dummies.</li>
 <li>Transform net and gross income (income, GrossIncome) from Euros to Thousand of Euros.</li>
 <li>Impute the ownership and lodge indicators in cases with missing data if the household does not report moving.</li>
-<li>Keep only the industry of the household head.</li>
 <li>Assume that if the dwelling has a garden it is a house.</li>
 <li>Assume that if the dwelling has an elevator it is a flat.</li>
 <li>Transform the PV data from one when bought to one if owned.</li>
 <li>Determine the age of the panel – <strong>PanelYear</strong>.</li>
 <li>Simplify the lodge identifier to only “House” or “Flat”.</li>
 </ul>
+<p><a href="#tbl-SoepA">Table&nbsp;17</a> to <a href="#tbl-SoepF">Table&nbsp;22</a> contain samples of the final individual-evel data across different sets of variables. For instance, <a href="#tbl-SoepA">Table&nbsp;17</a> shows a sample of the individual-level characteristics, <em>YearMoved</em>, <em>head</em>, <em>age</em>, <em>sex</em>, and <em>education</em>.</p>
 <div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true">Individual covariates</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false">Employment</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-3" role="tab" aria-controls="tabset-7-3" aria-selected="false">Dwelling</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-4" role="tab" aria-controls="tabset-7-4" aria-selected="false">Dwelling Charac.</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-5" role="tab" aria-controls="tabset-7-5" aria-selected="false">Energy Efficiency</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-6-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-6" role="tab" aria-controls="tabset-7-6" aria-selected="false">Energy Costs</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true">Individual covariates</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false">Employment</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-3" role="tab" aria-controls="tabset-7-3" aria-selected="false">Dwelling</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-4" role="tab" aria-controls="tabset-7-4" aria-selected="false">Energy Efficiency</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-5" role="tab" aria-controls="tabset-7-5" aria-selected="false">Energy Costs</a></li></ul>
 <div class="tab-content">
 <div id="tabset-7-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-7-1-tab">
 <div class="cell tbl-cap-location-top">
 <details>
 <summary>Show the Code</summary>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(soep <span class="sc">|&gt;</span> <span class="fu">select</span>(pid, hid, year, head, age, sex, education) <span class="sc">%&gt;%</span> <span class="fu">head</span>(.)) <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(soep <span class="sc">|&gt;</span> <span class="fu">select</span>(pid, hid, year, YearMoved, head, age, sex, education) <span class="sc">%&gt;%</span> <span class="fu">head</span>(.)) <span class="sc">%&gt;%</span> </span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_classic</span>(<span class="at">full_width =</span> T, <span class="at">html_font =</span> <span class="st">"Cambria"</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_option =</span> <span class="fu">c</span>(<span class="st">"hover"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="tbl-SoepA" class="anchored">
 
-<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table 17:  Individual Covariates in the full sample </caption>
+<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table&nbsp;17:  Individual Covariates in the full sample </caption>
  <thead>
   <tr>
-   <th style="text-align:right;"> YearMoved </th>
    <th style="text-align:right;"> pid </th>
    <th style="text-align:right;"> hid </th>
    <th style="text-align:right;"> year </th>
+   <th style="text-align:right;"> YearMoved </th>
    <th style="text-align:right;"> head </th>
    <th style="text-align:right;"> age </th>
    <th style="text-align:right;"> sex </th>
@@ -2048,60 +2092,60 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:right;"> 1994 </td>
    <td style="text-align:right;"> 201 </td>
    <td style="text-align:right;"> 27 </td>
    <td style="text-align:right;"> 2005 </td>
+   <td style="text-align:right;"> 1994 </td>
    <td style="text-align:right;"> 2 </td>
    <td style="text-align:right;"> 79 </td>
    <td style="text-align:right;"> 2 </td>
    <td style="text-align:right;"> 10.5 </td>
   </tr>
   <tr>
-   <td style="text-align:right;"> 1994 </td>
    <td style="text-align:right;"> 201 </td>
    <td style="text-align:right;"> 27 </td>
    <td style="text-align:right;"> 2006 </td>
+   <td style="text-align:right;"> 1994 </td>
    <td style="text-align:right;"> 2 </td>
    <td style="text-align:right;"> 80 </td>
    <td style="text-align:right;"> 2 </td>
    <td style="text-align:right;"> 10.5 </td>
   </tr>
   <tr>
-   <td style="text-align:right;"> 1994 </td>
    <td style="text-align:right;"> 201 </td>
    <td style="text-align:right;"> 27 </td>
    <td style="text-align:right;"> 2007 </td>
+   <td style="text-align:right;"> 1994 </td>
    <td style="text-align:right;"> 2 </td>
    <td style="text-align:right;"> 81 </td>
    <td style="text-align:right;"> 2 </td>
    <td style="text-align:right;"> 10.5 </td>
   </tr>
   <tr>
-   <td style="text-align:right;"> 1994 </td>
    <td style="text-align:right;"> 201 </td>
    <td style="text-align:right;"> 27 </td>
    <td style="text-align:right;"> 2008 </td>
+   <td style="text-align:right;"> 1994 </td>
    <td style="text-align:right;"> 2 </td>
    <td style="text-align:right;"> 82 </td>
    <td style="text-align:right;"> 2 </td>
    <td style="text-align:right;"> 10.5 </td>
   </tr>
   <tr>
-   <td style="text-align:right;"> 1997 </td>
    <td style="text-align:right;"> 203 </td>
    <td style="text-align:right;"> 60313 </td>
    <td style="text-align:right;"> 2005 </td>
+   <td style="text-align:right;"> 1997 </td>
    <td style="text-align:right;"> 2 </td>
    <td style="text-align:right;"> 45 </td>
    <td style="text-align:right;"> 1 </td>
    <td style="text-align:right;"> 18.0 </td>
   </tr>
   <tr>
-   <td style="text-align:right;"> 1997 </td>
    <td style="text-align:right;"> 203 </td>
    <td style="text-align:right;"> 60313 </td>
    <td style="text-align:right;"> 2006 </td>
+   <td style="text-align:right;"> 1997 </td>
    <td style="text-align:right;"> 2 </td>
    <td style="text-align:right;"> 46 </td>
    <td style="text-align:right;"> 1 </td>
@@ -2125,10 +2169,9 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
 <div class="cell-output-display">
 <div id="tbl-SoepB" class="anchored">
 
-<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table 18:  Employmenr Covariates in the full sample </caption>
+<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table&nbsp;18:  Employmenr Covariates in the full sample </caption>
  <thead>
   <tr>
-   <th style="text-align:right;"> YearMoved </th>
    <th style="text-align:right;"> pid </th>
    <th style="text-align:right;"> hid </th>
    <th style="text-align:right;"> year </th>
@@ -2140,7 +2183,6 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:right;"> 1994 </td>
    <td style="text-align:right;"> 201 </td>
    <td style="text-align:right;"> 27 </td>
    <td style="text-align:right;"> 2005 </td>
@@ -2150,7 +2192,6 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
    <td style="text-align:right;"> 0.209 </td>
   </tr>
   <tr>
-   <td style="text-align:right;"> 1994 </td>
    <td style="text-align:right;"> 201 </td>
    <td style="text-align:right;"> 27 </td>
    <td style="text-align:right;"> 2006 </td>
@@ -2160,7 +2201,6 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
    <td style="text-align:right;"> 0.301 </td>
   </tr>
   <tr>
-   <td style="text-align:right;"> 1994 </td>
    <td style="text-align:right;"> 201 </td>
    <td style="text-align:right;"> 27 </td>
    <td style="text-align:right;"> 2007 </td>
@@ -2170,7 +2210,6 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
    <td style="text-align:right;"> 4.103 </td>
   </tr>
   <tr>
-   <td style="text-align:right;"> 1994 </td>
    <td style="text-align:right;"> 201 </td>
    <td style="text-align:right;"> 27 </td>
    <td style="text-align:right;"> 2008 </td>
@@ -2180,7 +2219,6 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
    <td style="text-align:right;"> 0.209 </td>
   </tr>
   <tr>
-   <td style="text-align:right;"> 1997 </td>
    <td style="text-align:right;"> 203 </td>
    <td style="text-align:right;"> 60313 </td>
    <td style="text-align:right;"> 2005 </td>
@@ -2190,7 +2228,6 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
    <td style="text-align:right;"> 7.550 </td>
   </tr>
   <tr>
-   <td style="text-align:right;"> 1997 </td>
    <td style="text-align:right;"> 203 </td>
    <td style="text-align:right;"> 60313 </td>
    <td style="text-align:right;"> 2006 </td>
@@ -2210,20 +2247,19 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
 <div class="cell tbl-cap-location-top">
 <details>
 <summary>Show the Code</summary>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(<span class="fu">ungroup</span>(soep) <span class="sc">|&gt;</span> <span class="fu">select</span>(pid, hid, year, YearMoved, owner, FreeRent, lodge, NewestConstDate, OldestConstDate) <span class="sc">%&gt;%</span> <span class="fu">head</span>(.)) <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(<span class="fu">ungroup</span>(soep) <span class="sc">|&gt;</span> <span class="fu">select</span>(pid, hid, year, owner, FreeRent, lodge, NewestConstDate, OldestConstDate) <span class="sc">%&gt;%</span> <span class="fu">head</span>(.)) <span class="sc">%&gt;%</span> </span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_classic</span>(<span class="at">full_width =</span> T, <span class="at">html_font =</span> <span class="st">"Cambria"</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_option =</span> <span class="fu">c</span>(<span class="st">"hover"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="tbl-SoepC" class="anchored">
 
-<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table 19:  Employmenr Covariates in the full sample </caption>
+<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table&nbsp;19:  Employmenr Covariates in the full sample </caption>
  <thead>
   <tr>
    <th style="text-align:right;"> pid </th>
    <th style="text-align:right;"> hid </th>
    <th style="text-align:right;"> year </th>
-   <th style="text-align:right;"> YearMoved </th>
    <th style="text-align:right;"> owner </th>
    <th style="text-align:right;"> FreeRent </th>
    <th style="text-align:left;"> lodge </th>
@@ -2236,7 +2272,6 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
    <td style="text-align:right;"> 201 </td>
    <td style="text-align:right;"> 27 </td>
    <td style="text-align:right;"> 2005 </td>
-   <td style="text-align:right;"> 1994 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:left;"> Flats </td>
@@ -2247,7 +2282,6 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
    <td style="text-align:right;"> 201 </td>
    <td style="text-align:right;"> 27 </td>
    <td style="text-align:right;"> 2006 </td>
-   <td style="text-align:right;"> 1994 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:left;"> Flats </td>
@@ -2258,7 +2292,6 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
    <td style="text-align:right;"> 201 </td>
    <td style="text-align:right;"> 27 </td>
    <td style="text-align:right;"> 2007 </td>
-   <td style="text-align:right;"> 1994 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:left;"> Flats </td>
@@ -2269,7 +2302,6 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
    <td style="text-align:right;"> 201 </td>
    <td style="text-align:right;"> 27 </td>
    <td style="text-align:right;"> 2008 </td>
-   <td style="text-align:right;"> 1994 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:left;"> Flats </td>
@@ -2280,7 +2312,6 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
    <td style="text-align:right;"> 203 </td>
    <td style="text-align:right;"> 60313 </td>
    <td style="text-align:right;"> 2005 </td>
-   <td style="text-align:right;"> 1997 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:left;"> Flats </td>
@@ -2291,7 +2322,6 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
    <td style="text-align:right;"> 203 </td>
    <td style="text-align:right;"> 60313 </td>
    <td style="text-align:right;"> 2006 </td>
-   <td style="text-align:right;"> 1997 </td>
    <td style="text-align:right;"> 0 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:left;"> Flats </td>
@@ -2304,8 +2334,8 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
 </div>
 </div>
 </div>
-</div>
-<div id="tabset-7-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-4-tab">
+<section id="dwelling-charac." class="level2">
+<h2 class="anchored" data-anchor-id="dwelling-charac.">Dwelling Charac.</h2>
 <div class="cell tbl-cap-location-top">
 <details>
 <summary>Show the Code</summary>
@@ -2316,7 +2346,7 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
 <div class="cell-output-display">
 <div id="tbl-SoepD" class="anchored">
 
-<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table 20:  Dwelling characteristics Covariates in the full sample </caption>
+<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table&nbsp;20:  Dwelling characteristics Covariates in the full sample </caption>
  <thead>
   <tr>
    <th style="text-align:right;"> pid </th>
@@ -2396,8 +2426,9 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
 </div>
 </div>
 </div>
+</section>
 </div>
-<div id="tabset-7-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-5-tab">
+<div id="tabset-7-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-4-tab">
 <div class="cell tbl-cap-location-top">
 <details>
 <summary>Show the Code</summary>
@@ -2408,7 +2439,7 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
 <div class="cell-output-display">
 <div id="tbl-SoepE" class="anchored">
 
-<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table 21:  Energy Efficiency Technologies </caption>
+<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table&nbsp;21:  Energy Efficiency Technologies </caption>
  <thead>
   <tr>
    <th style="text-align:right;"> pid </th>
@@ -2503,7 +2534,7 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
 </div>
 </div>
 </div>
-<div id="tabset-7-6" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-6-tab">
+<div id="tabset-7-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-5-tab">
 <div class="cell tbl-cap-location-top">
 <details>
 <summary>Show the Code</summary>
@@ -2514,7 +2545,7 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
 <div class="cell-output-display">
 <div id="tbl-SoepF" class="anchored">
 
-<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table 22:  Energy Efficiency Technologies </caption>
+<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table&nbsp;22:  Energy Efficiency Technologies </caption>
  <thead>
   <tr>
    <th style="text-align:right;"> pid </th>
@@ -2568,7 +2599,7 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
    <td style="text-align:right;"> 60313 </td>
    <td style="text-align:right;"> 2005 </td>
    <td style="text-align:right;"> NA </td>
-   <td style="text-align:right;"> 80 </td>
+   <td style="text-align:right;"> 40 </td>
    <td style="text-align:right;"> NA </td>
    <td style="text-align:right;"> 20 </td>
   </tr>
@@ -2591,6 +2622,9 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
 </div>
 </div>
 </section>
+</section>
+<section id="parameters" class="level1">
+<h1>Parameters</h1>
 <section id="distribution-of-power-costs-by-income" class="level2">
 <h2 class="anchored" data-anchor-id="distribution-of-power-costs-by-income">Distribution of power costs by income</h2>
 <p>Next, we use the information on income and power cost from the sub-set of renters to look at the relationship between annual power costs and income. For this, we divide the data set into ten different income groups based on the deciles of the income distribution and estimate the average and standard deviation of income and power costs in each decile.</p>
@@ -2613,10 +2647,11 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
 <div class="cell-output-display">
 <div id="tbl-PowerCostDist" class="anchored">
 
-<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table 23:  Energy Efficiency Technologies </caption>
+<table class=" lightable-classic table table-hover" style="font-family: Cambria; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table&nbsp;23:  Energy Efficiency Technologies </caption>
  <thead>
   <tr>
    <th style="text-align:left;"> IncomeGroup </th>
+   <th style="text-align:right;"> year </th>
    <th style="text-align:right;"> IncAvg </th>
    <th style="text-align:right;"> PowerCostAvg </th>
    <th style="text-align:right;"> IncSd </th>
@@ -2625,46 +2660,52 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;"> [ 0.0, 13.6) </td>
-   <td style="text-align:right;"> 10.13827 </td>
-   <td style="text-align:right;"> 636.0916 </td>
-   <td style="text-align:right;"> 2.187315 </td>
-   <td style="text-align:right;"> 330.0873 </td>
+   <td style="text-align:left;"> [ 0.0, 12.0) </td>
+   <td style="text-align:right;"> 2010 </td>
+   <td style="text-align:right;"> 9.474033 </td>
+   <td style="text-align:right;"> 528.6613 </td>
+   <td style="text-align:right;"> 1.591792 </td>
+   <td style="text-align:right;"> 271.8127 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> [13.6, 20.4) </td>
-   <td style="text-align:right;"> 17.11669 </td>
-   <td style="text-align:right;"> 736.8999 </td>
-   <td style="text-align:right;"> 1.953851 </td>
-   <td style="text-align:right;"> 365.6021 </td>
+   <td style="text-align:left;"> [ 0.0, 12.0) </td>
+   <td style="text-align:right;"> 2017 </td>
+   <td style="text-align:right;"> 9.445816 </td>
+   <td style="text-align:right;"> 578.1282 </td>
+   <td style="text-align:right;"> 1.603025 </td>
+   <td style="text-align:right;"> 306.3380 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> [20.4, 25.8) </td>
-   <td style="text-align:right;"> 23.17710 </td>
-   <td style="text-align:right;"> 822.1222 </td>
-   <td style="text-align:right;"> 1.546291 </td>
-   <td style="text-align:right;"> 443.9794 </td>
+   <td style="text-align:left;"> [12.0, 17.0) </td>
+   <td style="text-align:right;"> 2010 </td>
+   <td style="text-align:right;"> 14.628578 </td>
+   <td style="text-align:right;"> 609.2459 </td>
+   <td style="text-align:right;"> 1.416789 </td>
+   <td style="text-align:right;"> 336.8479 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> [25.8, 30.9) </td>
-   <td style="text-align:right;"> 28.23839 </td>
-   <td style="text-align:right;"> 887.2933 </td>
-   <td style="text-align:right;"> 1.447322 </td>
-   <td style="text-align:right;"> 568.0897 </td>
+   <td style="text-align:left;"> [12.0, 17.0) </td>
+   <td style="text-align:right;"> 2017 </td>
+   <td style="text-align:right;"> 14.640152 </td>
+   <td style="text-align:right;"> 656.0660 </td>
+   <td style="text-align:right;"> 1.423581 </td>
+   <td style="text-align:right;"> 337.2172 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> [30.9, 36.1) </td>
-   <td style="text-align:right;"> 33.42765 </td>
-   <td style="text-align:right;"> 920.2857 </td>
-   <td style="text-align:right;"> 1.523214 </td>
-   <td style="text-align:right;"> 449.2557 </td>
+   <td style="text-align:left;"> [17.0, 21.5) </td>
+   <td style="text-align:right;"> 2010 </td>
+   <td style="text-align:right;"> 19.256240 </td>
+   <td style="text-align:right;"> 664.0950 </td>
+   <td style="text-align:right;"> 1.294342 </td>
+   <td style="text-align:right;"> 324.0003 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> [36.1, 42.0) </td>
-   <td style="text-align:right;"> 38.92149 </td>
-   <td style="text-align:right;"> 926.9687 </td>
-   <td style="text-align:right;"> 1.666120 </td>
-   <td style="text-align:right;"> 437.2922 </td>
+   <td style="text-align:left;"> [17.0, 21.5) </td>
+   <td style="text-align:right;"> 2017 </td>
+   <td style="text-align:right;"> 19.264616 </td>
+   <td style="text-align:right;"> 683.9172 </td>
+   <td style="text-align:right;"> 1.292820 </td>
+   <td style="text-align:right;"> 335.5565 </td>
   </tr>
 </tbody>
 </table>
@@ -2677,40 +2718,199 @@ f(x) = ax^{ap-1}\Big[b^{ab} B(p,q)\Big(1 + (\frac{x}{b})^a\Big)^{p+q}\Big]^{-1}
 <div id="fig-PowerCostsDensity" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="99_figures/PowerCostsDensity.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure 9: Density function of Power Costs across Income Deciles</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;9: Density function of Power Costs across Income Deciles</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
 </div>
 </section>
-<section id="probability-of-pv-adoption" class="level2">
-<h2 class="anchored" data-anchor-id="probability-of-pv-adoption">Probability of PV adoption</h2>
+<section id="share-of-pv-adoption" class="level2">
+<h2 class="anchored" data-anchor-id="share-of-pv-adoption">Share of PV adoption</h2>
+<p>We estimate the period-wise share of PV adoption by income decile by calculating the proportion of households in each decile period with a PV installation. <span class="citation" data-cites="fig_ProbabilityPV">(<a href="#ref-fig_ProbabilityPV" role="doc-biblioref"><strong>fig_ProbabilityPV?</strong></a>)</span> portrays the adoption share across deciles from the first period the SOEP started asking for PV installations (2007) and 2017. The likelihood of adoption grows with both income and time. While the average adoption rate across income deciles in 2007 was 1.3%, it rose slightly above 10% in 2017. Concerning inter-decile differences, on average, 2.27% and 13.32% of households in the lowest and highest income decile have a PV installation.</p>
+<div class="cell">
+
+</div>
+<div class="cell fig-cap-location-top">
+<details>
+<summary>Show the Code</summary>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="do">#### Load the data</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>file <span class="ot">=</span> <span class="fu">gsub</span>(<span class="st">"WebsiteABM"</span>, <span class="st">""</span>, <span class="fu">getwd</span>())</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>sum <span class="ot">=</span> <span class="fu">read_rds</span>(<span class="fu">paste0</span>(file, <span class="st">"02_GenData/03_SoepFiles/PvProbability.rds"</span>))</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="do">#### Plot the probability of adoption for houses and flats</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(sum) <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> prob, <span class="at">x =</span> year, <span class="at">group =</span> IncomeGroup, <span class="at">color =</span> IncomeGroup)) <span class="sc">+</span> </span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">y =</span> prob, <span class="at">x =</span> year, <span class="at">color =</span> IncomeGroup)) <span class="sc">+</span> <span class="fu">theme_economist</span>() <span class="sc">%+replace%</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">0</span>), <span class="at">legend.title =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">""</span>) <span class="sc">+</span> <span class="fu">scale_color_viridis</span>(<span class="at">discrete =</span> T) <span class="sc">+</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">pretty_breaks</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-ProbabilityPV" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="02_data_files/figure-html/fig-ProbabilityPV-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;10: Probability of PV adoption across income Deciles</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
-<section id="variables-glossary" class="level2">
-<h2 class="anchored" data-anchor-id="variables-glossary">Variables Glossary</h2>
-<div class="incremental">
-<ul class="incremental">
-<li><strong><em>pid:</em></strong> This variable provides unique identification for each individual ever surveyed in the SOEP.</li>
-<li><strong><em>hid:</em></strong> This variable links individuals to the households they were living in at the time of the interview. The SOEP provides yearly household identification numbers.</li>
-<li><strong><em>sample:</em></strong> This variable indicates from which sub sample an individual in the SOEP is drawn. The variable contain the following levels</li>
-<li><strong><em>age:</em></strong> Indicates the age of the individual</li>
-<li><strong><em>sex:</em></strong> Indicates the gender of the individual (1 – Male and 2 – Female)</li>
-<li><strong><em>MaritalStatus:</em></strong> Indicates the marital status of the individual (1 – Married, 2 – Single, 3 – Widowed, 4 – Divorced, 5 – Separated, 6 and 7 — Not with partner)</li>
-<li><strong><em>Npersons:</em></strong> Refers to the number of persons in the household</li>
-<li><strong><em>Nkids:</em></strong> Number of kids in the household</li>
-<li><strong><em>education:</em></strong> Years of education</li>
-<li><strong><em>employment:</em></strong> Indicator variable equal to one if the person is employed</li>
-<li><strong><em>occupation:</em></strong> Individual’s occupation according to the ISCO-88 occupation code (ISCO = International Classification of Occupations)</li>
-<li><strong><em>industry1:</em></strong> Individual’s two-digit industry code based on ten categories (1 – Agriculture, 2 – Energy, 3 – Mining, 4 – Manufacturing, 5 – Construction, 6 – Trade, 7 – Transport, 8 – Bank and Insurance, 9 – Services).</li>
-<li><strong><em>industry2:</em></strong> Individual’s NACE industry code</li>
+<section id="estimating-wealth" class="level2">
+<h2 class="anchored" data-anchor-id="estimating-wealth">Estimating Wealth</h2>
+<p>We estimate the gross wealth of each households with an ordinary least squares model of gross wealth as a function of income and the age of the household head. The estimation model takes the form:</p>
+<p><span class="math display">\[
+Wealth_{ht} = \beta Income_{ht} + \gamma Age_{ht} + \epsilon_{ht}
+\]</span></p>
+<p><a href="#tbl-WealthEst">Table&nbsp;24</a> contains the point estimates and standard errors from the OLS. As expected there is a positive relationship between income, age, and gross wealth.</p>
+<div class="cell tbl-cap-location-top">
+<details>
+<summary>Show the Code</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="do">#### Read the fitted data </span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>file <span class="ot">=</span> <span class="fu">gsub</span>(<span class="st">"WebsiteABM"</span>, <span class="st">""</span>, <span class="fu">getwd</span>())</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>est <span class="ot">=</span> <span class="fu">read_rds</span>(<span class="fu">paste0</span>(file, <span class="st">"02_GenData/03_SoepFiles/WealthEst.rds"</span>))</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="do">#### Transform to a data frame long</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>est <span class="ot">=</span> <span class="fu">gather</span>(est <span class="sc">|&gt;</span> <span class="fu">select</span>(<span class="sc">-</span>spec) , var, value) <span class="sc">|&gt;</span> </span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">stat =</span> <span class="fu">gsub</span>(<span class="st">".*_"</span>, <span class="st">""</span>, var)) <span class="sc">%&gt;%</span> </span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">var =</span> <span class="fu">gsub</span>(<span class="st">"_.*"</span>, <span class="st">""</span>, var)) <span class="sc">%&gt;%</span> </span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">spread</span>(., var, value)</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(est) <span class="sc">%&gt;%</span> </span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">kable_classic_2</span>(<span class="at">full_width =</span> F, <span class="at">html_font =</span> <span class="st">"Cambria"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_option =</span> <span class="fu">c</span>(<span class="st">"hover"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="tbl-WealthEst" class="anchored">
+
+<table class=" lightable-classic-2 table table-hover" style="font-family: Cambria; width: auto !important; margin-left: auto; margin-right: auto; margin-left: auto; margin-right: auto;"><caption>Table&nbsp;24:  Estimates for the relationship between gross wealth income and age </caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> stat </th>
+   <th style="text-align:right;"> age </th>
+   <th style="text-align:right;"> income </th>
+   <th style="text-align:right;"> Intercept </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> est </td>
+   <td style="text-align:right;"> 2757.12638 </td>
+   <td style="text-align:right;"> 4.9958563 </td>
+   <td style="text-align:right;"> -176262.078 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> se </td>
+   <td style="text-align:right;"> 64.51511 </td>
+   <td style="text-align:right;"> 0.0367784 </td>
+   <td style="text-align:right;"> 4082.583 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>We test the robustness of our econometric specification by varying the set of controls in the OLS design. Model (1) is our preferred specification with linear controls for income and age. (2) adds quadratic controls for both variables. (3) further includes education as an additional control. (4) includes year fixed effects to account for common temporal shocks across households. Finally, in five we estimate the coefficients from within variation in income by including households fixed effects.</p>
+<div class="cell fig-cap-location-top">
+<details>
+<summary>Show the Code</summary>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="do">#### Read the fitted data </span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>file <span class="ot">=</span> <span class="fu">gsub</span>(<span class="st">"WebsiteABM"</span>, <span class="st">""</span>, <span class="fu">getwd</span>())</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>fitted <span class="ot">=</span> <span class="fu">read_rds</span>(<span class="fu">paste0</span>(file, <span class="st">"02_GenData/03_SoepFiles/WealthFitted.rds"</span>))</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="do">#### Plot the density funtion ####</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>plot <span class="ot">=</span> <span class="fu">gather</span>(fitted, var, value, <span class="sc">-</span><span class="fu">c</span>(hid, year, income, age, education, GrossWealth))</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="do">#### Make the raw bar plot ####</span></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>plot <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(var) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(value <span class="sc">&lt;</span> <span class="fu">quantile</span>(value, <span class="at">p =</span> <span class="fl">0.99</span>, <span class="at">na.rm =</span> T)) <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(.) <span class="sc">+</span> </span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(value<span class="sc">/</span><span class="dv">1000</span>, <span class="at">fill =</span> var), <span class="at">alpha =</span> <span class="fl">0.5</span>, </span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">position =</span><span class="fu">position_dodge2</span>(<span class="at">width =</span> <span class="fl">1.5</span>), <span class="at">binwidth =</span> <span class="dv">100</span>) <span class="sc">+</span></span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.background =</span> <span class="fu">element_blank</span>(), <span class="at">legend.position =</span> <span class="st">"top"</span>, </span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.line =</span> <span class="fu">element_line</span>(), <span class="at">legend.background =</span> <span class="fu">element_blank</span>(), </span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">grids</span>() <span class="sc">+</span> <span class="fu">scale_fill_viridis_d</span>(<span class="at">option =</span> <span class="st">"D"</span>) <span class="sc">+</span></span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"No. of Households"</span>, <span class="at">x =</span> <span class="st">"Wealth in Ths."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-WealthEst" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="02_data_files/figure-html/fig-WealthEst-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;11: Fitted wealth distribution across different OLS models</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="variables-glossary" class="level1">
+<h1>Variables Glossary</h1>
+<section id="identifiers" class="level3">
+<h3 class="anchored" data-anchor-id="identifiers">Identifiers</h3>
+<ul>
+<li><strong><em>pid:</em></strong> Unique identification for each individual ever surveyed in the SOEP.</li>
+<li><strong><em>hid:</em></strong> Links individuals to the households they were living in at the time of the interview.</li>
+<li><strong><em>year:</em></strong> year of the survey.</li>
 <li><strong><em>state:</em></strong> German state of residence</li>
 <li><strong><em>region:</em></strong> German region of residence</li>
-<li><strong><em>income:</em></strong> Household post-government income (after taxes and government transfers for all persons in the household)</li>
-<li><strong><em>GrossIncome:</em></strong> Household pre-government income</li>
-<li><strong><em>head:</em></strong> Individual’s relationship to household head (1 – Head, 2 – Partner, 3 – Child, 4 – Relative, 5 – Non Relative)</li>
 </ul>
-</div>
+</section>
+<section id="individual-characteristics" class="level3">
+<h3 class="anchored" data-anchor-id="individual-characteristics">Individual Characteristics</h3>
+<ul>
+<li><strong><em>head:</em></strong> Individual’s relationship to household head (1 – Head, 2 – Partner, 3 – Child, 4 – Relative, 5 – Non Relative)</li>
+<li><strong><em>age:</em></strong> Age of the individual</li>
+<li><strong><em>sex:</em></strong> Gender of the individual (1 – Male and 2 – Female)</li>
+<li><strong><em>Npersons:</em></strong> Number of persons in the household</li>
+<li><strong><em>Nkids:</em></strong> Number of kids in the household</li>
+<li><strong><em>education:</em></strong> Years of education</li>
+</ul>
+</section>
+<section id="income-and-employment" class="level3">
+<h3 class="anchored" data-anchor-id="income-and-employment">Income and Employment</h3>
+<ul>
+<li><p><strong><em>employment:</em></strong> Indicator variable equal to one if the person is employed</p></li>
+<li><p><strong><em>occupation:</em></strong> Individual’s occupation according to the ISCO-88 occupation code (ISCO = International Classification of Occupations)</p></li>
+<li><p><strong><em>industry:</em></strong> Individual’s two-digit industry code based on ten categories (1 – Agriculture, 2 – Energy, 3 – Mining, 4 – Manufacturing, 5 – Construction, 6 – Trade, 7 – Transport, 8 – Bank and Insurance, 9 – Services).</p></li>
+<li><p><strong><em>income:</em></strong> Household post-government income (after taxes and government transfers for all persons in the household)</p></li>
+<li><p><strong><em>GrossIncome:</em></strong> Household pre-government income</p></li>
+</ul>
+</section>
+<section id="house-characteristics" class="level3">
+<h3 class="anchored" data-anchor-id="house-characteristics">House characteristics</h3>
+<ul>
+<li><strong><em>owner:</em></strong> Indicator variable if the person is an owner or renter</li>
+<li><strong><em>FreeRent:</em></strong> Indicator variable if the person does not pay rent</li>
+<li><strong><em>lodge:</em></strong> Categoriacal variable indicating if the person lives in a flat or a house</li>
+<li><strong><em>NewestConstDate:</em></strong> Estimated newest construction date of the dwelling</li>
+<li><strong><em>OldestConstDate:</em></strong> Estimated oldest contruction date of the dwelling</li>
+<li><strong><em>HouseSize:</em></strong> House size in square meters</li>
+<li><strong><em>Basement:</em></strong> Indicator variable if the house has a basement.</li>
+<li><strong><em>garden:</em></strong> Indicator variable if the house has a garden.</li>
+<li><strong><em>elevator</em></strong> Indicator variable if the house has an elevator.</li>
+<li><strong><em>balcony</em></strong> Indicator variable if the house has a balcony.</li>
+</ul>
+</section>
+<section id="energy-appliances" class="level3">
+<h3 class="anchored" data-anchor-id="energy-appliances">Energy appliances</h3>
+<ul>
+<li><strong><em>ac:</em></strong> Indicator variable if the dwelling has an AC</li>
+<li><strong><em>FloorHeating:</em></strong> Indicator variable if the dwelling has floor heating.</li>
+<li><strong><em>CentralFloorHeating:</em></strong> Indicator variable if the dwelling has central floor heating.</li>
+<li><strong><em>ThermalInsulation:</em></strong> Indicator variable if the dwelling has thermal insulation.</li>
+<li><strong><em>AlternativeEnergySource:</em></strong> Indicator variable if the dwelling uses alternative energy sources</li>
+<li><strong><em>pv:</em></strong> Indicator variable if the dwelling has a photo-voltaic installation</li>
+<li><strong><em>boiler</em></strong> Indicator variable id the dwelling has a boiler</li>
+</ul>
+</section>
+<section id="energy-costs-1" class="level3">
+<h3 class="anchored" data-anchor-id="energy-costs-1">Energy Costs</h3>
+<ul>
+<li><strong><em>PowerCosts</em></strong> Electricity costs in the last calendar year (only renters)</li>
+<li><strong><em>WarmWaterCost:</em></strong> Heating costs including warm water (2013 backwards only renters)</li>
+<li><strong><em>GasCosts</em></strong> Monthly costs of gas not used for heating in Euros (Only collected in 2014)</li>
+<li><strong><em>OtherUtilityCosts</em></strong> How much did you pay in the last calendar year for water, garbage, street cleaning, and other additional costs not mentioned above?</li>
+</ul>
 
 
 
@@ -2766,7 +2966,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -2794,31 +3011,50 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
     });
   }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script>

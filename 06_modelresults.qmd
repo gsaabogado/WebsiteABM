@@ -1,0 +1,66 @@
+---
+title: "Model Results"
+author: "Severin Reissl and Luis Sarmiento"
+format: 
+  html: 
+    toc: true
+    warning: false
+---
+
+## Running the model
+
+To run the model locally, four csv files, namely `inputs.csv`, `consumptionpropensities.csv`, `liquidityshares.csv` and `parameters.csv` are needed. Paths to these files must be supplied as arguments to the main model function, along with a seed (positive integer) and a desired start and end year of the simulation.
+
+
+Below we run the model by calling Python through R's `system` function and making Python execute the `runModel.py` script which calls the main model function, passing it the appropriate input files, the start and end years (we choose 2018 and 2040 here) as well as the seed (1) which we feed through the command line.
+
+```{r}
+command<-paste("python ", gsub("WebsiteABM", "", getwd()),"06_ModelCode/runModel.py 1",sep = "")
+t<-system(command)
+```
+
+
+This one-off simulation of the model for a single seed will create one output csv file called `out_1.csv` (where 1 denotes the seed associated with the run). This file can then be loaded in order to plot results.
+
+## Plotting results
+
+```{r}
+library(ggplot2)
+library(reshape2)
+library(conflicted)
+conflict_prefer("melt","reshape2")
+outputfile<-paste(gsub("WebsiteABM", "", getwd()),"07_ModelOutput/out_1.csv",sep = "")
+output<-read.csv(outputfile,header = TRUE)
+```
+
+
+```{r}
+plotdata<-as.data.frame(cbind(output$AdoptionRate1,output$AdoptionRate2,c(2018:2040)))
+colnames(plotdata)<-c("Rate1","Rate2","Year")
+plotdata<-melt(plotdata,id = "Year")
+ggplot(plotdata,aes(x=Year,y=value,colour=variable,group=variable)) + geom_line(lwd=1) +labs(y= "Ownership rate")+theme_bw()+ ggtitle("Simulated PV ownership rates")+theme(legend.title=element_blank())+ scale_colour_discrete(labels=c('All', 'Only feasible'))
+```
+```{r}
+plotdata<-as.data.frame(cbind(output$ChangeAdoptionRate1[2:23],output$ChangeAdoptionRate2[2:23],c(2019:2040)))
+colnames(plotdata)<-c("Rate1","Rate2","Year")
+plotdata<-melt(plotdata,id = "Year")
+ggplot(plotdata,aes(x=Year,y=value,colour=variable,group=variable)) + geom_line(lwd=1) +labs(y= "Change in ownership rate")+theme_bw()+ ggtitle("Change in simulated PV ownership rates")+theme(legend.title=element_blank())+ scale_colour_discrete(labels=c('All', 'Only feasible'))
+```
+
+
+
+```{r}
+plotdata<-as.data.frame(cbind(output$Price[2:23],output$AverageExpectedPrice[1:22],c(2019:2040)))
+colnames(plotdata)<-c("p1","p2","Year")
+plotdata<-melt(plotdata,id = "Year")
+ggplot(plotdata,aes(x=Year,y=value,colour=variable,group=variable)) + geom_line(lwd=1) +labs(y= "Price")+theme_bw()+ ggtitle("Effective and average expected simulated electricity prices")+theme(legend.title=element_blank())+ scale_colour_discrete(labels=c('Actual', 'Expected'))
+```
+
+
+
+```{r}
+plotdata<-as.data.frame(cbind(output$RationedShare,c(2018:2040)))
+colnames(plotdata)<-c("s1","Year")
+plotdata<-melt(plotdata,id = "Year")
+ggplot(plotdata,aes(x=Year,y=value,colour=variable,group=variable)) + geom_line(lwd=1) +labs(y= "Share")+theme_bw()+ ggtitle("Share of potential adopters who are credit rationed")+theme(legend.position = "none")
+```

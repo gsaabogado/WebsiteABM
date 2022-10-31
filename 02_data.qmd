@@ -8,14 +8,13 @@ format:
     warning: false
     code-fold: true
     code-summary: "Show the Code"
+    fontsize: "15px"
 ---
 
 ```{r}
 #| echo: false
 conflict_prefer("filter", "dplyr")
 ```
-
-
 
 In this section we describe at length the main characteristics and scientific processing of the data files we use in the ABM-REN model.
 
@@ -31,7 +30,7 @@ Most of the data we use to feed our model comes from the German Socio-Economic P
 
 Ee use data from SOEP-37 for ABM-REN.
 
-The SOEP is divided into different data files each containing different questionnaires. 
+The SOEP is divided into different data files each containing different questionnaires.
 
 The main questionnaires we use for the construction of ABM-REN are:
 
@@ -40,15 +39,13 @@ The main questionnaires we use for the construction of ABM-REN are:
 -   HGEN - Household Generated Data File $\rightarrow$ ([Documentation](https://www.diw.de/documents/publikationen/73/diw_01.c.676077.de/diw_ssp0759.pdf))
 -   HCONSUM - Household Consumption Module ([Documentation](https://www.econstor.eu/bitstream/10419/85377/1/769362788.pdf))
 -   HWEALTH - Household Wealth Questionnaire ([Documentation](https://www.econstor.eu/handle/10419/116767))
-
-
 :::
 
 ## Data Structure
 
 All of our variables are in one of two R formats; numeric or haven-labelled. Haven labelled format is similar to STATA (or SPSS) labelled data (For more information we refer the reader to the [online vignete of the haven package](https://haven.tidyverse.org/articles/semantics.html)).
 
-The R-labelled class (part of the haven package) allows us to associate arbitrary labels to numeric or character vectors. Note that the goal of labelled files is only to include the description of categorical vectors in the SOEP data. For instance, when printing one labelled variable, the output consists of a vector of values and a data frame linking values and labels. 
+The R-labelled class (part of the haven package) allows us to associate arbitrary labels to numeric or character vectors. Note that the goal of labelled files is only to include the description of categorical vectors in the SOEP data. For instance, when printing one labelled variable, the output consists of a vector of values and a data frame linking values and labels.
 
 It is essential to clarify that researchers must transform haven-labelled data formats into numeric or factor variables before using them in econometric, machine learning, or optimization models.
 
@@ -75,7 +72,7 @@ Also note that, **in general**, all negative entries refer to missing values for
 @tbl-PequivIndividual shows a sample of individual-level characteristics we extract from the PEQUIV file. It consists of `r ncol(pequiv)` variables and `r comma(nrow(pequiv))` observations between 2005 and 2018. Each variable is either in a numeric or haven-labelled format. The data frame contains the individual and household IDs (*pid* and *hid*). *year* refers to the year of the interview. *head* is an indicator variable on the relationship between *pid* and the household head (1 = head, 2 = partner, 3 = child, 4 = relative, and 5 = non-relative). *age* is the average age. *sex* the gender (1 - Male; 2- Female). And, *education*, the total years of education. @tbl-PequivSpatial includes data on the spatial location of the household. Because we are working with the open version of the SOEP, we can only identify the *state* and *region* where the household is located.
 
 ::: panel-tabset
-## Individual
+#### Individual
 
 ```{r}
 #| label: tbl-PequivIndividual
@@ -88,7 +85,7 @@ kbl(select(pequiv, pid, hid, year, head, sex, age, education) %>% head(.)) %>%
   kable_styling(bootstrap_option = c("hover"))
 ```
 
-## Spatial
+#### Spatial
 
 ```{r}
 #| label: tbl-PequivSpatial
@@ -101,7 +98,7 @@ kbl(select(pequiv, pid, hid, year, state, region) %>% head(.)) %>%
   kable_styling(bootstrap_option = c("hover"))
 ```
 
-## Employment
+#### Employment
 
 ```{r}
 #| label: tbl-PequivEmployment
@@ -109,12 +106,12 @@ kbl(select(pequiv, pid, hid, year, state, region) %>% head(.)) %>%
 #| tbl-cap-location: top
 #| echo: true
 # Show the data set
-kbl(select(pequiv, pid, hid, year, employment, occupation, industry1) %>% head(.)) %>% 
+kbl(select(pequiv, pid, hid, year, employment, occupation, industry) %>% head(.)) %>% 
   kable_classic(full_width = T, html_font = "Cambria") %>% 
   kable_styling(bootstrap_option = c("hover"))
 ```
 
-## Household
+#### Household
 
 ```{r}
 #| label: tbl-PequivHH
@@ -128,9 +125,7 @@ kbl(select(pequiv, pid, hid, year, Npersons, Nkids, income, GrossIncome) %>% hea
 ```
 :::
 
-
-
-@tbl-PequivEmployment contains employment-related covariates. *employment* is a dummy variable equal to one if the person is currently employed. *occupation* is the person's occupation according to the International Classification of Occupations Code (ISCO). For instance, code 5,160 refers to protective service workers. *industry1* is a two-digit industry code based on ten categories (1 -- Agriculture, 2 -- Energy, 3 -- Mining, 4 -- Manufacturing, 5 -- Construction, 6 -- Trade, 7 -- Transport, 8 -- Bank and Insurance, 9 -- Services).
+@tbl-PequivEmployment contains employment-related covariates. *employment* is a dummy variable equal to one if the person is currently employed. *occupation* is the person's occupation according to the International Classification of Occupations Code (ISCO). For instance, code 5,160 refers to protective service workers. *industry* is a two-digit industry code based on ten categories (1 -- Agriculture, 2 -- Energy, 3 -- Mining, 4 -- Manufacturing, 5 -- Construction, 6 -- Trade, 7 -- Transport, 8 -- Bank and Insurance, 9 -- Services).
 
 @tbl-PequivHH includes a set of household-level controls. While *Npersons* and *Nkids* are the number of persons and kids in the household, *income* and *GrossIncome* are the household net and gross income in Euros per year.
 
@@ -150,7 +145,7 @@ hgen = read_rds(paste0(file, "02_GenData/03_SoepFiles/hgen.rds"))
 -   *HouseSize* Is the size of the dwelling in square meters.
 
 ::: panel-tabset
-## Household Indentifiers
+#### Household Indentifiers
 
 ```{r}
 #| label: tbl-HgenID
@@ -162,7 +157,7 @@ kbl(select(hgen, hid, year, owner, FreeRent, YearMoved, HouseSize) %>% head(.)) 
   kable_styling(bootstrap_option = c("hover"))
 ```
 
-## Household Infrastructure
+#### Household Infrastructure
 
 ```{r}
 #| label: tbl-HgenInf
@@ -174,7 +169,7 @@ kbl(select(hgen, hid, year, basement, garden, elevator, balcony) %>% head(.)) %>
   kable_styling(bootstrap_option = c("hover"))
 ```
 
-## Household Energy
+#### Household Energy
 
 ```{r}
 #| label: tbl-HgenRen
@@ -186,7 +181,7 @@ kbl(select(hgen, hid, year, CentralFloorHeating, ThermalInsulation, DoubleGlazin
   kable_styling(bootstrap_option = c("hover"))
 ```
 
-## Household Costs
+#### Household Costs
 
 ```{r}
 #| label: tbl-HgenCosts
@@ -212,6 +207,8 @@ kbl(select(hgen, hid, year, PowerCosts, OtherUtilityCosts, GasCosts, WarmWaterCo
 
 ## HCONSUM
 
+### Introduction
+
 We use the 2010 SOEP consumption module to estimate the consumption propensity of German households. The SOEP consumption module, or "hconsum," was implemented as part of the 31st SOEP wave in 2010. The goal of *hconsum* is to allow researchers to understand the relationship between welfare, income, and disposable income -- whereas consumption characterizes the actual current living standard, income describes the potential command over resources. For a complete review of the SOEP consumption module, we refer the reader to @Grabka2013. In this chapter, we only highlight the its main characteristics.
 
 Usually, consumption data takes one of two forms; consumption journals or representative surveys. The goal of consumption journals is to keep track of all daily expenditures across a cross-section of representative households to understand consumption patterns. Once there is enough data, researchers aggregate the items into categories to assess the main components of households' income use. . Representative surveys, on the other hand, study typical consumption instead of consumption at a given time. The core idea is that asking for a relevant set of common consumption goods can act as a good proxy for total consumption.
@@ -234,13 +231,13 @@ $$ {#eq-gb2}
 #| echo: false
 file = gsub("WebsiteABM", "", getwd())
 data = read_rds(paste0(file, "02_GenData/03_SoepFiles/hconsum.rds"))
-codebook = read_excel(paste0(file, "01_RawData/02_codebooks/codebook.xlsx"), sheet = "hconsum2")
+codebook = read_excel(paste0(file, "01_RawData/03_codebooks/codebook.xlsx"), sheet = "hconsum2")
 ```
 
 In @tbl-ConsA, we show a sample of the consumption data for daily expenditures. @tbl-ConsB contains a similar exercise for housing costs, @tbl-ConsC for financial burdens, and @tbl-ConsD for other income uses. All values are in thousand of Euros per year and come from averaging the five different imputations of the SOEP consumption module across categories.
 
 ::: panel-tabset
-## Daily Expenditures
+#### Daily Expenditures
 
 ```{r}
 #| label: tbl-ConsA
@@ -252,7 +249,7 @@ kbl(data |> select(hid, Food, Clothes, Transport, Coms, Leisure, Cleaning) %>% h
   kable_styling(bootstrap_option = c("hover"))
 ```
 
-## Housing expenditures
+#### Housing expenditures
 
 ```{r}
 #| label: tbl-ConsB
@@ -264,7 +261,7 @@ kbl(data |> select(hid, Rent, Mortgage, Housing, Heating, Power, Utilities, Furn
   kable_styling(bootstrap_option = c("hover"))
 ```
 
-## Financial expenditures
+#### Financial expenditures
 
 ```{r}
 #| label: tbl-ConsC
@@ -276,7 +273,7 @@ kbl(data |> select(hid, Insurance, Loans, Mortgage) %>% head(.)) %>%
   kable_styling(bootstrap_option = c("hover"))
 ```
 
-## Other expenditures
+#### Other expenditures
 
 ```{r}
 #| label: tbl-ConsD
@@ -291,9 +288,11 @@ kbl(data |> select(hid, Alimony, ChildCare, Culture, Education, Health, Holidays
 
 In @fig-ShareConsumption, we look at the difference in consumption values and composition across the SOEP income deciles. For this, we aggregate all consumption items into eight categories; Daily expenditures, health, financial, transport, heating, power, housing, and others. There are apparent differences in the amount of money used for consumption across income groups. For instance, in the highest and lowest deciles of the income distribution, households spend 14,900 and 4,460 Euros per year, respectively. @fig-ShareConsumption portrays a clearer picture of the composition of these expenditures across income groups. While the share of financial and health costs grows with income, heating and power expenditures decrease. @fig-HeatCon clearly shows these trends with a heat map of consumption category by income decile. The expenditure share of housing, daily expenses, and health remains relatively stable; financial, transport and health costs increase with income; and heating-power expenses decrease. In @fig-IncToCon, we plot the ratio of average income to consumption by income decile. As expected, the consumption income ratio drops as we become more well-off. In the lowest income decile, families spend, on average, 34% more than their average income, meaning that they either live from debt or receive additional and unreported income from other sources. Once we move to the second income decile, the ratio reaches parity and implies that persons in this decile earn as much as they spend. Finally, in @fig-IncToConHeat, we plot the heat map of consumption income ratios across different categories.
 
+### Descriptives
 
 ::: panel-tabset
-## Consumption
+##### Consumption
+
 ```{r}
 #| label: fig-RawConsumption
 #| fig-cap: Yearly consumption by concept in thousand euros (SOEP 2010)
@@ -318,7 +317,9 @@ ggplot(plot) +
   theme_economist() %+replace% theme(legend.title = element_blank()) +
   labs(x = "Income Decile", y = "")
 ```
-## Con. Share
+
+##### Con. Share
+
 ```{r}
 #| label: fig-ShareConsumption
 #| fig-cap: Consumption share by concept (SOEP 2010)
@@ -343,7 +344,8 @@ ggplot(plot) +
   labs(x = "", y = "")
 ```
 
-## Con. Matrix
+##### Con. Matrix
+
 ```{r}
 #| label: fig-HeatCon
 #| fig-cap: Share of total consumption across categories
@@ -369,7 +371,8 @@ ggplot(plot) +
   labs(x = "", y = "") + guides(fill = "none")
 ```
 
-## Con/Income
+##### Con/Income
+
 ```{r}
 #| label: fig-IncToCon
 #| fig-cap: Consumption share of income (SOEP 2010)
@@ -393,7 +396,8 @@ ggplot(plot) +
   labs(x = "", y = "")  
 ```
 
-## Con/Income matrix
+##### Con/Income matrix
+
 ```{r}
 #| label: fig-IncToConHeat
 #| fig-cap: Consumption share of income across categories
@@ -423,14 +427,16 @@ ggplot(plot) +
 :::
 
 ## HWEALTH
+
+### Introduction
+
 The SOEP collected wealth data in 2002, 2007, 2012, and 2017 through the HWEALTH module.
 
 Compared to pure demographic variables, wealth data often contains high nonresponse rates. The SOEP adjusts for missing data with logical and multiple imputations. In 2002, the SOEP surveyed nine asset and liability components; owner-occupied housing, other property, financial assets, business assets, tangible assets, private pensions, mortgage debts, and consumer credits. While in 2002, the Item *private pensions and life insurances* included building loan contracts, the SOEP separated the question from 2007. In 2017, the SOEP added two wealth components, the value of vehicles and student loans. However, other assets are missing, e.g., cash, livestock and crops, equipment, intangible assets, claims against private insurance, and commercial loans.
 
 @tbl-WealthA contains a sample of the HWEALTH module aggregate wealth measures. These are, *GrossWealth* *GrossDebts*, and *NetWealth*. For each element, there are two distinct columns. The column with the number two at the end corresponds to wealth values considering vehicles and student loans. The one without the suffix only considers the wealth of the nine assets surveyed since 2002.
 
-@tbl-WealthB shows a sample of property wealth. While the column without the number two at the end corresponds to owner-occupied housing, the column with a two at the end refers to other properties. As with the previous table, it is possible to separate property values into gross, debt, and net. 
-
+@tbl-WealthB shows a sample of property wealth. While the column without the number two at the end corresponds to owner-occupied housing, the column with a two at the end refers to other properties. As with the previous table, it is possible to separate property values into gross, debt, and net.
 
 ```{r}
 #| echo: false
@@ -439,7 +445,7 @@ data = read_rds(paste0(file, "02_GenData/03_SoepFiles/hwealth.rds"))
 ```
 
 ::: panel-tabset
-## Total Wealth
+#### Total Wealth
 
 ```{r}
 #| label: tbl-WealthA
@@ -451,7 +457,7 @@ kbl(data |> select(c(hid, year, GrossWealth:NetWealth2)) %>% arrange(-year, hid)
   kable_styling(bootstrap_option = c("hover"))
 ```
 
-## Properties
+#### Properties
 
 ```{r}
 #| label: tbl-WealthB
@@ -462,7 +468,8 @@ kbl(data |> select(c(hid, year, HouseRaw:HouseDebt2)) %>% arrange(-year, hid) %>
   kable_classic(full_width = T, html_font = "Cambria") %>% 
   kable_styling(bootstrap_option = c("hover"))
 ```
-## Financial
+
+#### Financial
 
 ```{r}
 #| label: tbl-WealthC
@@ -473,7 +480,8 @@ kbl(data |> select(c(hid, year, financial, insurances, ConsumerDebt, StudentLoan
   kable_classic(full_width = T, html_font = "Cambria") %>% 
   kable_styling(bootstrap_option = c("hover"))
 ```
-## Other
+
+#### Other
 
 ```{r}
 #| label: tbl-WealthD
@@ -488,12 +496,15 @@ kbl(data |> select(c(hid, year, tangible, business, CarsValue)) %>% arrange(-yea
 
 @tbl-WealthC includes financial wealth in the form of financial assets, insurances, consumer debt, and car loans. @tbl-WealthD further portrays other wealth elements as the value of business, vehicles, and tangible assets
 
-@fig-WealthIncome portrays the relationshipo between the income distribution divided by deciles and gross wealth, gross debt, and net wealth. As expected, both wealth and debts increase with income. While, average net wealth for the highest decile is of more than 805,000 Euros (118k of debt) , net wealth for the lowest decile is less than 17,000 euros (2.5k of debt). @fig-WealthAge shows the same relationship for age, in line with the literature, age and wealth exhibit decreasing returns to scale (add cite). Although debts peak for people between 40 and 50, Gross and Net Wealth peak for people between 60 and 70.  
+@fig-WealthIncome portrays the relationshipo between the income distribution divided by deciles and gross wealth, gross debt, and net wealth. As expected, both wealth and debts increase with income. While, average net wealth for the highest decile is of more than 805,000 Euros (118k of debt) , net wealth for the lowest decile is less than 17,000 euros (2.5k of debt). @fig-WealthAge shows the same relationship for age, in line with the literature, age and wealth exhibit decreasing returns to scale (add cite). Although debts peak for people between 40 and 50, Gross and Net Wealth peak for people between 60 and 70.
 
 In @fig-WealthComp we show the composition of wealth by income decile. The overall wealth structure seems quite constant between the first and ninth deciles. However, for the last decile, the wealth composition changes by increasing the importance of business and other properties as a share of total wealth.
 
+### Descriptives
+
 ::: panel-tabset
-## Wealth and Income
+##### Wealth and Income
+
 ```{r}
 #| label: fig-WealthIncome
 #| fig-cap: Relationship between income and total wealth
@@ -515,7 +526,9 @@ ggplot(plot) +
   theme_economist() %+replace% theme(legend.title = element_blank()) +
   labs(x = "", y = "") + facet_wrap(~var) + guides(fill = "none")
 ```
-## Wealth and Age
+
+##### Wealth and Age
+
 ```{r}
 #| label: fig-WealthAge
 #| fig-cap: Relationship betsween age and total wealth
@@ -537,7 +550,9 @@ ggplot(plot) +
   theme_economist() %+replace% theme(legend.title = element_blank(), axis.text.x = element_text(angle = 90)) +
   labs(x = "", y = "") + facet_wrap(~var) + guides(fill = "none")
 ```
-## Wealth Composition
+
+##### Wealth Composition
+
 ```{r}
 #| label: fig-WealthComp
 #| fig-cap: Composition of wealth by income decile
@@ -549,7 +564,7 @@ data = mutate(ungroup(data), decile = ntile(income, 10)) |>
 plot = data |>  filter(year == 2017) |> 
   select(-c(GrossWealth:NetWealth2, HouseRaw, age, year, 
             HouseRaw2, HouseDebt, HouseDebt2, 
-            ConsumerDebt, StudentLoans, income, owner)) %>%  
+            ConsumerDebt, StudentLoans, income)) %>%  
   gather(var, value, -hid, -decile) |> group_by(decile, var) |> 
   summarise(value = mean(value)/1000) |> group_by(decile) |> 
   mutate(share = (value/sum(value))*100)  
@@ -573,44 +588,44 @@ ggplot(plot) +
 ```
 :::
 
-
 ## Individual panel
 
 ```{r}
 #| echo: false
 file = gsub("WebsiteABM", "", getwd())
-soep = read_rds(paste0(file, "02_GenData/03_SoepFiles/RawSoep.rds"))
+soep = read_rds(paste0(file, "02_GenData/03_SoepFiles/RawSoep.rds")) |> ungroup()
 ```
 
 Once we load the **hgen** and **pequiv** files, we merge them and construct a final panel data of SOEP individuals between 2005 and 2018. The data set contains `r comma(nrow(soep))` observations across `r comma(length(unique(soep$pid)))` individuals and `r comma(length(unique(soep$hid)))` households. On average, each person remains in the panel `r soep |> group_by(pid) |> summarise(count = n()) |> ungroup() |> summarise(round(mean(count),1))` years. The data set contains 57 different variables (each of which is defined in the glossary section).
 
 When merging the household and individual-level data. We perform different checks and create additional variables.
 
--   We change all negative values (NAs) from the raw SOEP data to R NA format.
+-   Change all missing values from the SOEP formating to R NA format.
 -   Transform the indicator variables with *"Ja" or "Nein" structure* to binary dummies.
 -   Transform net and gross income (income, GrossIncome) from Euros to Thousand of Euros.
 -   Impute the ownership and lodge indicators in cases with missing data if the household does not report moving.
--   Keep only the industry of the household head.
 -   Assume that if the dwelling has a garden it is a house.
 -   Assume that if the dwelling has an elevator it is a flat.
 -   Transform the PV data from one when bought to one if owned.
 -   Determine the age of the panel -- **PanelYear**.
 -   Simplify the lodge identifier to only "House" or "Flat".
 
+@tbl-SoepA to @tbl-SoepF contain samples of the final individual-evel data across different sets of variables. For instance, @tbl-SoepA shows a sample of the individual-level characteristics, *YearMoved*, *head*, *age*, *sex*, and *education*.
+
 ::: panel-tabset
-## Individual covariates
+#### Individual covariates
 
 ```{r}
 #| label: tbl-SoepA
 #| tbl-cap: Individual Covariates in the full sample
 #| tbl-cap-location: top
 #| echo: true
-kbl(soep |> select(pid, hid, year, head, age, sex, education) %>% head(.)) %>% 
+kbl(soep |> select(pid, hid, year, YearMoved, head, age, sex, education) %>% head(.)) %>% 
   kable_classic(full_width = T, html_font = "Cambria") %>% 
   kable_styling(bootstrap_option = c("hover"))
 ```
 
-## Employment
+#### Employment
 
 ```{r}
 #| label: tbl-SoepB
@@ -622,14 +637,14 @@ kbl(soep |> select(pid, hid, year, employment, occupation, income, GrossIncome) 
   kable_styling(bootstrap_option = c("hover"))
 ```
 
-## Dwelling
+#### Dwelling
 
 ```{r}
 #| label: tbl-SoepC
 #| tbl-cap: Employmenr Covariates in the full sample
 #| tbl-cap-location: top
 #| echo: true
-kbl(ungroup(soep) |> select(pid, hid, year, YearMoved, owner, FreeRent, lodge, NewestConstDate, OldestConstDate) %>% head(.)) %>% 
+kbl(ungroup(soep) |> select(pid, hid, year, owner, FreeRent, lodge, NewestConstDate, OldestConstDate) %>% head(.)) %>% 
   kable_classic(full_width = T, html_font = "Cambria") %>% 
   kable_styling(bootstrap_option = c("hover"))
 ```
@@ -646,7 +661,7 @@ kbl(ungroup(soep) |> select(pid, hid, year, HouseSize, basement, garden, elevato
   kable_styling(bootstrap_option = c("hover"))
 ```
 
-## Energy Efficiency
+#### Energy Efficiency
 
 ```{r}
 #| label: tbl-SoepE
@@ -658,7 +673,7 @@ kbl(ungroup(soep) |> select(pid, hid, year, ac, FloorHeating, CentralFloorHeatin
   kable_styling(bootstrap_option = c("hover"))
 ```
 
-## Energy Costs
+#### Energy Costs
 
 ```{r}
 #| label: tbl-SoepF
@@ -670,6 +685,8 @@ kbl(ungroup(soep) |> select(pid, hid, year, PowerCosts, OtherUtilityCosts, GasCo
   kable_styling(bootstrap_option = c("hover"))
 ```
 :::
+
+# Parameters
 
 ## Distribution of power costs by income
 
@@ -699,29 +716,151 @@ kbl(ungroup(data) %>% head(.)) %>%
 ![Density function of Power Costs across Income Deciles](99_figures/PowerCostsDensity){#fig-PowerCostsDensity}
 :::
 
+## Share of PV adoption
+
+We estimate the period-wise share of PV adoption by income decile by calculating the proportion of households in each decile period with a PV installation. @fig_ProbabilityPV portrays the adoption share across deciles from the first period the SOEP started asking for PV installations (2007) and 2017. The likelihood of adoption grows with both income and time. While the average adoption rate across income deciles in 2007 was 1.3%, it rose slightly above 10% in 2017. Concerning inter-decile differences, on average, 2.27% and 13.32% of households in the lowest and highest income decile have a PV installation. 
+
+```{r}
+
+```
 
 
-## Probability of PV adoption
+```{r}
+#| label: fig-ProbabilityPV
+#| fig-cap: Probability of PV adoption across income Deciles
+#| fig-cap-location: top
+#| fig-width: 7
+#| fig-height: 4
+#| echo: true
+#### Load the data
+file = gsub("WebsiteABM", "", getwd())
+sum = read_rds(paste0(file, "02_GenData/03_SoepFiles/PvProbability.rds"))
 
-## Variables Glossary
+#### Plot the probability of adoption for houses and flats
+ggplot(sum) + geom_line(aes(y = prob, x = year, group = IncomeGroup, color = IncomeGroup)) + 
+  geom_point(aes(y = prob, x = year, color = IncomeGroup)) + theme_economist() %+replace%
+  theme(strip.text = element_text(hjust = 0), legend.title = element_blank()) +
+  labs(x = "", y = "") + scale_color_viridis(discrete = T) +
+  scale_x_continuous(breaks = pretty_breaks())
 
-::: incremental
--   ***pid:*** This variable provides unique identification for each individual ever surveyed in the SOEP.
--   ***hid:*** This variable links individuals to the households they were living in at the time of the interview. The SOEP provides yearly household identification numbers.
--   ***sample:*** This variable indicates from which sub sample an individual in the SOEP is drawn. The variable contain the following levels
--   ***age:*** Indicates the age of the individual
--   ***sex:*** Indicates the gender of the individual (1 -- Male and 2 -- Female)
--   ***MaritalStatus:*** Indicates the marital status of the individual (1 -- Married, 2 -- Single, 3 -- Widowed, 4 -- Divorced, 5 -- Separated, 6 and 7 --- Not with partner)
--   ***Npersons:*** Refers to the number of persons in the household
--   ***Nkids:*** Number of kids in the household
--   ***education:*** Years of education
--   ***employment:*** Indicator variable equal to one if the person is employed
--   ***occupation:*** Individual's occupation according to the ISCO-88 occupation code (ISCO = International Classification of Occupations)
--   ***industry1:*** Individual's two-digit industry code based on ten categories (1 -- Agriculture, 2 -- Energy, 3 -- Mining, 4 -- Manufacturing, 5 -- Construction, 6 -- Trade, 7 -- Transport, 8 -- Bank and Insurance, 9 -- Services).
--   ***industry2:*** Individual's NACE industry code
+```
+
+## Estimating Wealth
+We estimate the gross wealth of each households with an ordinary least squares model of gross wealth as a function of income and the age of the household head. The estimation model takes the form:
+
+$$
+Wealth_{ht} = \beta Income_{ht} + \gamma Age_{ht} + \epsilon_{ht}
+$$
+
+@tbl-WealthEst contains the point estimates and standard errors from the OLS. As expected there is a positive relationship between income, age, and gross wealth.
+
+```{r}
+#| label: tbl-WealthEst
+#| tbl-cap: Estimates for the relationship between gross wealth income and age
+#| tbl-cap-location: top
+#| echo: true
+#### Read the fitted data 
+file = gsub("WebsiteABM", "", getwd())
+est = read_rds(paste0(file, "02_GenData/03_SoepFiles/WealthEst.rds"))
+
+#### Transform to a data frame long
+est = gather(est |> select(-spec) , var, value) |> 
+  mutate(stat = gsub(".*_", "", var)) %>% 
+  mutate(var = gsub("_.*", "", var)) %>% 
+  spread(., var, value)
+
+
+kbl(est) %>% 
+    kable_classic_2(full_width = F, html_font = "Cambria") %>% 
+  kable_styling(bootstrap_option = c("hover"))
+```
+
+
+We test the robustness of our econometric specification by varying the set of controls in the OLS design. Model (1) is our preferred specification with linear controls for income and age. (2) adds quadratic controls for both variables. (3) further includes education as an additional control. (4) includes year fixed effects to account for common temporal shocks across households. Finally, in five we estimate the coefficients from within variation in income by including households fixed effects.
+
+```{r}
+#| label: fig-WealthEst
+#| fig-cap: Fitted wealth distribution across different OLS models
+#| fig-cap-location: top
+#| fig-width: 7
+#| fig-height: 4
+#| echo: true
+#### Read the fitted data 
+file = gsub("WebsiteABM", "", getwd())
+fitted = read_rds(paste0(file, "02_GenData/03_SoepFiles/WealthFitted.rds"))
+
+#### Plot the density funtion ####
+plot = gather(fitted, var, value, -c(hid, year, income, age, education, GrossWealth))
+
+#### Make the raw bar plot ####
+plot %>% group_by(var) %>% filter(value < quantile(value, p = 0.99, na.rm = T)) %>% ggplot(.) + 
+  geom_histogram(aes(value/1000, fill = var), alpha = 0.5, 
+                 position =position_dodge2(width = 1.5), binwidth = 100) +
+  theme(panel.background = element_blank(), legend.position = "top", 
+        axis.line = element_line(), legend.background = element_blank(), 
+        legend.title = element_blank()) +
+  grids() + scale_fill_viridis_d(option = "D") +
+  labs(y = "No. of Households", x = "Wealth in Ths.")
+```
+
+
+# Variables Glossary
+
+### Identifiers
+
+-   ***pid:*** Unique identification for each individual ever surveyed in the SOEP.
+-   ***hid:*** Links individuals to the households they were living in at the time of the interview.
+-   ***year:*** year of the survey.
 -   ***state:*** German state of residence
 -   ***region:*** German region of residence
--   ***income:*** Household post-government income (after taxes and government transfers for all persons in the household)
--   ***GrossIncome:*** Household pre-government income
+
+### Individual Characteristics
+
 -   ***head:*** Individual's relationship to household head (1 -- Head, 2 -- Partner, 3 -- Child, 4 -- Relative, 5 -- Non Relative)
-:::
+-   ***age:*** Age of the individual
+-   ***sex:*** Gender of the individual (1 -- Male and 2 -- Female)
+-   ***Npersons:*** Number of persons in the household
+-   ***Nkids:*** Number of kids in the household
+-   ***education:*** Years of education
+
+### Income and Employment
+
+-   ***employment:*** Indicator variable equal to one if the person is employed
+
+-   ***occupation:*** Individual's occupation according to the ISCO-88 occupation code (ISCO = International Classification of Occupations)
+
+-   ***industry:*** Individual's two-digit industry code based on ten categories (1 -- Agriculture, 2 -- Energy, 3 -- Mining, 4 -- Manufacturing, 5 -- Construction, 6 -- Trade, 7 -- Transport, 8 -- Bank and Insurance, 9 -- Services).
+
+-   ***income:*** Household post-government income (after taxes and government transfers for all persons in the household)
+
+-   ***GrossIncome:*** Household pre-government income
+
+### House characteristics
+
+-   ***owner:*** Indicator variable if the person is an owner or renter
+-   ***FreeRent:*** Indicator variable if the person does not pay rent
+-   ***lodge:*** Categoriacal variable indicating if the person lives in a flat or a house
+-   ***NewestConstDate:*** Estimated newest construction date of the dwelling
+-   ***OldestConstDate:*** Estimated oldest contruction date of the dwelling
+-   ***HouseSize:*** House size in square meters
+-   ***Basement:*** Indicator variable if the house has a basement.
+-   ***garden:*** Indicator variable if the house has a garden.
+-   ***elevator*** Indicator variable if the house has an elevator.
+-   ***balcony*** Indicator variable if the house has a balcony.
+
+### Energy appliances
+
+-   ***ac:*** Indicator variable if the dwelling has an AC
+-   ***FloorHeating:*** Indicator variable if the dwelling has floor heating.
+-   ***CentralFloorHeating:*** Indicator variable if the dwelling has central floor heating.
+-   ***ThermalInsulation:*** Indicator variable if the dwelling has thermal insulation.
+-   ***AlternativeEnergySource:*** Indicator variable if the dwelling uses alternative energy sources
+-   ***pv:*** Indicator variable if the dwelling has a photo-voltaic installation
+-   ***boiler*** Indicator variable id the dwelling has a boiler
+
+### Energy Costs
+
+-   ***PowerCosts*** Electricity costs in the last calendar year (only renters)
+-   ***WarmWaterCost:*** Heating costs including warm water (2013 backwards only renters)
+-   ***GasCosts*** Monthly costs of gas not used for heating in Euros (Only collected in 2014)
+-   ***OtherUtilityCosts*** How much did you pay in the last calendar year for water, garbage, street cleaning, and other additional costs not mentioned above?

@@ -2,19 +2,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.36">
+<meta name="generator" content="quarto-1.2.237">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Severin Reissl and Luis Sarmiento">
 
-<title>The ABM Model of Technology Adoption (ABM-REN) - Model Overview</title>
+<title>The Agent-Based Model of Technology Adoption (ABM-REN) - Model Overview</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
 </style>
 
 
@@ -63,29 +69,33 @@ ul.task-list{list-style: none;}
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">The ABM Model of Technology Adoption (ABM-REN)</span>
-  </a>
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">The Agent-Based Model of Technology Adoption (ABM-REN)</span>
+    </a>
+  </div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./01_about.html" aria-current="page">Home</a>
+    <a class="nav-link active" href="./01_about.html" aria-current="page">
+ <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/gsaabogado"><i class="bi bi-github" role="img">
 </i> 
- </a>
+ <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://twitter.com/gsaabogado"><i class="bi bi-twitter" role="img">
 </i> 
- </a>
+ <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="https://luissarmiento.net/">Personal Site</a>
+    <a class="nav-link" href="https://luissarmiento.net/">
+ <span class="menu-text">Personal Site</span></a>
   </li>  
 </ul>
               <div id="quarto-search" class="" title="Search"></div>
@@ -132,17 +142,17 @@ ul.task-list{list-style: none;}
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./03_theory.html" class="sidebar-item-text sidebar-link">Theoretical Background</a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./04_model.html" class="sidebar-item-text sidebar-link active">Model Overview</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./05_code.html" class="sidebar-item-text sidebar-link">Model Code</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06_modelresults.html" class="sidebar-item-text sidebar-link">Model Results</a>
   </div>
 </li>
       </ul>
@@ -152,23 +162,24 @@ ul.task-list{list-style: none;}
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc">
+        <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#defining-the-model-parameters" id="toc-defining-the-model-parameters" class="nav-link active" data-scroll-target="#defining-the-model-parameters">Defining the model parameters</a>
+  <li><a href="#background" id="toc-background" class="nav-link active" data-scroll-target="#background">Background</a></li>
+  <li><a href="#model-description" id="toc-model-description" class="nav-link" data-scroll-target="#model-description">Model description</a>
   <ul class="collapse">
   <li><a href="#household-state-variables-and-characteristics" id="toc-household-state-variables-and-characteristics" class="nav-link" data-scroll-target="#household-state-variables-and-characteristics">Household state variables and characteristics</a></li>
   <li><a href="#household-parameters" id="toc-household-parameters" class="nav-link" data-scroll-target="#household-parameters">Household parameters</a></li>
   <li><a href="#model-parameters" id="toc-model-parameters" class="nav-link" data-scroll-target="#model-parameters">Model parameters</a></li>
   <li><a href="#model-wide-state-variables" id="toc-model-wide-state-variables" class="nav-link" data-scroll-target="#model-wide-state-variables">Model-wide state variables</a></li>
-  </ul></li>
   <li><a href="#estimating-the-electricity-price" id="toc-estimating-the-electricity-price" class="nav-link" data-scroll-target="#estimating-the-electricity-price">Estimating the electricity price</a></li>
   <li><a href="#income-and-electricity-costs" id="toc-income-and-electricity-costs" class="nav-link" data-scroll-target="#income-and-electricity-costs">Income and electricity costs</a></li>
   <li><a href="#consumption" id="toc-consumption" class="nav-link" data-scroll-target="#consumption">Consumption</a></li>
   <li><a href="#updating-the-panels-age" id="toc-updating-the-panels-age" class="nav-link" data-scroll-target="#updating-the-panels-age">Updating the panel’s age</a></li>
   <li><a href="#electricity-price-expectations" id="toc-electricity-price-expectations" class="nav-link" data-scroll-target="#electricity-price-expectations">Electricity price expectations</a></li>
   <li><a href="#adoption-decision" id="toc-adoption-decision" class="nav-link" data-scroll-target="#adoption-decision">Adoption Decision</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -184,18 +195,31 @@ ul.task-list{list-style: none;}
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Severin Reissl and Luis Sarmiento </p>
+          </div>
+  </div>
     
+  
     
   </div>
   
 
 </header>
 
-<section id="defining-the-model-parameters" class="level2">
-<h2 class="anchored" data-anchor-id="defining-the-model-parameters">Defining the model parameters</h2>
-<p>The model consists of a set of <span class="math inline">\(N\)</span> households. Households’ initial characteristics are set using SOEP data alongside other data sources. Parameter values are set following empirical evidence as far as possible.</p>
-<section id="household-state-variables-and-characteristics" class="level3">
-<h3 class="anchored" data-anchor-id="household-state-variables-and-characteristics">Household state variables and characteristics</h3>
+<section id="background" class="level1">
+<h1>Background</h1>
+<p>Before providing a detailed outline of the model (see below), we briefly describe the basic intuition underlying the agent-based model we use to simulate the household decision to adopt green technologies. At present, the model only depicts the adoption of photovoltaic (PV) systems, but the same theoretical framework could also be applied to other technologies such as heat pumps, insulation, or AC systems.</p>
+<p>The adoption decision in the model is based on a simple expected utility framework; in every period <span class="math inline">\(t = 1,...,T\)</span> each household <span class="math inline">\(h = 1,...,N\)</span> who does not already own PV faces the binary decision whether or not to purchase the single type of PV system available in the model. The expected utility from owning PV is a function of the profit <span class="math inline">\(h\)</span> expects to derive from the ownership of PV over the lifetime of the panel, as well as a social influence based component and one based on the environmental attitude of <span class="math inline">\(h\)</span>. The expected profit from owning PV (stemming from an expected reduction in outlays for electricity) is in turn a function of the future electricity price expected by <span class="math inline">\(h\)</span>.</p>
+<p>Households receive income, consume and pay electricity cost, resulting in changes in their stocks of liquid assets; these liquid assets can in turn be used to purchase a solar panel. Households with insufficient liquid assets may also request a loan to install PV from a stylised banking sector, but may be credit-rationed if the bank is unwilling to lend them as much as they require.</p>
+</section>
+<section id="model-description" class="level1">
+<h1>Model description</h1>
+<p>sHouseholds’ initial characteristics are set using SOEP data alongside other data sources. Parameter values are set following empirical evidence as far as possible.</p>
+<section id="household-state-variables-and-characteristics" class="level2">
+<h2 class="anchored" data-anchor-id="household-state-variables-and-characteristics">Household state variables and characteristics</h2>
 <div class="incremental">
 <ul class="incremental">
 <li><span class="math inline">\(h\)</span> - Household identifier</li>
@@ -218,8 +242,8 @@ ul.task-list{list-style: none;}
 </ul>
 </div>
 </section>
-<section id="household-parameters" class="level3">
-<h3 class="anchored" data-anchor-id="household-parameters">Household parameters</h3>
+<section id="household-parameters" class="level2">
+<h2 class="anchored" data-anchor-id="household-parameters">Household parameters</h2>
 <div class="incremental">
 <ul class="incremental">
 <li><span class="math inline">\(\alpha_h\)</span> - Weight of social influence in utility (heterogeneous, set freely)</li>
@@ -231,8 +255,8 @@ ul.task-list{list-style: none;}
 </ul>
 </div>
 </section>
-<section id="model-parameters" class="level3">
-<h3 class="anchored" data-anchor-id="model-parameters">Model parameters</h3>
+<section id="model-parameters" class="level2">
+<h2 class="anchored" data-anchor-id="model-parameters">Model parameters</h2>
 <div class="incremental">
 <ul class="incremental">
 <li><span class="math inline">\(K\)</span> - Installation cost of PV (roughly calibrated based on online sources)</li>
@@ -247,8 +271,8 @@ ul.task-list{list-style: none;}
 </ul>
 </div>
 </section>
-<section id="model-wide-state-variables" class="level3">
-<h3 class="anchored" data-anchor-id="model-wide-state-variables">Model-wide state variables</h3>
+<section id="model-wide-state-variables" class="level2">
+<h2 class="anchored" data-anchor-id="model-wide-state-variables">Model-wide state variables</h2>
 <div class="incremental">
 <ul class="incremental">
 <li><span class="math inline">\(Electricity price model\)</span> - a pre-defined AR(1) model which generates the electricity price in each period)</li>
@@ -265,7 +289,6 @@ ul.task-list{list-style: none;}
 <li>Consider adopting PV if not adopted yet</li>
 </ul>
 </div>
-</section>
 </section>
 <section id="estimating-the-electricity-price" class="level2">
 <h2 class="anchored" data-anchor-id="estimating-the-electricity-price">Estimating the electricity price</h2>
@@ -334,7 +357,8 @@ ul.task-list{list-style: none;}
 <p>In order to form an expectation about whether purchasing a solar panel is a profitable undertaking, households must have an expectation of the future electricity price over the lifespan of the panel. In line with a large literature on alternatives to the rational expectations hypothesis, it is assumed that each household uses <em>recursive least squares learning</em> in order to estimate an econometric model of the electricity price using past observations, which is then projected forward to generate a time-series of expected future electricity prices.</p>
 <p>In particular, we assume that agents know that changes in the electricity price follow an AR(1) model, but they do not know the parameters of this model. They attempt to learn them using the recursive least squares formula with constant gain:</p>
 <p><span class="math display">\[
-R^h_t =R^h_{t-1}+\gamma_h\left(x_t x_t'-R^h_{t-1}\right) n^h_t =n^h_{t-1}+\gamma_h\left(R^h_t\right)^{-1}x_t(y_t-x_t' n^h_{t-1})
+R^h_t =R^h_{t-1}+\gamma_h\left(x_t x_t'-R^h_{t-1}\right)\\
+n^h_t =n^h_{t-1}+\gamma_h\left(R^h_t\right)^{-1}x_t(y_t-x_t' n^h_{t-1})
 \]</span></p>
 <p>where <span class="math inline">\(x_t\)</span> is the vector of independent variables (in our case, since we are estimating an AR(1) with intercept, this vector will contain the elements 1 and <span class="math inline">\(\Delta p_{t-1}\)</span>). <span class="math inline">\(y_t\)</span> is the dependent variable in <span class="math inline">\(t\)</span> (i.e.&nbsp;<span class="math inline">\(\Delta p_{t}\)</span>). <span class="math inline">\(R^h_t\)</span> is <span class="math inline">\(h\)</span>’s current estimate of the moment matrix of <span class="math inline">\(x\)</span>. <span class="math inline">\(n^h_t\)</span> is <span class="math inline">\(h\)</span>’s current estimate of the vector of parameters (intercept and AR parameter). <span class="math inline">\(\gamma_h\)</span> is the so-called gain parameter, which determines how sensitive <span class="math inline">\(h\)</span>’s estimates are to new observations.</p>
 <p>Each household <span class="math inline">\(h\)</span> hence has an internal AR(1) model with the parameters contained in <span class="math inline">\(n^h_t\)</span>. Using the current electricity price, they can use this model to project the price forward, generating a time-series of expected future electricity prices which is used below to form an expected revenue from owning a solar panel.</p>
@@ -359,7 +383,7 @@ R^h_t =R^h_{t-1}+\gamma_h\left(x_t x_t'-R^h_{t-1}\right) n^h_t =n^h_{t-1}+\gamma
 \]</span></p>
 <p>i.e.&nbsp;the utility from not adopting PV is always zero for all households. This means that a household will adopt as soon as the utility from doing so is greater than zero (provided that they are not credit-constrained as described above). The utility from adopting is given by</p>
 <p><span class="math display">\[
-    U_{h,t}^{PV = 1} | (F_{h}=1) = E_{h,t}(\Pi_h)+\alpha_h \lambda_{h,t}+\beta Env_{h} ---
+    U_{h,t}^{PV = 1} | (F_{h}=1) = E_{h,t}(\Pi_h)+\alpha_h \lambda_{h,t}+\beta Env_{h}\\
     U_{h,t}^{PV = 1} | (F_{h}=0) =0
 \]</span></p>
 <p>First of all, note that <span class="math inline">\(U_{h,t}^{PV = 1}\)</span> is conditional on <span class="math inline">\(F_{h}\)</span>. <span class="math inline">\(F_{h}\)</span> is a dummy denoting the feasibility of PV, i.e.&nbsp;whether, given the characteristics of the dwelling of household <span class="math inline">\(h\)</span>, a solar panel can in fact be installed. If <span class="math inline">\(F_{h}=0\)</span>, PV cannot be installed and the utility, correspondingly, is zero. At present, <span class="math inline">\(F_h\)</span> is set for each household at the beginning of the simulation and remains fixed thereafter. If a household already owns PV at the beginning, it is set to 1. Otherwise it is set to 1 with probability <span class="math inline">\(p^f_1\)</span> if the household lives in a house and with probability <span class="math inline">\(p^f_2&lt;p^f_1\)</span> if the household lives in a flat.</p>
@@ -389,12 +413,13 @@ R^h_t =R^h_{t-1}+\gamma_h\left(x_t x_t'-R^h_{t-1}\right) n^h_t =n^h_{t-1}+\gamma
 
 
 </section>
+</section>
 
 
-<div id="quarto-appendix" class="default"><section class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
-<li id="fn1" role="doc-endnote"><p>Note that this is distinct from the price which any household may expect to prevail in the future; described below.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Note that this is distinct from the price which any household may expect to prevail in the future; described below.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -438,7 +463,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -466,31 +508,50 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
     });
   }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script>

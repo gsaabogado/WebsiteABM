@@ -1,5 +1,6 @@
 ---
 title: "Model Code"
+author: "Severin Reissl and Luis Sarmiento"
 format: 
   html: 
     toc: true
@@ -551,6 +552,5 @@ def PVModel(inputfile="inputs.csv",propensitiesfile="consumptionpropensities.csv
     filename+='.csv'
     Stats.to_csv(filename)
 ```
-
 
 ## 

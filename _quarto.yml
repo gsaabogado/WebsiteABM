@@ -4,12 +4,13 @@ project:
   render:
     - 01_about.qmd
     - 02_data.qmd
-    - 03_theory.qmd
+#    - 03_theory.qmd
     - 04_model.qmd
     - 05_code.qmd
+    - 06_modelresults.qmd
 
 website:
-  title: "The ABM Model of Technology Adoption (ABM-REN)"
+  title: "The Agent-Based Model of Technology Adoption (ABM-REN)"
   navbar:
     search: true
     pinned: true
@@ -31,9 +32,10 @@ website:
         contents:
         - 01_about.qmd
         - 02_data.qmd
-        - 03_theory.qmd
+#        - 03_theory.qmd
         - 04_model.qmd
         - 05_code.qmd
+        - 06_modelresults.qmd
 
 format:
   html:

@@ -1,7 +1,7 @@
 ---
 title: "About"
 description: |
-  This website contains all the data, python, and R-codes necessary for the development og the ABM Model of Technology Adoption (ABM-REN) developed at RFF-CMCC: European Institute in Economics and the Environment
+  This website contains all the data, python, and R-codes necessary for the development of the ABM of Technology Adoption (ABM-REN) developed at RFF-CMCC: European Institute in Economics and the Environment
 author: "Severin Reissl and Luis Sarmiento"
 format: 
   html: 

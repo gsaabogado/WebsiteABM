@@ -12,17 +12,15 @@ jupyter: python3
 
 The model is written in Python. Below we provide a step-by-step documentation of all model functions. In total the model consists of 10 separate functions, which are in turn called by one main model function containing the initialisation and the main simulation loop. This main function is described last.
 
-
 ## Generate Electricity Price
 
-This function is called once at the beginning of a simulation run in order to generate a time-series of the electricity price which agents have to pay at each time-step of the simulation (note that this is different from the expected future electricity price, described below). 
+This function is called once at the beginning of a simulation run in order to generate a time-series of the electricity price which agents have to pay at each time-step of the simulation (note that this is different from the expected future electricity price, described below).
 
-The function takes four inputs. `_PriceEmp` is a pandas dataframe containing an empirical time-series of the electricity price. `_Params`, is a pandas dataframe containing the names and values of the model parameters.  `_length`, is an integer denoting the length of the time-series to be created (given by simulation length+2 since we need two lagged values at the beginning for the expectations formation process discussed below). Finally, `_start` denotes the start year of the simulation
+The function takes four inputs. `_PriceEmp` is a pandas dataframe containing an empirical time-series of the electricity price. `_Params`, is a pandas dataframe containing the names and values of the model parameters. `_length`, is an integer denoting the length of the time-series to be created (given by simulation length+2 since we need two lagged values at the beginning for the expectations formation process discussed below). Finally, `_start` denotes the start year of the simulation
 
 The function then creates two numpy vectors of zeros of size `_length`. `electricityprice1` is the vector of prices that will actually be used in the simulation. `electricityprice2` instead is a vector of prices which will be used to train the agents' expectations formation mechanism prior to the beginning of the simulation.
 
-The first two elements of the vectors are set to the empirical values of the electricity price in `_start-2` and `_start-1`. The rest of the vector `electricityprice1` is then filled either with empirical values of the price (if these are available, e.g. because we are simulating past years rather than the future) or by  iterating forward an AR(1) model previously estimated on the empirical price data, including a normally distributed random shock the standard deviation of which is taken from the standard deviation of the residuals from the estimation of the AR(1) model. `electricityprice2`, the "training set", is filled completely with simulated values from the AR(1) model.
-Finally, the function returns the two time-series of the electricity price.
+The first two elements of the vectors are set to the empirical values of the electricity price in `_start-2` and `_start-1`. The rest of the vector `electricityprice1` is then filled either with empirical values of the price (if these are available, e.g. because we are simulating past years rather than the future) or by iterating forward an AR(1) model previously estimated on the empirical price data, including a normally distributed random shock the standard deviation of which is taken from the standard deviation of the residuals from the estimation of the AR(1) model. `electricityprice2`, the "training set", is filled completely with simulated values from the AR(1) model. Finally, the function returns the two time-series of the electricity price.
 
 ```{python}
 def GenerateElectricityPrice(_PriceEmp,_Params,_length,_start):
@@ -74,15 +72,13 @@ def SetPolicy(_Subsidy1,_Subsidy2,_CreditPolicy1,_CreditPolicy2,_year,_Params):
 
 ## Income and Power cost
 
-This function generates the incomes and electricity costs for each agent in every period. `_Income_f` and `_Powercost_f` are vectors of length *N*, where *N* is the number of agents in the model. The deterministic values of income and power cost for each agent are assumed to grow at rate `_Trend` (which may be heterogeneous across agents but is currently uniform) at each time step. 
-The electricity cost to be paid by each agent is deterministic, while their income in the current period is drawn from a normal distribution with mean `_Income_f` and standard deviation `_Income_sd`.
+This function generates the incomes and electricity costs for each agent in every period. `_Income_f` and `_Powercost_f` are vectors of length *N*, where *N* is the number of agents in the model. The deterministic values of income and power cost for each agent are assumed to grow at rate `_Trend` (which may be heterogeneous across agents but is currently uniform) at each time step. The electricity cost to be paid by each agent is deterministic, while their income in the current period is drawn from a normal distribution with mean `_Income_f` and standard deviation `_Income_sd`.
 
 Having determined income and power cost for each agent, we move on to calculate the revenue/cost saving generated by solar panels in the current period. We begin by setting `panelrevenue` as a copy of `_PV`, a vector of dummies indicating whether an agent owns PV in the current period. Hence `panelrevenue` is zero (and will remain zero in the calculations below) for agents who do not own PV.
 
-We then calculate `panelrevenue` for the agents who do own PV, by dividing them into 4 groups depending on whether their own electricity consumption in the current period is larger or smaller than the capacity of the solar panel and whether their feed-in tariff (FIT; possibly including an additional subsidy if one is in force, see the function above) is higher or lower than the current electricity price (note that, as in reality in Germany, the feed-in tariff depends on the year in which the PV was installed and remains constant thereafter, meaning that agents will receive different FITs depending on how old their panel is). `panelrevenue` is then set for each of the four groups, assuming that agents can consume a maximum of  `_Params["PVCons"].values[0]` of the amount of electricity generated by the panel.
+We then calculate `panelrevenue` for the agents who do own PV, by dividing them into 4 groups depending on whether their own electricity consumption in the current period is larger or smaller than the capacity of the solar panel and whether their feed-in tariff (FIT; possibly including an additional subsidy if one is in force, see the function above) is higher or lower than the current electricity price (note that, as in reality in Germany, the feed-in tariff depends on the year in which the PV was installed and remains constant thereafter, meaning that agents will receive different FITs depending on how old their panel is). `panelrevenue` is then set for each of the four groups, assuming that agents can consume a maximum of `_Params["PVCons"].values[0]` of the amount of electricity generated by the panel.
 
 The electricity cost of agents owning PV is then reduced by `panelrevenue` (note that this can lead to cases in which electricity cost becomes smaller than 0 when the revenue from the panel exceeds electricity cost). In addition, `_CumulativeProfit`, which keeps track of the profit which PV owners have derived from their panel over its lifetime, is updated. Finally, we calculate a measure of income net of electricity cost which is used below to calculate income distribution statistics.
-
 
 ```{python}
 def IncomePowercost(_Income_f,_Trend,_Powercost_f,_Income_sd,_CumulativeProfit,_PV,_Price,_PanelFIT,_Subsidy2,_Params):
@@ -125,13 +121,11 @@ def IncomePowercost(_Income_f,_Trend,_Powercost_f,_Income_sd,_CumulativeProfit,_
     return[randincome,powercost,income_p,_CumulativeProfit,_Income_f,_Powercost_f]
 ```
 
-
 ## Income Groups
 
 The purpose of this function is to calculate income distribution statistics, as well as the rates of PV ownership by income decile, which are used in other parts of the model. We begin by sorting `_Income_p`, the vector containing income net of electricity cost, in ascending order. Next, we set the cut-off points for income deciles and percentiles using the vectors `_Positions_p` and `_Positions_d`, which are calculated during the initialisation phase (described below) based on the number of agents in the model and give the number of agents in each decile/percentile. Next we iterate over all deciles and percentiles, assinging to each agent their income decile/percentile based on their current income net of electricity cost.
 
 The function returns `_IncomePercentiles` and `_IncomeDeciles`, two vectors of length *N*, in which each element gives the income percentile/decile of the respective agent.
-
 
 ```{python}
 def IncomeGroups(_Income_p,_Positions_p,_Percentiles,_Positions_d,_Deciles,_IncomePercentiles,_IncomeDeciles):
@@ -279,7 +273,6 @@ def FormExpectation(_ARPars,_ARMats,_Price,_Gain,_ExpectedPrice,_period):
     return[_ARMats,_ARPars,_ExpectedPrice]
 ```
 
-
 ## Adoption Decision
 
 In this function, agents who do not yet own PV decide whether or not to purchase a panel.
@@ -288,9 +281,7 @@ The function first checks which agents would need a loan in order to adopt PV (n
 
 Next, the bank proposes a loan interest rate to every agent with positive borrowing needs based on the size of the required loan. From this, in turn, we calculate the size of the implied debt service payment. If the prospective debt service payment of an agent exceeds a certain fraction (`_Params["MaxDTI"]`) of their current income, the agent is credit rationed. Since the model only includes a single type of solar panel with a given installation cost, credit rationed agents cannot adopt (i.e. they cannot, for instance, buy a smaller panel with a smaller loan).
 
-The function then calculates, for each agent, a sum of expected discounted revenue from owning PV over the lifetime of a panel, based on agents' expected future electricity prices, the value of the feed-in tariff for panels installed in the current year, agents' future electricity consumption (which, as outlined above, grows at a fixed rate every year), as well as a sum of discounted future loan costs based on the size of the needed loan and the interest rate proposed by the bank. 
-As in the case of the function `IncomePowercost` outlined above, in calculating the expected cost-saving/revenue from owning PV, agents are divided into groups depending on whether their future electricity consumption is larger or smaller than the capacity of the solar panel and whether the current FIT is larger or smaller than the expected electricity price.
-Based on the cumulative discounted expected revenue and loan cost and the one-off installation cost, an expected profit from owning PV is calculated.
+The function then calculates, for each agent, a sum of expected discounted revenue from owning PV over the lifetime of a panel, based on agents' expected future electricity prices, the value of the feed-in tariff for panels installed in the current year, agents' future electricity consumption (which, as outlined above, grows at a fixed rate every year), as well as a sum of discounted future loan costs based on the size of the needed loan and the interest rate proposed by the bank. As in the case of the function `IncomePowercost` outlined above, in calculating the expected cost-saving/revenue from owning PV, agents are divided into groups depending on whether their future electricity consumption is larger or smaller than the capacity of the solar panel and whether the current FIT is larger or smaller than the expected electricity price. Based on the cumulative discounted expected revenue and loan cost and the one-off installation cost, an expected profit from owning PV is calculated.
 
 This expected profit, in turn, feeds into the expected utility from adopting PV. In addition to profit, this utility also contains a component related to social influence (based on the difference between the share of other agents in a given agent's income decile who have already adopted PV and those who have not) and one related to environmental attitude.
 
@@ -419,8 +410,6 @@ def PVDeciles(_Income_p,_PV,_Positions_d,_Deciles,_PVOwnershipDeciles,_DecileMem
     _PVOwnershipDeciles=_PVOwnershipDeciles/_DecileMembers
     return[_PVOwnershipDeciles]
 ```
-
-
 
 ## Calculate statistics
 

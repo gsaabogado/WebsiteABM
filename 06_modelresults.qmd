@@ -5,6 +5,7 @@ format:
   html: 
     toc: true
     warning: false
+    fontsize: "14px"
 ---
 
 ## Running the model

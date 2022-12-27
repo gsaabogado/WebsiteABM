@@ -7,6 +7,7 @@ format:
     warning: false
     code-fold: true
     code-summary: "Show the Code"
+    fontsize: "14px"
 ---
 
 This short section describes the theoretical foundation behind the ABM model we use to simulate the household decision to adopt green technologies. In this section, we concentrate on adopting photovoltaic (PV) systems. However, the same theoretical framework can apply to other technologies like gas pumps, insulation, or AC systems. At every period $t = 1,...,T$ each household $h = 1,...,N$ faces the choice whether to purchase a PV installation. The utility each person receives for purchasing the PV comes from @eq-utility.

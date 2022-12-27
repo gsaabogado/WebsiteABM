@@ -9,6 +9,7 @@ format:
     warning: false
     code-fold: true
     code-summary: "Show the Code"
+    fontsize: "14px"
 ---
 
 # Introduction

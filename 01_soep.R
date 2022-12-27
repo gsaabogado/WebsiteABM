@@ -346,27 +346,36 @@ data = read_rds("02_GenData/03_SoepFiles/RawSoep.rds")
 #### Only select the income and consumption data ####
 data = select(data, year, pid, hid, income) %>% filter(year == 2017) %>%
   group_by(year, hid) %>% summarise(income = mean(income, na.rm = T)) 
-#### Transform income to monhtly in thousands ####
+
+#### Transform income to Monthly in thousands ####
 data = mutate(data, income = (income/12)*1000)
+
 #### Compute the income and consumption deciles ####
 data = data %>% ungroup() %>% filter(is.na(income) == F) %>%
   mutate(amt = cut2(income, c(0, 500, 900, 1300, 1500, 1700, 
                               2000, 2600, 3600, 5000, 7500, 10000)))
+
 #### Compute the lower and higher bounds of the amt ####
 data = mutate(data, LowAmt = gsub(",.*|\\(| |\\[", "", amt),
               HighAmt = gsub(".*,|\\)| |\\]", "", amt)) %>% 
   mutate_at(vars(LowAmt, HighAmt), function(x) x = as.numeric(x))
+
 #### Calculate the percentile of each high and low limit ####
 per = mutate(data, LowPer = ecdf(income)(LowAmt), HighPer = ecdf(income)(HighAmt)) %>%
   ungroup() %>% select(amt:HighPer) %>% distinct()
+
 #### Round the percentile ####
 per = mutate_at(ungroup(per), vars(HighPer, LowPer), function(x) x = round(x*100, 0))
+
 #### Review the data set ####
 per %>% head(.)
+
 #### Save the data set ####
 write_rds(per, file = "02_GenData/03_SoepFiles/AmtMap.rds", compress = "gz")
+
 #### Clear the space ####
 rm(list = ls()); gc()
+
 #### _____________________________________________________________________ ####
 #### Estimate the wealth ####
 #### _____________________________________________________________________ ####
@@ -386,6 +395,9 @@ data = data %>% ungroup() %>% arrange(hid, pid, year, education, Npersons) %>%
 
 #### Include the wealth data ####
 data = left_join(wealth, data)
+
+#### Transform income to thousand ####
+data = mutate(data, wealth)
 
 #### Restrict data to the 95 percentile to avoid outliers driving the coefficients ####
 data = filter(ungroup(data), GrossWealth < quantile(GrossWealth, p = 0.99, na.rm = T))
@@ -456,42 +468,52 @@ wealth = read_rds("02_GenData/03_SoepFiles/hwealth.rds")
 sum = data %>% group_by(year, YearMoved, hid) %>% 
   summarise(income = mean(income, na.rm = T), age = max(age), HouseType = unique(lodge), 
             PowerCosts = mean(PowerCosts, na.rm = T), pv = max(pv, na.rm = T), 
-            PanelAge = min(PanelYear, na.rm = T))
+            PanelAge = min(PanelYear, na.rm = T), GrossIncome  = mean(GrossIncome, na.rm = T)) |> 
+  distinct()
+
 
 #### Transform infinities in the panel's age to NAs ####
-sum = mutate(sum, PanelAge = ifelse(is.infinite(PanelAge), NA, PanelAge)) |> 
-  mutate(PanelAge = ifelse(PanelAge > 2017, NA, PanelAge))
+sum = mutate(sum, PanelAge = ifelse(is.infinite(PanelAge), NA, PanelAge)) 
 
 #### Fill the house type and ownership for persons that did not moved and have NAs ####
-sum = sum %>% group_by(hid, YearMoved) %>% mutate(HouseType = na.omit(unique(HouseType))[1])
+sum = sum %>% group_by(hid, YearMoved) %>% mutate(HouseType = na.omit(unique(HouseType))[1]) |> 
+  distinct()
 
 #### Filter NAs in house type or ownership ####
 sum = filter(sum, is.na(HouseType) == F)
 
 #### When power costs are missing, fill them with the average ####
-sum = sum %>% group_by(hid, YearMoved) %>% filter(is.na(mean(PowerCosts, na.rm = T)) == F) %>%
-  mutate(PowerCosts = ifelse(is.na(PowerCosts), round(mean(PowerCosts, na.rm = T), 0), PowerCosts))
+sum = sum %>% group_by(hid, YearMoved) %>% 
+  filter(is.na(mean(PowerCosts, na.rm = T)) == F) %>%
+  mutate(PowerCosts = ifelse(is.na(PowerCosts), 
+                             round(mean(PowerCosts, na.rm = T), 0), PowerCosts))
 
-#### Unly keep data for 2007 and 2017 ####
-sum = filter(sum, year %in% c(2007, 2017)) |> distinct()
+#### Only keep data for 2007 and 2017 ####
+#sum = filter(sum, year %in% c(2007, 2017)) |> distinct()
 
 #### Transform Power costs to annual values ####
 sum = mutate_at(sum, vars(PowerCosts), function(x) x = x*12)
 
 #### Compute the age of the panel ####
-sum = mutate(sum, PanelAge = ifelse(year == 2017, 2017 - PanelAge, NA)) %>% 
-  group_by(hid, year, YearMoved) %>% mutate(PanelAge = max(PanelAge, na.rm = T), pv = sum(pv, na.rm = T)) %>% 
+sum = sum |> ungroup() |> mutate(PanelYear = PanelAge, PanelAge = ifelse(year == 2017, 2017 - PanelAge, NA)) %>% 
+  
+  group_by(hid, year, YearMoved) %>% 
+  
+  mutate(PanelAge = max(PanelAge, na.rm = T), pv = sum(pv, na.rm = T)) %>% 
+  
   mutate(PanelAge = ifelse(is.infinite(PanelAge), NA, PanelAge))
 
 
+#### If the age of the panel is negative change pv to zero and PanelAge to NA ####
+sum = mutate(sum, pv = ifelse(PanelYear > 2017, 0, pv))
+sum = mutate(sum, PanelAge = ifelse(PanelYear > 2017, NA, PanelAge))
+
 #### Check for duplicates ####
 sum %>% group_by(hid, year) %>% summarise(count = n()) %>% filter(count > 1)
-sum = select(sum, hid, year, YearMoved, income:PanelAge)
+sum = select(sum, hid, year, YearMoved, GrossIncome, income:PanelAge)
 
 ### Add the wealth data ####
-wealth = wealth |> select(hid, year, GrossWealth, NetWealth, GrossDebts) |> 
-  filter(year %in% c(2007, 2017))
-
+wealth = wealth |> select(hid, year, GrossWealth, NetWealth, GrossDebts) 
 sum = left_join(sum, wealth)
 
 #### Add the coefficients of the regression ####
@@ -500,13 +522,16 @@ sum = data.frame(sum, age_wealth_est = WealthEst$age_est, age_wealth_se = Wealth
                  intercept_wealth_est = WealthEst$Intercept_est, intercept_wealth_se = WealthEst$Intercept_se)
 
 
+#### Check the final data set ####
+glimpse(sum)
+
 #### Create 1000 different list elements with replacement ####
-set.seed(1243)
-data = lapply(vector("list", 1000), function(x) sum[sample(nrow(sum), nrow(sum), replace=T), ])
-data[[1]] = sum
+#set.seed(1243)
+#data = lapply(vector("list", 1000), function(x) sum[sample(nrow(sum), nrow(sum), replace=T), ])
+#data[[1]] = sum
 
 #### Save the data set ####
-write_rds(data, file = "02_GenData/03_SoepFiles/AbmSoepList.rds", compress = "gz")
+write_rds(sum, file = "02_GenData/03_SoepFiles/AbmSoep.rds", compress = "gz")
 
 #### Clear the space ####
 rm(list = ls()); gc()
@@ -617,24 +642,18 @@ rm(list = ls()); gc()
 rm(list = ls()); gc()
 
 #### Load the data ####
-data = read_rds("02_GenData/03_SoepFiles/RawSoep.rds")
+data = read_rds("02_GenData/03_SoepFiles/AbmSoep.rds")
 
 #### Aggregate to the household level ####
-sum = data %>% group_by(year, hid, YearMoved) %>% 
-  summarise(income = mean(income, na.rm = T), pv = max(pv, na.rm = T), 
-            YearMoved = max(YearMoved, na.rm = T)) %>% 
-  mutate(pv = ifelse(is.infinite(pv), 0, pv)) |> 
-  filter(year %in% seq(2007, 2017, 1))
+sum = data %>% select(year, hid, YearMoved, pv, income)
 
 #### Compute the income decile per year ####
 sum = sum %>% ungroup() %>% group_by(year) %>%
   mutate(IncomeGroup = ntile(income, 10)) %>% 
-  filter(is.na(IncomeGroup) == F) %>% 
-  filter(income < quantile(income, p = .975), income > quantile(income, p = 0.025))
-
+  filter(is.na(IncomeGroup) == F)
 
 #### Summarize by all the combinations of house type and owner per year ####
-sum = sum %>% group_by(year, IncomeGroup) %>% summarise(obs = n(), pv = sum(pv))
+sum = sum %>% group_by(year, IncomeGroup) %>% summarise(obs = n(), pv = sum(pv, na.rm = T))
 
 #### Compute the probability of PV adoption ####
 sum = mutate(sum, prob = (pv/obs)*100) %>% 
@@ -649,9 +668,69 @@ ggplot(sum) + geom_line(aes(y = prob, x = year, color = IncomeGroup, group = Inc
   theme(strip.text = element_text(hjust = 0), legend.title = element_blank()) +
   ggtitle("Total PV systems per year") +labs(x = "", y = "")
 
+# Plot the probability of adoption for houses and flats
+plot = sum |> group_by(year) |> summarise(obs = sum(obs), prob = mean(prob))
+
+ggplot(plot) + geom_line(aes(y = prob, x = year)) + 
+  geom_point(aes(y = prob, x = year))  + theme_economist() %+replace%
+  theme(strip.text = element_text(hjust = 0), legend.title = element_blank()) +
+  ggtitle("Total PV systems per year") +labs(x = "", y = "")
+
 
 #### Save the data set ####
 write_rds(sum, file = "02_GenData/03_SoepFiles/PvProbability.rds", compress = "gz")
 
 #### Clear the space ####
 rm(list = ls()); gc()
+#### _____________________________________________________________________ ####
+#### Calculate the probability of PV for the balanced panel ####
+#### _____________________________________________________________________ ####
+
+#### Clear the data set ####
+rm(list = ls()); gc()
+
+#### Load the data ####
+data = read_rds("02_GenData/03_SoepFiles/AbmSoep.rds")
+
+data = data |> filter(year > 2006 & year < 2018) |> group_by(hid) |> mutate(count = n())
+data = filter(data, count == 11)
+
+#### Aggregate to the household level ####
+sum = data %>% select(year, hid, YearMoved, pv, income)
+
+#### Compute the income decile per year ####
+sum = sum %>% ungroup() %>% group_by(year) %>%
+  mutate(IncomeGroup = ntile(income, 10)) %>% 
+  filter(is.na(IncomeGroup) == F)
+
+#### Summarize by all the combinations of house type and owner per year ####
+sum = sum %>% group_by(year, IncomeGroup) %>% summarise(obs = n(), pv = sum(pv, na.rm = T))
+
+#### Compute the probability of PV adoption ####
+sum = mutate(sum, prob = (pv/obs)*100) %>% 
+  mutate(IncomeGroup = as.factor(IncomeGroup))
+
+#### Review the data set ####
+sum %>% arrange(desc(prob)) %>% head(.)
+
+# Plot the probability of adoption for houses and flats
+ggplot(sum) + geom_line(aes(y = prob, x = year, color = IncomeGroup, group = IncomeGroup)) + 
+  geom_point(aes(y = prob, x = year, color = IncomeGroup, group = IncomeGroup))  + theme_economist() %+replace%
+  theme(strip.text = element_text(hjust = 0), legend.title = element_blank()) +
+  ggtitle("Total PV systems per year") +labs(x = "", y = "")
+
+# Plot the probability of adoption for houses and flats
+plot = sum |> group_by(year) |> summarise(obs = sum(obs), prob = mean(prob))
+
+ggplot(plot) + geom_line(aes(y = prob, x = year)) + 
+  geom_point(aes(y = prob, x = year))  + theme_economist() %+replace%
+  theme(strip.text = element_text(hjust = 0), legend.title = element_blank()) +
+  ggtitle("Total PV systems per year") +labs(x = "", y = "")
+
+
+#### Save the data set ####
+write_rds(sum, file = "02_GenData/03_SoepFiles/PvProbability.rds", compress = "gz")
+
+#### Clear the space ####
+rm(list = ls()); gc()
+

@@ -169,16 +169,13 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#background" id="toc-background" class="nav-link active" data-scroll-target="#background">Background</a></li>
   <li><a href="#model-description" id="toc-model-description" class="nav-link" data-scroll-target="#model-description">Model description</a>
   <ul class="collapse">
-  <li><a href="#household-state-variables-and-characteristics" id="toc-household-state-variables-and-characteristics" class="nav-link" data-scroll-target="#household-state-variables-and-characteristics">Household state variables and characteristics</a></li>
-  <li><a href="#household-parameters" id="toc-household-parameters" class="nav-link" data-scroll-target="#household-parameters">Household parameters</a></li>
-  <li><a href="#model-parameters" id="toc-model-parameters" class="nav-link" data-scroll-target="#model-parameters">Model parameters</a></li>
-  <li><a href="#model-wide-state-variables" id="toc-model-wide-state-variables" class="nav-link" data-scroll-target="#model-wide-state-variables">Model-wide state variables</a></li>
-  <li><a href="#estimating-the-electricity-price" id="toc-estimating-the-electricity-price" class="nav-link" data-scroll-target="#estimating-the-electricity-price">Estimating the electricity price</a></li>
+  <li><a href="#electricity-price" id="toc-electricity-price" class="nav-link" data-scroll-target="#electricity-price">Electricity price</a></li>
   <li><a href="#income-and-electricity-costs" id="toc-income-and-electricity-costs" class="nav-link" data-scroll-target="#income-and-electricity-costs">Income and electricity costs</a></li>
   <li><a href="#consumption" id="toc-consumption" class="nav-link" data-scroll-target="#consumption">Consumption</a></li>
-  <li><a href="#updating-the-panels-age" id="toc-updating-the-panels-age" class="nav-link" data-scroll-target="#updating-the-panels-age">Updating the panel’s age</a></li>
+  <li><a href="#updating-panel-age" id="toc-updating-panel-age" class="nav-link" data-scroll-target="#updating-panel-age">Updating panel age</a></li>
   <li><a href="#electricity-price-expectations" id="toc-electricity-price-expectations" class="nav-link" data-scroll-target="#electricity-price-expectations">Electricity price expectations</a></li>
   <li><a href="#adoption-decision" id="toc-adoption-decision" class="nav-link" data-scroll-target="#adoption-decision">Adoption Decision</a></li>
+  <li><a href="#policy" id="toc-policy" class="nav-link" data-scroll-target="#policy">Policy</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -211,126 +208,78 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="background" class="level1">
 <h1>Background</h1>
-<p>Before providing a detailed outline of the model (see below), we briefly describe the basic intuition underlying the agent-based model we use to simulate the household decision to adopt green technologies. At present, the model only depicts the adoption of photovoltaic (PV) systems, but the same theoretical framework could also be applied to other technologies such as heat pumps, insulation, or AC systems.</p>
-<p>The adoption decision in the model is based on a simple expected utility framework; in every period <span class="math inline">\(t = 1,...,T\)</span> each household <span class="math inline">\(h = 1,...,N\)</span> who does not already own PV faces the binary decision whether or not to purchase the single type of PV system available in the model. The expected utility from owning PV is a function of the profit <span class="math inline">\(h\)</span> expects to derive from the ownership of PV over the lifetime of the panel, as well as a social influence based component and one based on the environmental attitude of <span class="math inline">\(h\)</span>. The expected profit from owning PV (stemming from an expected reduction in outlays for electricity) is in turn a function of the future electricity price expected by <span class="math inline">\(h\)</span>.</p>
-<p>Households receive income, consume and pay electricity cost, resulting in changes in their stocks of liquid assets; these liquid assets can in turn be used to purchase a solar panel. Households with insufficient liquid assets may also request a loan to install PV from a stylised banking sector, but may be credit-rationed if the bank is unwilling to lend them as much as they require.</p>
+<p>Before providing a detailed outline of the model (see below), we briefly describe the basic intuition underlying the agent-based model we use to simulate the household decision to adopt a technology. At present, the model only depicts the adoption of photovoltaic (PV) systems, but a similar framework could also be applied to other technologies such as heat pumps, insulation, or AC systems.</p>
+<p>The adoption decision in the model is based on a simple expected utility framework; in every period <span class="math inline">\(t = 1,...,T\)</span> (where one period represents one year), each household <span class="math inline">\(h = 1,...,N\)</span> who does not already own PV faces the binary decision whether or not to purchase the single type of PV system available in the model. The expected utility from owning PV is a function of the (discounted) profit <span class="math inline">\(h\)</span> expects to derive from the ownership of PV over the lifetime of the panel, as well as a component based on social influence/emulation and one based on the environmental attitude of <span class="math inline">\(h\)</span>. The expected profit from owning PV (stemming from an expected reduction in outlays for electricity and earnings through electricity fed into the grid) is in turn a function of the future electricity price expected by <span class="math inline">\(h\)</span> as well as the feed-in tariff and the future electricity consumption of <span class="math inline">\(h\)</span>.</p>
+<p>Households receive income, consume and pay electricity cost, resulting in changes in their stocks of liquid assets; these liquid assets can be used to purchase a solar panel. Households with insufficient liquid assets may also request a loan to install PV from a stylised banking sector, but may be credit-rationed if the bank is unwilling to lend them as much as they require.</p>
 </section>
 <section id="model-description" class="level1">
 <h1>Model description</h1>
-<p>sHouseholds’ initial characteristics are set using SOEP data alongside other data sources. Parameter values are set following empirical evidence as far as possible.</p>
-<section id="household-state-variables-and-characteristics" class="level2">
-<h2 class="anchored" data-anchor-id="household-state-variables-and-characteristics">Household state variables and characteristics</h2>
-<div class="incremental">
-<ul class="incremental">
-<li><span class="math inline">\(h\)</span> - Household identifier</li>
-<li><span class="math inline">\(t\)</span> - Year identifier</li>
-<li><span class="math inline">\(Y^h_t\)</span> - Income for household <span class="math inline">\(h\)</span> at year <span class="math inline">\(t\)</span></li>
-<li><span class="math inline">\(C^h_t\)</span> - Consumption expenditure</li>
-<li><span class="math inline">\(E^h_t\)</span> - Electricity consumption (in kWh)</li>
-<li><span class="math inline">\(M^h_t\)</span> - Liquidity (i.e.&nbsp;the stock of accumulated wealth held in the form of liquid assets/money)</li>
-<li><span class="math inline">\(D^h_t\)</span> - Debt</li>
-<li><span class="math inline">\(S^h_t\)</span> - Debt service (consisting of interest (household-specific rate) &amp; principal payments)</li>
-<li><span class="math inline">\(\theta^h_t\)</span> - Share of saving which goes into liquid assets (calculated using Bundesbank data)</li>
-<li><span class="math inline">\(H_1^h\)</span> - Housing type (dummy; house or flat; fixed; taken from SOEP)</li>
-<li><span class="math inline">\(H_2^h\)</span> - Home ownership (dummy; own or rent; fixed; taken from SOEP)</li>
-<li><span class="math inline">\(F_h\)</span> - PV feasibility (dummy; can PV be installed on dwelling in principle?; fixed)</li>
-<li><span class="math inline">\(PV^h_t\)</span> - PV ownership (dummy; initialised from SOEP)</li>
-<li><span class="math inline">\(Age of panel\)</span> (initialised from SOEP)</li>
-<li><span class="math inline">\(Env_h\)</span> - Environmental attitude (heterogeneous but fixed for now, will be set using SOEP data)</li>
-<li><span class="math inline">\(Expectation model\)</span> (estimated individually by each household using past electricity prices)</li>
-<li><span class="math inline">\(p^{e,h}\)</span> - Time-series of future expected electricity prices</li>
-</ul>
-</div>
-</section>
-<section id="household-parameters" class="level2">
-<h2 class="anchored" data-anchor-id="household-parameters">Household parameters</h2>
-<div class="incremental">
-<ul class="incremental">
-<li><span class="math inline">\(\alpha_h\)</span> - Weight of social influence in utility (heterogeneous, set freely)</li>
-<li><span class="math inline">\(\beta\)</span> - Weight of environmental attitude in utility (uniform, set freely)</li>
-<li><span class="math inline">\(\gamma_h\)</span> - Gain parameter used in updating the electricity price expectation model (heterogeneous, set freely)</li>
-<li><span class="math inline">\(\rho_h\)</span> - Discount rate (heterogeneous, set freely)</li>
-<li><span class="math inline">\(\mu\)</span> - Adjustment speed of consumption expenditure (uniform, set freely)</li>
-<li><span class="math inline">\(g_h\)</span> - Trend growth rate of household income and electricity consumption (set freely and uniformly)</li>
-</ul>
-</div>
-</section>
-<section id="model-parameters" class="level2">
-<h2 class="anchored" data-anchor-id="model-parameters">Model parameters</h2>
-<div class="incremental">
-<ul class="incremental">
-<li><span class="math inline">\(K\)</span> - Installation cost of PV (roughly calibrated based on online sources)</li>
-<li><span class="math inline">\(G\)</span> - Capacity of a solar panel (in kWh; roughly calibrated based on online sources)</li>
-<li><span class="math inline">\(A\)</span> - Lifespan of a panel (in years; roughly calibrated based on online sources)</li>
-<li><span class="math inline">\(r\)</span> - Base interest rate (set freely)</li>
-<li><span class="math inline">\(\iota\)</span> - Interest rate markup parameter (set freely)</li>
-<li><span class="math inline">\(LTV\)</span> - Maximum permissible loan to value ratio (set freely)</li>
-<li><span class="math inline">\(DTI\)</span> - Maximum permissible loan payment to income ratio (set freely)</li>
-<li><span class="math inline">\(p^f_1\)</span> - Probability that PV is feasible on a house (set freely)</li>
-<li><span class="math inline">\(p^f_2\)</span> - Probability that PV is feasible on a flat (set freely)</li>
-</ul>
-</div>
-</section>
-<section id="model-wide-state-variables" class="level2">
-<h2 class="anchored" data-anchor-id="model-wide-state-variables">Model-wide state variables</h2>
-<div class="incremental">
-<ul class="incremental">
-<li><span class="math inline">\(Electricity price model\)</span> - a pre-defined AR(1) model which generates the electricity price in each period)</li>
-</ul>
-</div>
 <p>The <strong>sequence of events</strong> taking place in every simulation period only consists of a few steps:</p>
 <div class="incremental">
 <ul class="incremental">
 <li>Set current electricity price</li>
-<li>Determine income and electricity cost for each household; Update income distribution statistics</li>
+<li>Determine income and electricity cost for each household; calculate revenue/cost saving for PV owners</li>
+<li>Update income distribution statistics</li>
 <li>Based on new income distribution determine consumption expenditure. Calculate saving, apply debt service for each household with positive debt and update liquidity</li>
 <li>Augment the age of existing solar panels; scrap those which exceed the maximum lifespan</li>
 <li>Update households’ expectations of future electricity price</li>
-<li>Consider adopting PV if not adopted yet</li>
+<li>Adoption decision; update state variables of agents who adopt PV</li>
 </ul>
 </div>
-</section>
-<section id="estimating-the-electricity-price" class="level2">
-<h2 class="anchored" data-anchor-id="estimating-the-electricity-price">Estimating the electricity price</h2>
-<p>We simulate the current electricity price in period <span class="math inline">\(t\)</span> using an AR(1) model estimated on a time-series of household-level electricity prices for Germany taken from Eurostat.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> This time-series is differenced and then used to estimate the intercept (<span class="math inline">\(\phi_1\)</span>) and autoregressive (<span class="math inline">\(\phi_2\)</span>) parameter, with the residuals used to calculate the standard deviation of random shocks (<span class="math inline">\(\sigma^p\)</span>). This estimated model is then simulated in each period in order to determine the current electricity price; accordingly, the electricity price in the model in <span class="math inline">\(t\)</span> is given by:</p>
+<section id="electricity-price" class="level2">
+<h2 class="anchored" data-anchor-id="electricity-price">Electricity price</h2>
+<p>Depending on the year which a given simulation period <span class="math inline">\(t\)</span> is supposed to represent (past or future), the current electricity price to be paid by households in period <span class="math inline">\(t\)</span><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> is either taken from a time-series of household-level electricity prices for Germany obtained from Eurostat, or simulated using an AR(1) model previously estimated on this empirical time-series. To estimate this AR(1) model, the time-series was differenced and then used to estimate the intercept (<span class="math inline">\(\phi_1\)</span>) and autoregressive (<span class="math inline">\(\phi_2\)</span>) parameter, with the residuals used to calculate the standard deviation of random shocks (<span class="math inline">\(\sigma^p\)</span>).</p>
+<p>If no empirical observation is available for the electricity price in <span class="math inline">\(t\)</span> (because <span class="math inline">\(t\)</span> represents some year in the future), the electricity price in the model in <span class="math inline">\(t\)</span> is given by:</p>
 <p><span class="math display">\[
     p_t=p_{t-1}+\phi_1+\phi_2 \Delta p_{t-1}+\epsilon^p_t \rightarrow \epsilon^p_t\sim\mathcal{N}(0,\sigma^p)
 \]</span></p>
 </section>
 <section id="income-and-electricity-costs" class="level2">
 <h2 class="anchored" data-anchor-id="income-and-electricity-costs">Income and electricity costs</h2>
-<p>In every simulation period, we simulate the income of household <span class="math inline">\(h=1,...,N\)</span> using a draw from the normally distributed <span class="math inline">\(Y^h_t\)</span> with mean <span class="math inline">\(\overline{Y^h_t}\)</span> and standard deviation <span class="math inline">\(\widehat{Y^h_t}\)</span>.</p>
+<p>In every simulation period, we simulate the income of household <span class="math inline">\(h=1,...,N\)</span> using a draw from the normally distributed variable <span class="math inline">\(Y^h_t\)</span> with mean <span class="math inline">\(\overline{Y^h_t}\)</span> and standard deviation <span class="math inline">\(\widehat{Y^h_t}\)</span>.</p>
 <p><span class="math display">\[
     Y^h_t\sim \mathcal{N}\left(\overline{Y^h_t},\widehat{Y^h_t}\right)
 \]</span></p>
-<p>The mean, <span class="math inline">\(\overline{Y^h_t}\)</span>, is initialised using the income of <span class="math inline">\(h\)</span> according to the 2018 SOEP wave and grows at rate <span class="math inline">\(g_h\)</span> in every period thereafter. <span class="math inline">\(\widehat{Y^h_t}\)</span> is given by <span class="math inline">\(\overline{Y^h_t}\cdot\sigma^y_d\)</span> where <span class="math inline">\(\sigma^y_d\)</span> is the standard deviation of income within the income decile <span class="math inline">\(d\)</span> of household <span class="math inline">\(h\)</span> in the 2018 SOEP wave (expressed as % of average income in that decile)</p>
-<p>The electricity consumption of each household (in kWh) is also a random variable, drawn from a normal distribution in each period:</p>
+<p>The mean, <span class="math inline">\(\overline{Y^h_t}\)</span>, is initialised using the income of <span class="math inline">\(h\)</span> according to the SOEP data and grows at rate <span class="math inline">\(g^h\)</span> in every period thereafter, i.e.&nbsp;<span class="math inline">\(\overline{Y^h_t}=(1+g^h)\overline{Y^h_{t-1}}\)</span>. <span class="math inline">\(\widehat{Y^h_t}\)</span> is given by <span class="math inline">\(\overline{Y^h_t}\cdot\sigma^y_d\)</span> where <span class="math inline">\(\sigma^y_d\)</span> is the standard deviation of income within the income decile <span class="math inline">\(d\)</span> of household <span class="math inline">\(h\)</span> in the SOEP data (expressed as % of average income in that decile)</p>
+<p>The electricity consumption of each household (in kWh) is instead a deterministic variable, denoted <span class="math inline">\(\overline{E^h_t}\)</span>. As with income, <span class="math inline">\(\overline{E^h_t}\)</span> is initialised using the electricity consumption of <span class="math inline">\(h\)</span> taken from SOEP data (deflated by the empirical electricity price for the start year from the Eurostat dataset) and grows at rate <span class="math inline">\(g^h\)</span> in every period thereafter, i.e.&nbsp;<span class="math inline">\(\overline{E^h_t}=(1+g^h)\overline{E^h_{t-1}}\)</span>.</p>
+<p>The cost of electricity to be paid by <span class="math inline">\(h\)</span> would then be <span class="math inline">\(CE^h_t=p_t \overline{E^h_t}\)</span>. If <span class="math inline">\(h\)</span> owns a solar panel (<span class="math inline">\(PV^h_t=1\)</span>), however, this electricity cost will be reduced by the cost saving/revenue generated by the panel. The overall cost saving/revenue derived from a solar panel depends on two factors:</p>
+<div class="incremental">
+<ul class="incremental">
+<li>Whether the current electricity consumption of <span class="math inline">\(h\)</span>, <span class="math inline">\(\overline{E^h_t}\)</span>, is larger or smaller than the amount of electricity <span class="math inline">\(G\)</span> which a solar panel can produce per period.</li>
+<li>Whether the feed-in tariff, <span class="math inline">\(FIT^h_t\)</span> that <span class="math inline">\(h\)</span> receives by selling the electricity that their panel produces is larger or smaller than the current price of electricity, <span class="math inline">\(p_t\)</span>.</li>
+</ul>
+</div>
+<p>Since we assume that there is only one model of solar panel which agents can purchase and since we abstract from any variations in electricity output across agents due e.g.&nbsp;to hours of sun, position of the panel, etc., <span class="math inline">\(G\)</span> is fixed, exogenous, and identical for all agents who own PV. <span class="math inline">\(FIT^h_t\)</span> varies across agents; in particular, as is the case in reality in Germany, <span class="math inline">\(FIT^h_t\)</span> depends on the year in which the solar panel was installed. For instance, if <span class="math inline">\(h\)</span> bought a solar panel in 2015, they will receive the 2015 feed-in tariff (taken from empirical data for Germany) for the next 20 years (regardless of what happens to the electricity price), as is the case in reality. For simplicity, we assume that the lifespan of a panel is also 20 years (which is a broadly realistic value based on information material available online). The second condition above is important particularly because in the 2000s, the feed-in tariff in Germany for small PV units (up to 10kWp) was in fact <em>higher</em> than the average electricity price. When simulating past years, actual feed-in tariffs in force in the respective years are used. When simulating future years, the feed-in tariff is kept constant at its most recent value in the baseline simulation.</p>
+<p>If <span class="math inline">\(FIT^h_t&gt;p_t\)</span>, it is rational for the household to sell all electricity generated by the panel to the grid and buy any electricity needed back at the lower price; its electricity cost hence becomes</p>
 <p><span class="math display">\[
-    E^h_t\sim \mathcal{N}\left(\overline{E^h_t},\widehat{E^h_t}\right)
-\]</span></p>
-<p>As with income <span class="math inline">\(\overline{E^h_t}\)</span> is initialised using the electricity consumption of <span class="math inline">\(h\)</span> taken from the 2018 SOEP wave (deflated by the 2018 electricity price from the Eurostat dataset) and grows at rate <span class="math inline">\(g_h\)</span> in every period thereafter. <span class="math inline">\(\widehat{E^h_t}\)</span> is given by <span class="math inline">\(\overline{E^h_t}\cdot\sigma^e_d\)</span> where <span class="math inline">\(\sigma^e_d\)</span> is the standard deviation of electricity consumption within the income decile <span class="math inline">\(d\)</span> of household <span class="math inline">\(h\)</span> in the 2018 SOEP wave (expressed as % of average electricity consumption in that decile).</p>
-<p>The cost of electricity to be paid by <span class="math inline">\(h\)</span> is then given by</p>
+    CE^h_t=p_t \overline{E^h_t}-FIT^h_tG
+\]</span> Note that this quantity may also be negative.</p>
+<p>If <span class="math inline">\(FIT^h_t&lt;p_t\)</span>, the household would want to consume some or even all of the electricity generated by the panel. Since we are assuming that PV systems in the model are not equipped with batteries, however, agents can only consume a maximum of <span class="math inline">\(\eta G\)</span> of the electricity generated by the panel, where <span class="math inline">\(\eta\)</span> is calibrated to the average share of own consumption out of electricity generated by household PV systems without a battery (information on this value was taken from consumer advice websites). Consequently, the electricity costs for households who own PV and for whom <span class="math inline">\(FIT^h_t&lt;p_t\)</span> is given by</p>
 <p><span class="math display">\[
-    p_t(E^h_t-PV^h_t G)
-\]</span></p>
-<p>where the dummy <span class="math inline">\(PV^h_t\)</span> denotes whether or not <span class="math inline">\(h\)</span> owns a solar panel and <span class="math inline">\(G\)</span> is the (uniform) capacity of that panel. Note that if <span class="math inline">\(E^h_t&lt;PV^h_t G\)</span> electricity cost is negative. The household produces more electricity than it consumes and, by assumption, can sell the surplus to the grid at price <span class="math inline">\(p_t\)</span>, generating additional income. To take this into account, we calculate an ex-post value of income as</p>
+  CE^h_t=p_t \overline{E^h_t}-G\eta p_t-G(1-\eta)FIT^h_t
+\]</span> for households for whom <span class="math inline">\(\overline{E^h_t}\geq G\)</span> and by</p>
 <p><span class="math display">\[
-    Y^{p,h}_t=Y^h_t-min\left(0,p_t\left(E^h_t-PV^h_t G\right)\right)
+CE^h_t=p_t \overline{E^h_t}-min\left(\eta G,\overline{E^h_t}\right)p_t-FIT^h_t\left(G-min\left(\eta G,\overline{E^h_t}\right)\right)
+\]</span> for households for whom <span class="math inline">\(\overline{E^h_t}&lt; G\)</span>.</p>
+<p>Households who own PV keep track of the cumulative profit they have derived from their panel. In order to do so, the variable <span class="math inline">\(\Pi^h\)</span> is updated in every period by adding the respective current saving on electricity cost/revenue from selling to the grid.</p>
+<p>In addition to ``gross” income defined above, we also keep track of income net of electricity cost:</p>
+<p><span class="math display">\[
+    Y^{p,h}_t=min\left(0,Y^h_t-CE^h_t\right)
 \]</span></p>
-<p>We then calculate income distribution statistics (percentiles and deciles, used below) for period <span class="math inline">\(t\)</span> using this ex-post income.</p>
+<p>We then calculate income distribution statistics (percentiles and deciles, used below) for period <span class="math inline">\(t\)</span> using this income net of electricity cost.</p>
 </section>
 <section id="consumption" class="level2">
 <h2 class="anchored" data-anchor-id="consumption">Consumption</h2>
-<p>Each household devotes a part its income to consumption expenditures (excluding electricity consumption which is determined as described above). The average propensity to consume of <span class="math inline">\(h\)</span>, <span class="math inline">\(c^h_t\)</span>, is determined using survey data from the German Federal Statistical Office, which gives household consumption expenditure by income group, converted into percentiles using the 2018 SOEP wave. <span class="math inline">\(c^h_t\)</span> is hence the average propensity to consume of the income percentile in which <span class="math inline">\(h\)</span> finds itself in period <span class="math inline">\(t\)</span>. The desired consumption expenditure of <span class="math inline">\(h\)</span> is then given by</p>
+<p>Each household devotes a part of its ``gross” income to consumption expenditures (excluding electricity consumption which is determined as described above). The average propensity to consume of <span class="math inline">\(h\)</span>, <span class="math inline">\(c^h_t\)</span>, is determined using survey data from the German Federal Statistical Office, which gives household consumption expenditure by income group, converted into percentiles using SOEP data. <span class="math inline">\(c^h_t\)</span> is hence the average propensity to consume of the income percentile in which <span class="math inline">\(h\)</span> finds itself in period <span class="math inline">\(t\)</span>. The desired consumption expenditure of <span class="math inline">\(h\)</span> is then given by</p>
 <p><span class="math display">\[
     C^h_t=(1-\mu)C^h_{t-1}+\mu c^h_t Y^{p,h}_t
 \]</span></p>
-<p>where <span class="math inline">\(\mu\)</span> is a parameter giving the speed at which consumption expenditure adjusts. In the initial period, we set <span class="math inline">\(C^h_t=c^h_t Y^{p,h}_t\)</span>.</p>
-<p>Each household in the model holds a stock of liquid assets (money) which is augmented by income and can be used to consume, pay for electricity, and service debt. To update the liquidity of <span class="math inline">\(h\)</span>, we first calculate the difference between income on the one hand and desired consumption expenditure and electricity consumption on the other:</p>
+<p>where <span class="math inline">\(\mu\)</span> is a parameter giving the speed at which consumption expenditure adjusts to changes in income. In the initial period, we set <span class="math inline">\(C^h_t=c^h_t Y^{p,h}_t\)</span>.</p>
+<p>Each household in the model holds a stock of liquid assets (money) which is augmented by income and can be used to consume, pay for electricity, service debt and purchase a solar panel. To update the liquidity of <span class="math inline">\(h\)</span>, we first calculate the difference between income on the one hand and desired consumption expenditure and electricity cost on the other:</p>
 <p><span class="math display">\[
-    Save^h_t=Y^h_t-C^h_t-p_t(E^h_t-PV^h_t G)
+    Save^h_t=Y^h_t-C^h_t-CE^h_t
 \]</span></p>
-<p>Recall that if <span class="math inline">\(PV^h_t=1\)</span> and <span class="math inline">\(E^h_t&lt;G\)</span>, the household generates more electricity using PV than it actually consumes, and it sells the excess to the grid at the current electricity price, <span class="math inline">\(p_t\)</span>.</p>
+<p>Recall that if <span class="math inline">\(PV^h_t=1\)</span>, <span class="math inline">\(CE^h_t\)</span> may be negative.</p>
 <p>In the first instance, <span class="math inline">\(Save^h_t\)</span> is added to existing liquidity. Note that we assume that households cannot hold negative liquidity; if saving is negative and larger than previously accumulated liquidity, liquidity is set to 0 (implicitly assuming that the household reduces desired consumption expenditure and/or expenditure on electricity in order to be able to afford the payments):</p>
 <p><span class="math display">\[
     M^h_t=max\left(0,M^h_{t-1}+Save^h_t\right)
@@ -340,76 +289,100 @@ ul.task-list li input[type="checkbox"] {
 <p><span class="math display">\[
     M^h_t=max\left(0,M^h_t-S^h_t\right)
 \]</span></p>
-<p>Note that here, too, we assume that payments cannot lead to negative liquidity! If a household is unable to (fully) make its debt service payment out of liquidity, it pays as much as it can, making first the interest payment and then the principal payment. Unpaid principal payments mean that the stock of debt does not decrease as much as it would if the payment were made in full. Any unpaid <em>interest</em> payments are <em>added</em> to the household’s outstanding debt. In both of these cases, <span class="math inline">\(S^h\)</span>, i.e.&nbsp;the per-period debt service to be paid in the future is re-calculated taking into account unpaid principal and/or interest payments and the remaining term of the loan.</p>
+<p>Note that here, too, we assume that payments cannot lead to negative liquidity! If a household is unable to (fully) make its debt service payment out of liquidity, it pays as much as it can, making first the interest payment and then the principal payment. Unpaid principal payments mean that the stock of debt does not decrease as much as it would if the payment were made in full. Any unpaid <em>interest</em> payments are <em>added</em> to the household’s outstanding debt. In both of these cases, <span class="math inline">\(S^h\)</span>, i.e.&nbsp;the per-period debt service to be paid in the future is re-calculated taking into account unpaid principal and/or interest payments and the remaining term of the loan. In addition, any interest paid is subtracted from the cumulative profit derived from owning PV, <span class="math inline">\(\Pi^h\)</span> as it represents a cost.</p>
 <p>In a final step, we include a saving allocation choice. This is done to make sure that average household liquidity does not grow too fast. In particular we assume that</p>
 <p><span class="math display">\[
     M^h_t=M^h_{t-1}+\theta^h_t(M^h_t-M^h_{t-1}) \quad if\ M^h_t&gt;M^h_{t-1}
 \]</span></p>
 <p>i.e.&nbsp;we assume that if the household has positive saving, it puts only part of this into liquid assets (bank deposits etc.). <span class="math inline">\(\theta^h_t\)</span> is set using Bundesbank data from which we calculate the share of liquid assets in median gross wealth by income group, such that <span class="math inline">\(\theta^h_t\)</span> is the corresponding share for the income percentile in which <span class="math inline">\(h\)</span> finds itself in period <span class="math inline">\(t\)</span>.</p>
-<p>The Initial value for liquidity is also set using these data, using median gross wealth and the share of liquid assets for the income group in which <span class="math inline">\(h\)</span> starts out.</p>
+<p>The initial value for liquidity is also set using these `liquidity shares’, alongside gross wealth data from SOEP.</p>
 </section>
-<section id="updating-the-panels-age" class="level2">
-<h2 class="anchored" data-anchor-id="updating-the-panels-age">Updating the panel’s age</h2>
-<p>The model assumes that solar panels have a uniform maximum lifespan, and the age of each panel in the model is augmented by 1 in each period. The age of panels already existing at the beginning of the simulation is taken from SOEP data. If a panel owned by a household <span class="math inline">\(h\)</span> reaches the maximum lifespan in <span class="math inline">\(t\)</span>, the panel is scrapped and the state variable <span class="math inline">\(PV^h_t\)</span> is set to 0. The household can then (see below) decide whether they wish to buy a new panel.</p>
+<section id="updating-panel-age" class="level2">
+<h2 class="anchored" data-anchor-id="updating-panel-age">Updating panel age</h2>
+<p>The model assumes that all solar panels have the same maximum lifespan, and the age of each panel in the model is augmented by 1 in each period. The age of panels already existing at the beginning of the simulation is taken from SOEP data. If a panel owned by a household <span class="math inline">\(h\)</span> reaches the maximum lifespan in <span class="math inline">\(t\)</span>, the panel is scrapped and the state variable <span class="math inline">\(PV^h_t\)</span> is set to 0. In addition, the feed-in tariff received by <span class="math inline">\(h\)</span>, <span class="math inline">\(FIT^h_t\)</span> is set to 0. The household can then (see below) decide whether they wish to buy a new panel.</p>
 </section>
 <section id="electricity-price-expectations" class="level2">
 <h2 class="anchored" data-anchor-id="electricity-price-expectations">Electricity price expectations</h2>
 <p>In order to form an expectation about whether purchasing a solar panel is a profitable undertaking, households must have an expectation of the future electricity price over the lifespan of the panel. In line with a large literature on alternatives to the rational expectations hypothesis, it is assumed that each household uses <em>recursive least squares learning</em> in order to estimate an econometric model of the electricity price using past observations, which is then projected forward to generate a time-series of expected future electricity prices.</p>
 <p>In particular, we assume that agents know that changes in the electricity price follow an AR(1) model, but they do not know the parameters of this model. They attempt to learn them using the recursive least squares formula with constant gain:</p>
 <p><span class="math display">\[
-R^h_t =R^h_{t-1}+\gamma_h\left(x_t x_t'-R^h_{t-1}\right)\\
-n^h_t =n^h_{t-1}+\gamma_h\left(R^h_t\right)^{-1}x_t(y_t-x_t' n^h_{t-1})
+R^h_t =R^h_{t-1}+\gamma^h\left(x_t x_t'-R^h_{t-1}\right)\\
+n^h_t =n^h_{t-1}+\gamma^h\left(R^h_t\right)^{-1}x_t(y_t-x_t' n^h_{t-1})
 \]</span></p>
-<p>where <span class="math inline">\(x_t\)</span> is the vector of independent variables (in our case, since we are estimating an AR(1) with intercept, this vector will contain the elements 1 and <span class="math inline">\(\Delta p_{t-1}\)</span>). <span class="math inline">\(y_t\)</span> is the dependent variable in <span class="math inline">\(t\)</span> (i.e.&nbsp;<span class="math inline">\(\Delta p_{t}\)</span>). <span class="math inline">\(R^h_t\)</span> is <span class="math inline">\(h\)</span>’s current estimate of the moment matrix of <span class="math inline">\(x\)</span>. <span class="math inline">\(n^h_t\)</span> is <span class="math inline">\(h\)</span>’s current estimate of the vector of parameters (intercept and AR parameter). <span class="math inline">\(\gamma_h\)</span> is the so-called gain parameter, which determines how sensitive <span class="math inline">\(h\)</span>’s estimates are to new observations.</p>
+<p>where <span class="math inline">\(x_t\)</span> is the vector of independent variables (in our case, since we are estimating an AR(1) with intercept, this vector will contain the elements 1 and <span class="math inline">\(\Delta p_{t-1}\)</span>). <span class="math inline">\(y_t\)</span> is the dependent variable in <span class="math inline">\(t\)</span> (i.e.&nbsp;<span class="math inline">\(\Delta p_{t}\)</span>). <span class="math inline">\(R^h_t\)</span> is <span class="math inline">\(h\)</span>’s current estimate of the moment matrix of <span class="math inline">\(x\)</span>. <span class="math inline">\(n^h_t\)</span> is <span class="math inline">\(h\)</span>’s current estimate of the vector of parameters (intercept and AR parameter). <span class="math inline">\(\gamma^h\)</span> is the so-called gain parameter, which determines how sensitive <span class="math inline">\(h\)</span>’s estimates are to new observations.</p>
 <p>Each household <span class="math inline">\(h\)</span> hence has an internal AR(1) model with the parameters contained in <span class="math inline">\(n^h_t\)</span>. Using the current electricity price, they can use this model to project the price forward, generating a time-series of expected future electricity prices which is used below to form an expected revenue from owning a solar panel.</p>
-<p><span class="math inline">\(R^h_t\)</span> and <span class="math inline">\(n^h_t\)</span> are initialised uniformly across households and close to their true values. However, the fact that <span class="math inline">\(\gamma_h\)</span> differs across households implies that households update their expectations differently.</p>
+<p><span class="math inline">\(R^h_t\)</span> and <span class="math inline">\(n^h_t\)</span> are initialised uniformly across households and at the beginning of the simulation, the expectations formation algorithm is trained using the second time-series of electricity prices generated as a training dataset as described above. Note that if <span class="math inline">\(\gamma^h\)</span> differs across households, households will hold heterogeneous expectations.</p>
 </section>
 <section id="adoption-decision" class="level2">
 <h2 class="anchored" data-anchor-id="adoption-decision">Adoption Decision</h2>
-<p>The decision on whether or not to adopt PV is based on a simple utility maximization framework; every household which does not already own a solar panel makes this decision in every simulation period. By assumption, there exists only one type of solar panel in the model, which has a fixed, uniform installation cost for every household and which generates a fixed, uniform amount of electricity (in kWh) in every period in which it is installed. The adoption decision is hence a binary one between adopting and not adopting.</p>
-<p>Prior to deciding whether or not to purchase a solar panel based on utility considerations, however, every household which does not already own PV must check whether they are financially capable of adopting. The uniform installation cost of a panel is given by <span class="math inline">\(K\)</span>. If the accumulated liquidity of household <span class="math inline">\(h\)</span>, <span class="math inline">\(M^h_t\)</span> is greater than <span class="math inline">\(K\)</span>, <span class="math inline">\(h\)</span> can buy a panel outright and proceeds to the utility maximisation problem. If <span class="math inline">\(M^h_t&lt;K\)</span>, <span class="math inline">\(h\)</span> must obtain a loan of size <span class="math inline">\(L^h=K-M^h_t\)</span>.</p>
-<p>By assumption, the bank in the model sets a maximum amount which it is prepared to lend to any given household <span class="math inline">\(h\)</span>, which is determined by <span class="math inline">\(LTV\cdot K\)</span> where <span class="math inline">\(LTV&lt;1\)</span> i.e.&nbsp;it is a fraction of the cost of the panel. If <span class="math inline">\(L^h&gt;LTV\cdot K\)</span>, the household cannot obtain a loan of sufficient size; they are credit-rationed and cannot adopt. If they pass the first check, the bank also checks whether the household is financially capable of meeting the payments on a loan of size <span class="math inline">\(L^h\)</span>. The interest rate which the bank would charge on a loan to <span class="math inline">\(h\)</span> is given by</p>
+<p>The decision on whether or not to adopt PV is based on a simple utility maximization framework; every household which does not already own a solar panel makes this decision in every simulation period. By assumption, there exists only one type of solar panel in the model, such that the adoption decision is a binary one between adopting and not adopting. The solar panel has an installation cost <span class="math inline">\(K_t\)</span> which is uniform for every household and which changes over time (if we are simulating past years, empirical data on the cost of solar PV are used; for future years, these data are projected forward). As mentioned above, every solar panel generates a fixed amount of electricity <span class="math inline">\(G\)</span> per period.</p>
+<p>Prior to deciding whether or not to purchase a solar panel based on utility considerations, every household which does not already own PV must check whether they are financially capable of adopting. If the accumulated liquidity of household <span class="math inline">\(h\)</span>, <span class="math inline">\(M^h_t\)</span> is greater than <span class="math inline">\(K_t\)</span>, <span class="math inline">\(h\)</span> can buy a panel outright and proceeds to the utility maximisation problem. If <span class="math inline">\(M^h_t&lt;K_t\)</span>, <span class="math inline">\(h\)</span> must obtain a loan of size <span class="math inline">\(L^h=K_t-M^h_t\)</span>.</p>
+<p>By assumption, the bank in the model sets a maximum amount which it is prepared to lend to any given household <span class="math inline">\(h\)</span>, which is determined by <span class="math inline">\(LTV\cdot K_t\)</span> where <span class="math inline">\(LTV\leq1\)</span> (at present we are in fact working with <span class="math inline">\(LTV=1\)</span> so this constraint is not binding for any agent). If <span class="math inline">\(L^h&gt;LTV\cdot K_t\)</span>, the household cannot obtain a loan of sufficient size; they are credit-rationed and cannot adopt. The bank also checks whether the household is financially capable of meeting the payments on a loan of size <span class="math inline">\(L^h\)</span>. The interest rate which the bank would charge on a loan to <span class="math inline">\(h\)</span> is given by</p>
 <p><span class="math display">\[
-    r_h=r+\iota \frac{L^h}{LTV\cdot K}
+    r^h=r_t+\iota \frac{L^h}{LTV\cdot K_t}
 \]</span></p>
-<p>i.e.&nbsp;the interest rate charged by the bank increases with the loan to value ratio implied by the loan. Given that loans in the model are assumed to be amortising, and assuming that all loans in the model have a duration equal to the lifetime of a panel, <span class="math inline">\(A\)</span>, the per-period payment on a loan of size <span class="math inline">\(L^h\)</span> at rate <span class="math inline">\(r_h\)</span> would be</p>
+<p>i.e.&nbsp;the interest rate charged by the bank increases with the loan to value ratio implied by the loan. <span class="math inline">\(r_t\)</span> is an exogenous base interest rate (if we are simulating past years, the average ECB base rate for that year is used; for future years, we take the currently effective rate and keep it constant in the baseline). Given that loans in the model are assumed to be amortising, and assuming that all loans in the model have a duration equal to the lifetime of a panel, <span class="math inline">\(A\)</span>, the per-period payment on a loan of size <span class="math inline">\(L^h\)</span> at rate <span class="math inline">\(r^h\)</span> would be</p>
 <p><span class="math display">\[
-    S^h=L^h\frac{r_h(1+r_h)^A}{(1+r_h)^A-1}
+    S^h=L^h\frac{r^h(1+r^h)^A}{(1+r^h)^A-1}
 \]</span></p>
-<p>If <span class="math inline">\(S_h\)</span> exceeds a fraction <span class="math inline">\(DTI\)</span> of the current income of <span class="math inline">\(h\)</span>, i.e.&nbsp;if <span class="math inline">\(\frac{S^h}{Y^h_t}&gt;DTI\)</span> the household is also credit-rationed and cannot adopt. Otherwise, they proceed to the utility maximisation problem.</p>
+<p>If <span class="math inline">\(S^h\)</span> exceeds a fraction <span class="math inline">\(DTI\)</span> of the current income of <span class="math inline">\(h\)</span>, i.e.&nbsp;if <span class="math inline">\(\frac{S^h}{Y^h_t}&gt;DTI\)</span> the household is also credit-rationed and cannot adopt. Otherwise, they proceed to the utility maximisation problem.</p>
 <p>Coming to the utility maximisation part of the adoption decision, we assume that</p>
 <p><span class="math display">\[
-    U^{PV=0}_{h,t}=0 \quad \forall\  h \in H \ \&amp; \ \forall\  t \in T
+    U^{h,PV=0}_{t}=0 \quad \forall\  h \in H \ \&amp; \ \forall\  t \in T
 \]</span></p>
 <p>i.e.&nbsp;the utility from not adopting PV is always zero for all households. This means that a household will adopt as soon as the utility from doing so is greater than zero (provided that they are not credit-constrained as described above). The utility from adopting is given by</p>
 <p><span class="math display">\[
-    U_{h,t}^{PV = 1} | (F_{h}=1) = E_{h,t}(\Pi_h)+\alpha_h \lambda_{h,t}+\beta Env_{h}\\
-    U_{h,t}^{PV = 1} | (F_{h}=0) =0
+    U_{t}^{h, PV = 1} | (F^{h}=1) = E^h_t(\Pi^h)+\alpha^h \lambda^h_t+\beta Env^{h}\\
+    U_{t}^{h, PV = 1} | (F^{h}=0) =0
 \]</span></p>
-<p>First of all, note that <span class="math inline">\(U_{h,t}^{PV = 1}\)</span> is conditional on <span class="math inline">\(F_{h}\)</span>. <span class="math inline">\(F_{h}\)</span> is a dummy denoting the feasibility of PV, i.e.&nbsp;whether, given the characteristics of the dwelling of household <span class="math inline">\(h\)</span>, a solar panel can in fact be installed. If <span class="math inline">\(F_{h}=0\)</span>, PV cannot be installed and the utility, correspondingly, is zero. At present, <span class="math inline">\(F_h\)</span> is set for each household at the beginning of the simulation and remains fixed thereafter. If a household already owns PV at the beginning, it is set to 1. Otherwise it is set to 1 with probability <span class="math inline">\(p^f_1\)</span> if the household lives in a house and with probability <span class="math inline">\(p^f_2&lt;p^f_1\)</span> if the household lives in a flat.</p>
-<p>Focus now on the case of <span class="math inline">\(F_h=1\)</span>. Going from right to left, the term <span class="math inline">\(\beta Env_{h}\)</span> captures the environmental attitude of the household. <span class="math inline">\(Env_h\)</span> is a random number drawn from <span class="math inline">\(\mathcal{U}(0,1)\)</span> for each household at the beginning of the simulation, which remains fixed thereafter. It is supposed to reflect the intrinsic utility which <span class="math inline">\(h\)</span> derives from owning PV regardless of whether or not it is profitable to do so.</p>
-<p><span class="math inline">\(\alpha_h \lambda_{h,t}\)</span> captures the element of social influence/emulation, where</p>
+<p>First of all, note that <span class="math inline">\(U_{t}^{h,PV = 1}\)</span> is conditional on <span class="math inline">\(F^{h}\)</span>. <span class="math inline">\(F^{h}\)</span> is a dummy denoting the feasibility of PV, i.e.&nbsp;whether, given the characteristics of the dwelling of household <span class="math inline">\(h\)</span>, a solar panel can in fact be installed (e.g.&nbsp;installation may not be technically feasible or there may be administrative rules preventing installation). If <span class="math inline">\(F^{h}=0\)</span>, PV cannot be installed and the utility, correspondingly, is zero. At present, <span class="math inline">\(F^h\)</span> is set for each household at the beginning of the simulation and remains fixed thereafter. If a household already owns PV at the beginning, it is set to 1. Otherwise it is set to 1 with probability 1 if the household lives in a house and with probability <span class="math inline">\(p^f&lt;1\)</span> if the household lives in a flat.</p>
+<p>Focus now on the case of <span class="math inline">\(F^h=1\)</span>. Going from right to left, the term <span class="math inline">\(\beta Env^{h}\)</span> captures the environmental attitude of the household. <span class="math inline">\(Env^h\)</span> is a fixed household characteristic which takes 4 discrete levels (higher value=more concerned about the environment/climate change, the lowest value being 0), calibrated on Gallup survey data from the US. <span class="math inline">\(\beta Env^{h}\)</span> is supposed to reflect the intrinsic utility which <span class="math inline">\(h\)</span> derives from owning PV regardless of whether or not it is profitable to do so.</p>
+<p><span class="math inline">\(\alpha^h \lambda^h_{t}\)</span> captures the element of social influence/emulation, where</p>
 <p><span class="math display">\[
-    \lambda_{h,t}=\omega^{PV=1}_{d=d_h, t-1}-\omega^{PV=0}_{d=d_h, t-1}
+    \lambda^h_{t}=\omega^{PV=1}_{d=d^h, t-1}-\omega^{PV=0}_{d=d^h, t-1}
 \]</span></p>
-<p><span class="math inline">\(\omega^{PV=1}_{d=d_h, t-1}\)</span> is the share of households in the same income decile as <span class="math inline">\(h\)</span> who owned PV at the end of the previous period, with <span class="math inline">\(\omega^{PV=0}_{d=d_h, t-1}\)</span> being the share of households in the same decile who own PV. <span class="math inline">\(\lambda_{h,t}\)</span> hence takes a value between <span class="math inline">\(-1\)</span> and <span class="math inline">\(1\)</span>.</p>
-<p>Finally, the term <span class="math inline">\(E_{h,t}(\Pi_h)\)</span> denotes <span class="math inline">\(h\)</span>’s expectation at time <span class="math inline">\(t\)</span> of the profit, <span class="math inline">\(\Pi_h\)</span> which <span class="math inline">\(h\)</span> will be able to derive from owning PV over the lifetime of a panel. This expected profit is given by:</p>
+<p><span class="math inline">\(\omega^{PV=1}_{d=d^h, t-1}\)</span> is the share of households in the same income decile as <span class="math inline">\(h\)</span> who owned PV at the end of the previous period, with <span class="math inline">\(\omega^{PV=0}_{d=d^h, t-1}\)</span> being the corresponding share of households in the same decile who own PV. <span class="math inline">\(\lambda^h_{t}\)</span> hence takes a value between <span class="math inline">\(-1\)</span> and <span class="math inline">\(1\)</span>.</p>
+<p>Finally, the term <span class="math inline">\(E^h_{t}(\Pi^h)\)</span> denotes <span class="math inline">\(h\)</span>’s expectation at time <span class="math inline">\(t\)</span> of the cumulative profit, <span class="math inline">\(\Pi^h\)</span> which <span class="math inline">\(h\)</span> will be able to derive from owning PV over the lifetime of a panel. This expected profit is given by:</p>
 <p><span class="math display">\[
-    E_{h,t}(\Pi_h)=\sum_{a = 1}^{A}\rho_h^a E_{h,t}(p_{t+a})G-K-I^h
+    E^h_{t}(\Pi^h)=\sum_{a = 1}^{A}(\rho^h)^a E^h_{t}(Rev^h_{t+a})-K_t-I^h
 \]</span></p>
-<p><span class="math inline">\(\sum_{a = 1}^{A}E_{h,t}(p_{t+a})G\)</span> is the expected revenue generated by the panel, obtained by multiplying the expected electricity price in every future period from <span class="math inline">\(t+1\)</span> to <span class="math inline">\(t+A\)</span> by the fixed capacity of the panel and taking the sum. This expected revenue is discounted by the individual discount rate of <span class="math inline">\(h\)</span>, <span class="math inline">\(\rho_h\)</span>. Recall that, by assumption, households can buy and sell electricity from/to the grid at the same price. It hence makes no difference whether <span class="math inline">\(G\)</span> is greater or smaller than the actual average electricity consumption of <span class="math inline">\(h\)</span>; if the panel will generate excess electricity, <span class="math inline">\(h\)</span> expects to be able to sell this to the grid at the expected price.</p>
-<p><span class="math inline">\(K\)</span> is the fixed installation cost of the panel, which is the same for every household.</p>
-<p><span class="math inline">\(I^h\)</span>, finally, is the financing cost of the panel. If no loan is needed (first case above), the loan cost is obviously 0. If a loan is needed, the cost is equal to the discounted sum of interest payments which will have to be made over the entire term of the loan. As set out above, the interest rate on the loan is given by</p>
+<p><span class="math inline">\(\sum_{a = 1}^{A}E^h_{t}(Rev^h_{t+a})\)</span> is the sum of future revenue/electricity cost saving which the household expects a solar panel to generate over its lifetime of <span class="math inline">\(A\)</span> periods. Recall from above that in any period <span class="math inline">\(t\)</span>, the revenue/cost saving which an existing solar panel generates depends on the electricity price, the feed-in tariff received by the owner, as well as the electricity consumption of the household. In the same way, the <em>expected</em> revenue/cost saving generated by a panel in some future period <span class="math inline">\(t+a\)</span> depends on:</p>
+<div class="incremental">
+<ul class="incremental">
+<li>The feed-in tariff which the household would receive if it buys a panel in <span class="math inline">\(t\)</span></li>
+<li>The electricity price which the household expects to prevail in <span class="math inline">\(t+a\)</span></li>
+<li>The (expected) electricity consumption of <span class="math inline">\(h\)</span> in <span class="math inline">\(t+a\)</span></li>
+</ul>
+</div>
+<p>The feed-in tariff the agent will receive if it adopts PV in <span class="math inline">\(t\)</span> is known. The expected price in <span class="math inline">\(t+a\)</span> is given by the expectation formation mechanism described above. Regarding electricity consumption, recall that <span class="math inline">\(\overline{E^h_t}\)</span> is assumed to grow at a fixed rate <span class="math inline">\(g^h\)</span> in every period; we assume that the household knows this, meaning that it can easily calculate its electricity consumption in <span class="math inline">\(t+a\)</span>. With these elements in place, the expected future revenue/cost saving for the next <span class="math inline">\(A\)</span> periods can be calculated in the same way as <em>current</em> revenue/cost saving, described above (i.e.&nbsp;also checking whether the feed-in tariff is larger or smaller than the expected electricity price etc.). Expected revenue/cost saving in future periods is discounted by the individual discount rate of <span class="math inline">\(h\)</span>, <span class="math inline">\(\rho^h\)</span>. The distribution of discount rates across agents is calibrated based on the existing literature on discount rate elicitation.</p>
+<p><span class="math inline">\(K_t\)</span> is the installation cost of the panel, which is the same for every household.</p>
+<p><span class="math inline">\(I^h\)</span>, finally, is the financing cost of the panel. If no loan is needed, the loan cost is obviously 0. If a loan is needed, the cost is equal to the discounted sum of interest payments which will have to be made over the entire term of the loan. As set out above, the interest rate on the loan is given by</p>
 <p><span class="math display">\[
-    r_h=r+\iota \frac{L^h}{LTV\cdot K}
+    r^h=r_t+\iota \frac{L^h}{LTV\cdot K_t}
 \]</span></p>
 <p>from which we can calculate a per-period loan payment as</p>
 <p><span class="math display">\[
-    S^h=L^h\frac{r_h(1+r_h)^A}{(1+r_h)^A-1}
+    S^h=L^h\frac{r^h(1+r^h)^A}{(1+r^h)^A-1}
 \]</span></p>
-<p>Knowing the principal and per-period payment, we can calculate an amortisation schedule telling us how much principal and interest the household will have to pay in each future period, which in turn allows us to derive the loan cost as the discounted sum of future interest payments (note that principal payments are not a cost as they do not affect net worth!).</p>
-<p>Since loans are not costless, it is possible that even if the discounted expected revenue from owning a panel exceeds the installation cost, overall expected profit may turn negative due to the implied financing cost!</p>
-<p>The household sums up all three elements of utility (expected profit, social influence, environmental attitude) and if that sum is positive, it adopts PV. Any loan taken out to do so is added to their balance sheet.</p>
+<p>Knowing the principal and per-period payment, we can calculate an amortisation schedule telling us how much principal and interest the household will have to pay in each future period, which in turn allows us to derive the loan cost as the discounted sum of future interest payments (note that principal payments are not a cost as they do not affect net worth, therefore they should not enter into the calculation of profit!).</p>
+<p>Since loans are not costless, it is possible that even if the discounted expected revenue from owning a panel exceeds the installation cost, overall expected profit may turn negative due to the implied financing cost.</p>
+<p>In order to somewhat constrain the model dynamics (in particular to avoid the phenomenon of many agents who already owned a solar panel previously not buying a new one once the old one is scrapped, which can occur for some parameter settings), we make one further assumption:</p>
+<p>If a household already owned PV in the past but is now no longer an owner because the panel reached its maximum age, then if that panel generated a positive cumulative profit over its lifespan (i.e.&nbsp;<span class="math inline">\(\Pi^h&gt;0\)</span>), we set both <span class="math inline">\(Env^{h}\)</span> and <span class="math inline">\(\alpha^h\)</span> to 0 for that household. This means that in considering whether to re-adopt PV, such a household will only consider the expected future profit. All other households sum up all three elements of utility (expected profit, social influence/emulation and environmental attitude).</p>
+<p>All households for whom utility is positive, who do not already own a panel and who are not credit-rationed will adopt PV. Any loans taken out to do so are added to their balance sheets, their liquidity is updated, interest rates and loan payments are set (if applicable) and the PV dummies is set to 1. <span class="math inline">\(FIT^h_t\)</span> is set to the feed-in tariff currently in force for all households adopting in <span class="math inline">\(t\)</span> and remains unchanged over the lifetime of the panel.</p>
+<p>Since we are also keeping track of the <em>actual</em> cumulative profit <span class="math inline">\(\Pi^h\)</span> (not discounted) which a household derives from owning PV, the cumulative profit of all agents adopting PV in <span class="math inline">\(t\)</span> is initialised to <span class="math inline">\(\Pi^h=-K_t\)</span>.</p>
+</section>
+<section id="policy" class="level2">
+<h2 class="anchored" data-anchor-id="policy">Policy</h2>
+<p>At present, the model allows for 4 types of policy experiments:</p>
+<div class="incremental">
+<ul class="incremental">
+<li>A subsidy on the purchase price of a panel, reducing <span class="math inline">\(K_t\)</span> by some percentage</li>
+<li>An addition to the feed-in tariff on top of the historical values fed exogenously into the model</li>
+<li>A relaxation of the maximum loan to value constraint (currently not relevant since we already set <span class="math inline">\(LTV=1\)</span>)</li>
+<li>A relaxation of the maximum debt-service to income constraint</li>
+</ul>
+</div>
+<p>In addition, different scenarios/experiments can be simulated by altering the time-series which are fed into the model exogenously (e.g.&nbsp;electricity price time-series, base interest rate, price of PV etc.). Finally, it is easily feasible to switch from the current expectation formation mechanism for the electricity price to a perfect foresight setting as the electricity price is completely independent from endogenous model dynamics.</p>
 
 
 </section>
